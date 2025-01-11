@@ -1,5 +1,43 @@
 #!/bin/sh
 
+HELP_MSG=$(cat << EOF
+This is a basic bash script meant to manage env variables for each and every docker-compose stack.
+Refer to the example.env file to see env variables which are needed for the script to work correctly and runs a specified stack.
+This is meant to make all the docker services easily portable across systems.
+
+Example usage:
+    ./run.sh all 
+    ./run.sh stack1 stack2 stack3
+
+Any parameters and flags can be ran in any order.
+
+--help
+    Print this message
+
+--debug
+    Print debug messages
+
+--dry-run
+    Do not do any write type actions
+
+tear-down
+    Tear down docker-compose
+
+all
+    Run on all stacks
+
+vars-only
+    Using vars-only does not run any command and allows you to run
+        your own command with the computed env vars.
+    Bear in mind, any vars which are actually in the command need to be surrounded by single quotes.
+    ./run.sh [stacks...] vars-only -- echo '\$POD_STORAGE_SSD' 
+
+get-vars
+    This checks the vars used by a stack then checks to see if they exist in the .env file.
+    If they dont exist then it will write the missing vars to the file.
+EOF
+)
+
 # LOAD .env file
 ENV_FILE=./.env
 set -a; [ -f $ENV_FILE ] && . $ENV_FILE; set +a
@@ -14,8 +52,13 @@ P_SERVICE_LIST=""
 P_ALL=false
 P_TEAR_DOWN=false
 P_VARS_ONLY=false
+P_GET_VARS=false
 while [ $# -gt 0 ]; do
     case "$1" in
+        --help)
+            echo "$HELP_MSG"
+            exit 0
+            ;;
         --debug)
             F_DEBUG=true
             shift
@@ -34,6 +77,10 @@ while [ $# -gt 0 ]; do
             ;;
         vars-only)
             P_VARS_ONLY=true
+            shift
+            ;;
+        get-vars)
+            P_GET_VARS=true
             shift
             ;;
         "--")
@@ -77,6 +124,19 @@ if [ $F_DEBUG = true ]; then
     echo [DEBUG]: tear down: $P_TEAR_DOWN
     echo [DEBUG]: vars only: $P_VARS_ONLY
 fi
+
+get_vars_in_file() {
+    local FILE=$1
+
+    # For some reason uniq doesnt now always work
+    # local ENV_VARS_IN_FILE=$(grep -Eo '\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' $FILE | sed 's/^\${\(.*\)}$/\1/' | tr -d '\r' | uniq -i)
+    local ENV_VARS_IN_FILE=$(grep -Eo '\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' $FILE |
+        sed 's/^\${\(.*\)}$/\1/' |
+        tr -d '\r' |
+        awk '!seen[$0]++')
+
+    echo $ENV_VARS_IN_FILE
+}
 
 validate_env_vars() {
     local ENV_VARS_IN_FILE=$(grep -Eo '\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' $1 | sed 's/^\${\(.*\)}$/\1/')
@@ -123,10 +183,54 @@ run_docker_compose() {
     export POD_STORAGE_SSD=$BASE_STORAGE_SSD$DIR
     export DCFP=$DOCKER_COMPOSE_FILE_PATH
 
+    if [ $P_GET_VARS == true ]; then
+        [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: getting vars
+        ENV_VARS_IN_FILE=$(get_vars_in_file $DOCKER_COMPOSE_FILE_PATH)
+        MISSING=""
+
+        [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: vars in file $ENV_VARS_IN_FILE
+
+        for var_name in $ENV_VARS_IN_FILE; do
+            # Skip empty lines
+            [ -z "$var_name" ] && continue
+            [ $var_name == "POD_STORAGE_SSD" ] && continue
+            [ $var_name == "POD_STORAGE_HDD" ] && continue
+
+            # [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: Checking $var_name
+
+            # TODO: this for some reason does not work
+            if ! check_substring $ENV_FILE "$var_name"; then
+                # [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: found missing var $var_name
+                MISSING+="$var_name=\n"
+            fi
+        done
+
+        # Removing training \n
+        MISSING="${MISSING%\\n}"
+        # [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: about to write $MISSING
+
+        if  [ $F_DRY_RUN == false ] && [ ! -z "$MISSING" ]; then 
+            if ! check_substring $ENV_FILE "$DIR VARS"; then
+                echo "" >> $ENV_FILE
+                echo \#\#\#\#\#\#\#\#\#\#\#\#\# $DIR VARS >> $ENV_FILE
+                echo -e "$MISSING" >> $ENV_FILE
+                echo \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# >> $ENV_FILE
+            else
+                awk -i inplace -v missing="$MISSING" -v dir="$DIR VARS" '
+                $0 ~ dir {found=1}
+                found && /^#*$/ {print missing; found=0}
+                {print}
+                ' $ENV_FILE 
+            fi
+        fi
+        return 0
+    fi
+
     if ! validate_env_vars $DOCKER_COMPOSE_FILE_PATH; then 
         echo Env variables not configured properly
         exit 1
     fi
+
     [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: Validated env vars
 
     if check_substring $DOCKER_COMPOSE_FILE_PATH "\${STORAGE_HDD}"; then

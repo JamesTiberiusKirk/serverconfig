@@ -1,20 +1,12 @@
 version: "3"
 
-volumes:
-  files:
-    driver: local
-  mysql:
-    driver: local
-  redis:
-    driver: local
-
 services:
   owncloud:
     image: owncloud/server:latest
     container_name: owncloud_server
     restart: always
     ports:
-      - ${GET_FREE_PORT}:8080
+      - 8001:8080
     depends_on:
       - mariadb
       - redis
