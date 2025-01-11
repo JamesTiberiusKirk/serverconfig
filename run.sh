@@ -30,7 +30,7 @@ vars-only
     Using vars-only does not run any command and allows you to run
         your own command with the computed env vars.
     Bear in mind, any vars which are actually in the command need to be surrounded by single quotes.
-    ./run.sh [stacks...] vars-only -- echo '\$POD_STORAGE_SSD' 
+    ./run.sh [stacks...] vars-only -- echo '\$STACK_STORAGE_SSD' 
 
 get-vars
     This checks the vars used by a stack then checks to see if they exist in the .env file.
@@ -42,8 +42,8 @@ EOF
 ENV_FILE=./.env
 set -a; [ -f $ENV_FILE ] && . $ENV_FILE; set +a
 
-BASE_STORAGE_HDD=$POD_HDD_STORAGE
-BASE_STORAGE_SSD=$POD_SSD_STORAGE
+BASE_STORAGE_HDD=$STACK_HDD_STORAGE
+BASE_STORAGE_SSD=$STACK_SSD_STORAGE
 TARGET_DIRECTORY=$COMPOSE_DIRECTORY
 
 F_DEBUG=false
@@ -179,8 +179,8 @@ run_docker_compose() {
     
     [ $F_DEBUG == true ] && echo [DEBUG]: Running service $DIR
 
-    export POD_STORAGE_HDD=$BASE_STORAGE_HDD$DIR
-    export POD_STORAGE_SSD=$BASE_STORAGE_SSD$DIR
+    export STACK_STORAGE_HDD=$BASE_STORAGE_HDD$DIR
+    export STACK_STORAGE_SSD=$BASE_STORAGE_SSD$DIR
     export DCFP=$DOCKER_COMPOSE_FILE_PATH
 
     if [ $P_GET_VARS == true ]; then
@@ -193,8 +193,8 @@ run_docker_compose() {
         for var_name in $ENV_VARS_IN_FILE; do
             # Skip empty lines
             [ -z "$var_name" ] && continue
-            [ $var_name == "POD_STORAGE_SSD" ] && continue
-            [ $var_name == "POD_STORAGE_HDD" ] && continue
+            [ $var_name == "STACK_STORAGE_SSD" ] && continue
+            [ $var_name == "STACK_STORAGE_HDD" ] && continue
 
             # [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: Checking $var_name
 
@@ -282,6 +282,6 @@ create_dir_if_not_exist $BASE_STORAGE_HDD
 create_dir_if_not_exist $BASE_STORAGE_SSD
 
 for S in $P_SERVICE_LIST; do
-    echo Running commands on stack: $S
+    echo Stack: $S
     run_docker_compose $S
 done
