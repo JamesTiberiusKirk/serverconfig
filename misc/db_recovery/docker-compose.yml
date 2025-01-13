@@ -1,0 +1,15 @@
+services:
+  mariadb:
+    image: mariadb:10.11 # minimum required ownCloud version is 10.9
+    container_name: recovery_db
+    restart: always
+    # environment:
+    #   - MYSQL_ROOT_PASSWORD=${OWNCLOUD_DB_ROOT_PASSWORD}
+    #   - MYSQL_USER=${OWNCLOUD_DB_USERNAME}
+    #   - MYSQL_PASSWORD=${OWNCLOUD_DB_PASSWORD}
+    #   - MYSQL_DATABASE=${OWNCLOUD_DB_NAME}
+    #   - MARIADB_AUTO_UPGRADE=1
+    command: ["--skip-grant-tables", "--max-allowed-packet=128M", "--innodb-log-file-size=64M"]
+    volumes:
+      - ./volume/db:/var/lib/mysql
+
