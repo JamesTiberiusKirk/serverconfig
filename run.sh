@@ -144,14 +144,22 @@ validate_env_vars() {
     local EXIT_CODE=0
 
     # Read each variable name and check if it exists
-    while IFS= read -r var_name; do
+    # while IFS= read -r var_name; do
+    #     # Skip empty lines
+    #     [ -z "$var_name" ] && continue
+    #     
+    #     if [ ! -n "${!var_name+x}" ]; then
+    #         EXIT_CODE=1
+    #     fi
+    # done <<< "$ENV_VARS_IN_FILE"
+    echo "$ENV_VARS_IN_FILE" | while IFS= read -r var_name; do
         # Skip empty lines
         [ -z "$var_name" ] && continue
         
         if [ ! -n "${!var_name+x}" ]; then
             EXIT_CODE=1
         fi
-    done <<< "$ENV_VARS_IN_FILE"
+    done
 
     return $EXIT_CODE 
 }
