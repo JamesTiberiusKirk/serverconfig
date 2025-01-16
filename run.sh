@@ -278,8 +278,10 @@ run_docker_compose() {
     fi
 }
 
-create_dir_if_not_exist $BASE_STORAGE_HDD
-create_dir_if_not_exist $BASE_STORAGE_SSD
+if [ $F_DRY_RUN == false ] && [ $P_GET_VARS == false ]; then 
+    create_dir_if_not_exist $BASE_STORAGE_HDD
+    create_dir_if_not_exist $BASE_STORAGE_SSD
+fi
 
 for S in $P_SERVICE_LIST; do
     echo Stack: $S
