@@ -276,7 +276,7 @@ run_docker_compose() {
         echo "$STORAGE_HDD"
         echo "$STORAGE_SSD"
         echo "$DOCKER_COMPOSE_FILE_PATH" 
-        docker-compose --file "$DOCKER_COMPOSE_FILE_PATH" config
+        docker compose --file "$DOCKER_COMPOSE_FILE_PATH" config
     else 
         if [ $P_VARS_ONLY = true ]; then
             exec $SHELL -c "$REST"
@@ -286,8 +286,8 @@ run_docker_compose() {
         # check if the stack is down 
         # if its not down, then bring it down
         
-        RUNNING_SERVICES=$(docker-compose --file "$DOCKER_COMPOSE_FILE_PATH" ps -a --services --filter "status=running")
-        SERVICES=$(docker-compose --file "$DOCKER_COMPOSE_FILE_PATH" ps -a --services)
+        RUNNING_SERVICES=$(docker compose --file "$DOCKER_COMPOSE_FILE_PATH" ps -a --services --filter "status=running")
+        SERVICES=$(docker compose --file "$DOCKER_COMPOSE_FILE_PATH" ps -a --services)
 
 
         [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Running services $RUNNING_SERVICES"
@@ -295,12 +295,12 @@ run_docker_compose() {
 
         if [ "$RUNNING_SERVICES" = "$SERVICES" ]; then 
             [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Tearning stack down" 
-            docker-compose --file "$DOCKER_COMPOSE_FILE_PATH" down
+            docker compose --file "$DOCKER_COMPOSE_FILE_PATH" down
         fi
 
         if [ $P_TEAR_DOWN = false ]; then 
             [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Bringing stack up"            
-            docker-compose --file "$DOCKER_COMPOSE_FILE_PATH" up -d
+            docker compose --file "$DOCKER_COMPOSE_FILE_PATH" up -d
         fi
     fi
 }
