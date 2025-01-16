@@ -40,7 +40,7 @@ EOF
 
 # LOAD .env file
 ENV_FILE=./.env
-set -a; [ -f $ENV_FILE ] && . $ENV_FILE; set +a
+set -a; [ -f $ENV_FILE ] && . "$ENV_FILE"; set +a
 
 BASE_STORAGE_HDD=$STACK_HDD_STORAGE
 BASE_STORAGE_SSD=$STACK_SSD_STORAGE
@@ -88,7 +88,7 @@ while [ $# -gt 0 ]; do
             break
             ;;
         *)
-            [ P_ALL = true ] && continue
+            [ $P_ALL = true ] && continue
             if [ -d "$TARGET_DIRECTORY/$1" ]; then 
                 P_SERVICE_LIST="$P_SERVICE_LIST $1"
             else
@@ -113,56 +113,73 @@ if [ $P_ALL = true ]; then
             continue
         fi
 
-        P_SERVICE_LIST="$P_SERVICE_LIST $(basename $DIR)"
+        P_SERVICE_LIST="$P_SERVICE_LIST $(basename "$DIR")"
     done
 fi 
 
 if [ $F_DEBUG = true ]; then 
-    echo [DEBUG]: dry run: $F_DRY_RUN
-    echo [DEBUG]: service list: $P_SERVICE_LIST
-    echo [DEBUG]: all services: $P_ALL
-    echo [DEBUG]: tear down: $P_TEAR_DOWN
-    echo [DEBUG]: vars only: $P_VARS_ONLY
+    echo "[DEBUG]: dry run: $F_DRY_RUN"
+    echo "[DEBUG]: service list: $P_SERVICE_LIST"
+    echo "[DEBUG]: all services: $P_ALL"
+    echo "[DEBUG]: tear down: $P_TEAR_DOWN"
+    echo "[DEBUG]: vars only: $P_VARS_ONLY"
 fi
 
 get_vars_in_file() {
-    local FILE=$1
+    FILE=$1
 
-    # For some reason uniq doesnt now always work
-    # local ENV_VARS_IN_FILE=$(grep -Eo '\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' $FILE | sed 's/^\${\(.*\)}$/\1/' | tr -d '\r' | uniq -i)
-    local ENV_VARS_IN_FILE=$(grep -Eo '\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' $FILE |
+    LOCAL_ENV_VARS_IN_FILE=""
+    LOCAL_ENV_VARS_IN_FILE=$(grep -Eo '\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$FILE" |
         sed 's/^\${\(.*\)}$/\1/' |
         tr -d '\r' |
         awk '!seen[$0]++')
 
-    echo $ENV_VARS_IN_FILE
+    echo "$LOCAL_ENV_VARS_IN_FILE"
 }
 
+
 validate_env_vars() {
-    local ENV_VARS_IN_FILE=$(grep -Eo '\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' $1 | sed 's/^\${\(.*\)}$/\1/')
+    ENV_VARS_IN_FILE=""
+    EXIT_CODE=0
 
-    local EXIT_CODE=0
+    ENV_VARS_IN_FILE=$(grep -Eo '\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$1" | sed 's/^\${\(.*\)}$/\1/')
 
-    # Read each variable name and check if it exists
-    # while IFS= read -r var_name; do
-    #     # Skip empty lines
-    #     [ -z "$var_name" ] && continue
-    #     
-    #     if [ ! -n "${!var_name+x}" ]; then
-    #         EXIT_CODE=1
-    #     fi
-    # done <<< "$ENV_VARS_IN_FILE"
-    echo "$ENV_VARS_IN_FILE" | while IFS= read -r var_name; do
+    OLD_IFS=$IFS
+    IFS='
+'
+    for var_name in $ENV_VARS_IN_FILE; do
+        IFS=$OLD_IFS
         # Skip empty lines
         [ -z "$var_name" ] && continue
         
-        if [ ! -n "${!var_name+x}" ]; then
+        eval "value=\${$var_name-}"
+        if [ -z "$value" ]; then
             EXIT_CODE=1
+            printf "Error: Environment variable %s is not set\n" "$var_name" >&2
         fi
     done
+    IFS=$OLD_IFS
 
-    return $EXIT_CODE 
+    return $EXIT_CODE
 }
+
+
+# validate_env_vars() {
+#     local ENV_VARS_IN_FILE=$(grep -Eo '\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' $1 | sed 's/^\${\(.*\)}$/\1/')
+#
+#     local EXIT_CODE=0
+#
+#     echo "$ENV_VARS_IN_FILE" | while IFS= read -r var_name; do
+#         # Skip empty lines
+#         [ -z "$var_name" ] && continue
+#         
+#         if [ ! -n "${!var_name+x}" ]; then
+#             EXIT_CODE=1
+#         fi
+#     done
+#
+#     return $EXIT_CODE 
+# }
 
 check_substring() {
     if grep -q "$2" "$1"; then
@@ -173,43 +190,43 @@ check_substring() {
 }
 
 create_dir_if_not_exist() {
-    local DIR=$1
+    DIR=$1
 
     if [ ! -d "$DIR" ]; then
-        mkdir -p $DIR
+        mkdir -p "$DIR"
     fi
 }
 
 run_docker_compose() {
-    local DIR="$1"
-    local CONFIG_PATH="$TARGET_DIRECTORY/$DIR"
-    local DOCKER_COMPOSE_FILE_PATH=$CONFIG_PATH/docker-compose.yml
+    DIR="$1"
+    CONFIG_PATH="$TARGET_DIRECTORY/$DIR"
+    DOCKER_COMPOSE_FILE_PATH="$CONFIG_PATH/docker-compose.yml"
     
-    [ $F_DEBUG == true ] && echo [DEBUG]: Running service $DIR
+    [ $F_DEBUG = true ] && echo "[DEBUG]: Running service $DIR"
 
-    export STACK_STORAGE_HDD=$BASE_STORAGE_HDD$DIR
-    export STACK_STORAGE_SSD=$BASE_STORAGE_SSD$DIR
-    export DCFP=$DOCKER_COMPOSE_FILE_PATH
+    export STACK_STORAGE_HDD="$BASE_STORAGE_HDD$DIR"
+    export STACK_STORAGE_SSD="$BASE_STORAGE_SSD$DIR"
+    export DCFP="$DOCKER_COMPOSE_FILE_PATH"
 
-    if [ $P_GET_VARS == true ]; then
-        [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: getting vars
-        ENV_VARS_IN_FILE=$(get_vars_in_file $DOCKER_COMPOSE_FILE_PATH)
+    if [ $P_GET_VARS = true ]; then
+        [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: getting vars"
+        ENV_VARS_IN_FILE=$(get_vars_in_file "$DOCKER_COMPOSE_FILE_PATH")
         MISSING=""
 
-        [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: vars in file $ENV_VARS_IN_FILE
+        [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: vars in file $ENV_VARS_IN_FILE"
 
         for var_name in $ENV_VARS_IN_FILE; do
             # Skip empty lines
             [ -z "$var_name" ] && continue
-            [ $var_name == "STACK_STORAGE_SSD" ] && continue
-            [ $var_name == "STACK_STORAGE_HDD" ] && continue
+            [ "$var_name" = "STACK_STORAGE_SSD" ] && continue
+            [ "$var_name" = "STACK_STORAGE_HDD" ] && continue
 
             # [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: Checking $var_name
 
             # TODO: this for some reason does not work
-            if ! check_substring $ENV_FILE "$var_name"; then
+            if ! check_substring "$ENV_FILE" "$var_name"; then
                 # [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: found missing var $var_name
-                MISSING+="$var_name=\n"
+                MISSING="$MISSING$var_name=\n"
             fi
         done
 
@@ -217,49 +234,51 @@ run_docker_compose() {
         MISSING="${MISSING%\\n}"
         # [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: about to write $MISSING
 
-        if  [ $F_DRY_RUN == false ] && [ ! -z "$MISSING" ]; then 
-            if ! check_substring $ENV_FILE "$DIR VARS"; then
-                echo "" >> $ENV_FILE
-                echo \#\#\#\#\#\#\#\#\#\#\#\#\# $DIR VARS >> $ENV_FILE
-                echo -e "$MISSING" >> $ENV_FILE
-                echo \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# >> $ENV_FILE
+        if  [ $F_DRY_RUN = false ] && [ -n "$MISSING" ]; then 
+            if ! check_substring "$ENV_FILE" "$DIR VARS"; then
+                {
+                    printf '\n'
+                    printf '############### %s VARS\n' "$DIR"
+                    printf '%s\n' "$MISSING"
+                    printf '#####################\n'
+                } >> "$ENV_FILE"
             else
                 awk -i inplace -v missing="$MISSING" -v dir="$DIR VARS" '
                 $0 ~ dir {found=1}
                 found && /^#*$/ {print missing; found=0}
                 {print}
-                ' $ENV_FILE 
+                ' "$ENV_FILE"
             fi
         fi
         return 0
     fi
 
-    if ! validate_env_vars $DOCKER_COMPOSE_FILE_PATH; then 
-        echo Env variables not configured properly
+    if ! validate_env_vars "$DOCKER_COMPOSE_FILE_PATH" ; then 
+        echo "Env variables not configured properly"
         exit 1
     fi
 
-    [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: Validated env vars
+    [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Validated env vars"
 
-    if check_substring $DOCKER_COMPOSE_FILE_PATH "\${STORAGE_HDD}"; then
-        create_dir_if_not_exist $STORAGE_HDD
+    if check_substring "$DOCKER_COMPOSE_FILE_PATH" "\${STORAGE_HDD}"; then
+        create_dir_if_not_exist "$STORAGE_HDD"
     fi
 
-    [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: Validated HDD storage 
+    [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Validated HDD storage"
 
-    if check_substring $DOCKER_COMPOSE_FILE_PATH "\${STORAGE_SSD}"; then
-        create_dir_if_not_exist $STORAGE_SSD
+    if check_substring "$DOCKER_COMPOSE_FILE_PATH" "\${STORAGE_SSD}"; then
+        create_dir_if_not_exist "$STORAGE_SSD" 
     fi
 
-    [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: Validated SSD storage 
+    [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Validated SSD storage"
 
-    if [ "$F_DRY_RUN" == true ]; then
-        echo $STORAGE_HDD
-        echo $STORAGE_SSD
-        echo $DOCKER_COMPOSE_FILE_PATH
-        docker-compose --file $DOCKER_COMPOSE_FILE_PATH config
+    if [ "$F_DRY_RUN" = true ]; then
+        echo "$STORAGE_HDD"
+        echo "$STORAGE_SSD"
+        echo "$DOCKER_COMPOSE_FILE_PATH" 
+        docker-compose --file "$DOCKER_COMPOSE_FILE_PATH" config
     else 
-        if [ $P_VARS_ONLY == true ]; then
+        if [ $P_VARS_ONLY = true ]; then
             exec $SHELL -c "$REST"
             exit 0
         fi
@@ -267,31 +286,31 @@ run_docker_compose() {
         # check if the stack is down 
         # if its not down, then bring it down
         
-        RUNNING_SERVICES=$(docker-compose --file $DOCKER_COMPOSE_FILE_PATH ps -a --services --filter "status=running")
-        SERVICES=$(docker-compose --file $DOCKER_COMPOSE_FILE_PATH ps -a --services)
+        RUNNING_SERVICES=$(docker-compose --file "$DOCKER_COMPOSE_FILE_PATH" ps -a --services --filter "status=running")
+        SERVICES=$(docker-compose --file "$DOCKER_COMPOSE_FILE_PATH" ps -a --services)
 
 
-        [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: Running services $RUNNING_SERVICES
-        [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: Services $SERVICES
+        [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Running services $RUNNING_SERVICES"
+        [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Services $SERVICES" 
 
-        if [ "$RUNNING_SERVICES" == "$SERVICES" ]; then 
-            [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: Tearning stack down
-            docker-compose --file $DOCKER_COMPOSE_FILE_PATH down
+        if [ "$RUNNING_SERVICES" = "$SERVICES" ]; then 
+            [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Tearning stack down" 
+            docker-compose --file "$DOCKER_COMPOSE_FILE_PATH" down
         fi
 
-        if [ $P_TEAR_DOWN == false ]; then 
-            [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: Bringing stack up
-            docker-compose --file $DOCKER_COMPOSE_FILE_PATH up -d
+        if [ $P_TEAR_DOWN = false ]; then 
+            [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Bringing stack up"            
+            docker-compose --file "$DOCKER_COMPOSE_FILE_PATH" up -d
         fi
     fi
 }
 
-if [ $F_DRY_RUN == false ] && [ $P_GET_VARS == false ]; then 
-    create_dir_if_not_exist $BASE_STORAGE_HDD
-    create_dir_if_not_exist $BASE_STORAGE_SSD
+if [ $F_DRY_RUN = false ] && [ $P_GET_VARS = false ]; then 
+    create_dir_if_not_exist "$BASE_STORAGE_HDD" 
+    create_dir_if_not_exist "$BASE_STORAGE_SSD" 
 fi
 
 for S in $P_SERVICE_LIST; do
-    echo Stack: $S
-    run_docker_compose $S
+    echo "Stack: $S" 
+    run_docker_compose "$S" 
 done
