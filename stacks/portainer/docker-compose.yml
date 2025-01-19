@@ -1,9 +1,10 @@
+version: "3"
 services:
   portainer:
     image: portainer/portainer-ce:latest
+    restart: unless-stopped
     ports:
       - 9443:9443
-      volumes:
-        - ${STACK_STORAGE_SSD}/data:/data
-        - /var/run/docker.sock:/var/run/docker.sock
-    restart: unless-stopped
+    volumes:
+      - ${STACK_STORAGE_SSD}/data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
