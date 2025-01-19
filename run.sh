@@ -92,7 +92,7 @@ while [ $# -gt 0 ]; do
             shift
             ;;
         "--")
-            P_GET_VARS=true
+            P_VARS_ONLY=true
             shift
             break
             ;;
