@@ -213,8 +213,8 @@ run_docker_compose() {
     
     [ $F_DEBUG = true ] && echo "[DEBUG]: Running service $DIR"
 
-    export STACK_STORAGE_HDD="$BASE_STORAGE_HDD$DIR"
-    export STACK_STORAGE_SSD="$BASE_STORAGE_SSD$DIR"
+    export STACK_STORAGE_HDD="$BASE_STORAGE_HDD/$DIR"
+    export STACK_STORAGE_SSD="$BASE_STORAGE_SSD/$DIR"
     export DCFP="$DOCKER_COMPOSE_FILE_PATH"
 
     if [ $P_GET_VARS = true ]; then
