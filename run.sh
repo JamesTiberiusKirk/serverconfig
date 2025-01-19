@@ -11,10 +11,10 @@ Example usage:
 
 Any parameters and flags can be ran in any order.
 
---help
+-h --help
     Print this message
 
---debug
+-D --debug
     Print debug messages
 
 --dry-run
@@ -55,9 +55,17 @@ P_VARS_ONLY=false
 P_GET_VARS=false
 while [ $# -gt 0 ]; do
     case "$1" in
+        -h)
+            echo "$HELP_MSG"
+            exit 0
+            ;;
         --help)
             echo "$HELP_MSG"
             exit 0
+            ;;
+        -D)
+            F_DEBUG=true
+            shift
             ;;
         --debug)
             F_DEBUG=true
@@ -84,6 +92,7 @@ while [ $# -gt 0 ]; do
             shift
             ;;
         "--")
+            P_GET_VARS=true
             shift
             break
             ;;

@@ -8,3 +8,6 @@ tree:
 	tree ./test_playground/
 
 run_test: clean_test run-all-dry tree
+
+check_script: 
+	shellcheck --shell=sh ./run.sh
