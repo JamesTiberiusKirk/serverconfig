@@ -150,7 +150,7 @@ validate_env_vars() {
     ENV_VARS_IN_FILE=""
     EXIT_CODE=0
 
-    ENV_VARS_IN_FILE=$(grep -Eo '\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$1" | sed 's/^\${\(.*\)}$/\1/')
+    ENV_VARS_IN_FILE=$(grep -Eo '(?<!\$)\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$1" | sed 's/^\${\(.*\)}$/\1/')
 
     OLD_IFS=$IFS
     IFS='
