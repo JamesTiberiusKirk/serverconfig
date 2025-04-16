@@ -138,14 +138,13 @@ get_vars_in_file() {
     FILE=$1
 
     LOCAL_ENV_VARS_IN_FILE=""
-    LOCAL_ENV_VARS_IN_FILE=$(grep -Eo '\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$FILE" |
+    LOCAL_ENV_VARS_IN_FILE=$(grep -Po '(?<!\$)\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$FILE" |
         sed 's/^\${\(.*\)}$/\1/' |
         tr -d '\r' |
         awk '!seen[$0]++')
 
     echo "$LOCAL_ENV_VARS_IN_FILE"
 }
-
 
 validate_env_vars() {
     ENV_VARS_IN_FILE=""
@@ -248,7 +247,8 @@ run_docker_compose() {
                 {
                     printf '\n'
                     printf '############### %s VARS\n' "$DIR"
-                    printf '%s\n' "$MISSING"
+                    printf  $MISSING 
+                    printf  '\n'
                     printf '#####################\n'
                 } >> "$ENV_FILE"
             else
