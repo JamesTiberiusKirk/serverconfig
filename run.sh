@@ -97,7 +97,7 @@ while [ $# -gt 0 ]; do
             break
             ;;
         *)
-            [ $P_ALL = true ] && continue
+            [ $P_ALL = true ] && shift && continue
             if [ -d "$TARGET_DIRECTORY/$1" ]; then 
                 P_SERVICE_LIST="$P_SERVICE_LIST $1"
             else
@@ -126,6 +126,7 @@ if [ $P_ALL = true ]; then
     done
 fi 
 
+
 if [ $F_DEBUG = true ]; then 
     echo "[DEBUG]: dry run: $F_DRY_RUN"
     echo "[DEBUG]: service list: $P_SERVICE_LIST"
@@ -138,7 +139,7 @@ get_vars_in_file() {
     FILE=$1
 
     LOCAL_ENV_VARS_IN_FILE=""
-    LOCAL_ENV_VARS_IN_FILE=$(grep -Po '(?<!\$)\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$FILE" |
+    LOCAL_ENV_VARS_IN_FILE=$(grep -Po '(<!\$)\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$FILE" |
         sed 's/^\${\(.*\)}$/\1/' |
         tr -d '\r' |
         awk '!seen[$0]++')
@@ -150,7 +151,7 @@ validate_env_vars() {
     ENV_VARS_IN_FILE=""
     EXIT_CODE=0
 
-    ENV_VARS_IN_FILE=$(grep -Eo '(?<!\$)\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$1" | sed 's/^\${\(.*\)}$/\1/')
+    ENV_VARS_IN_FILE=$(grep -Eo '(<!\$)\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$1" | sed 's/^\${\(.*\)}$/\1/')
 
     OLD_IFS=$IFS
     IFS='
@@ -170,24 +171,6 @@ validate_env_vars() {
 
     return $EXIT_CODE
 }
-
-
-# validate_env_vars() {
-#     local ENV_VARS_IN_FILE=$(grep -Eo '\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' $1 | sed 's/^\${\(.*\)}$/\1/')
-#
-#     local EXIT_CODE=0
-#
-#     echo "$ENV_VARS_IN_FILE" | while IFS= read -r var_name; do
-#         # Skip empty lines
-#         [ -z "$var_name" ] && continue
-#         
-#         if [ ! -n "${!var_name+x}" ]; then
-#             EXIT_CODE=1
-#         fi
-#     done
-#
-#     return $EXIT_CODE 
-# }
 
 check_substring() {
     if grep -q "$2" "$1"; then
@@ -288,8 +271,9 @@ run_docker_compose() {
         docker compose --file "$DOCKER_COMPOSE_FILE_PATH" config
     else 
         if [ $P_VARS_ONLY = true ]; then
-            exec $SHELL -c "$REST"
-            exit 0
+            # exec $SHELL -c "$REST"
+            eval "$REST"
+            return
         fi
 
         # check if the stack is down 
