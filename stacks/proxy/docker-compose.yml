@@ -9,3 +9,5 @@ services:
     volumes:
       - ${STACK_STORAGE_SSD}/data:/data
       - ${STACK_STORAGE_SSD}/letsencrypt:/etc/letsencrypt
+      - ./data/nginx/custom/stream.conf:/data/nginx/custom/stream.conf:ro
+      - ./data/nginx/custom/http.conf:/data/nginx/custom/http.conf:ro
