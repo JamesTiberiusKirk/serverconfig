@@ -1,13 +1,27 @@
+networks:
+  revnet:
+
 services:
-  npm:
-    image: 'docker.io/jc21/nginx-proxy-manager:latest'
+  front:
+    image: nginx:alpine
     restart: unless-stopped
     ports:
-      - 80:80
-      - 81:81
-      - 443:443
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./front-nginx.conf:/etc/nginx/nginx.conf:ro
+    networks: [revnet]
+
+  npm:
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    # do NOT publish 80/443 on host
+    ports:
+      - "81:81"           # admin UI
+    expose:
+      - "80"
+      - "443"
     volumes:
       - ${STACK_STORAGE_SSD}/data:/data
       - ${STACK_STORAGE_SSD}/letsencrypt:/etc/letsencrypt
-      - ./data/nginx/custom/stream.conf:/data/nginx/custom/stream.conf
-      - ./data/nginx/custom/http.conf:/data/nginx/custom/http.conf
+    networks: [revnet]
