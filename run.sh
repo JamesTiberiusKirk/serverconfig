@@ -148,7 +148,7 @@ get_vars_in_file() {
     FILE=$1
 
     LOCAL_ENV_VARS_IN_FILE=""
-    LOCAL_ENV_VARS_IN_FILE=$(grep -Po '(<!\$)\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$FILE" |
+    LOCAL_ENV_VARS_IN_FILE=$(grep -Po '(^|[^\$])\K\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$FILE" |
         sed 's/^\${\(.*\)}$/\1/' |
         tr -d '\r' |
         awk '!seen[$0]++')
@@ -160,7 +160,7 @@ validate_env_vars() {
     ENV_VARS_IN_FILE=""
     EXIT_CODE=0
 
-    ENV_VARS_IN_FILE=$(grep -Eo '(<!\$)\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$1" | sed 's/^\${\(.*\)}$/\1/')
+    ENV_VARS_IN_FILE=$(grep -Po '(^|[^\$])\K\$\{[a-zA-Z_][a-zA-Z0-9_]*\}' "$1" | sed 's/^\${\(.*\)}$/\1/')
 
     OLD_IFS=$IFS
     IFS='
@@ -285,22 +285,24 @@ run_docker_compose() {
             return
         fi
 
-        # check if the stack is down 
-        # if its not down, then bring it down
-        
-        RUNNING_SERVICES=$(docker compose --file "$DOCKER_COMPOSE_FILE_PATH" ps -a --services --filter "status=running")
-        SERVICES=$(docker compose --file "$DOCKER_COMPOSE_FILE_PATH" ps -a --services)
-
-
-        [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Running services $RUNNING_SERVICES"
-        [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Services $SERVICES" 
-
-        if [ "$RUNNING_SERVICES" = "$SERVICES" ]; then 
-            [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Tearning stack down" 
+        if [ $P_TEAR_DOWN = true ]; then
+            [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Tearing stack down"
             docker compose --file "$DOCKER_COMPOSE_FILE_PATH" down
-        fi
+        else
+            # check if the stack is down
+            # if its not down, then bring it down
 
-        if [ $P_TEAR_DOWN = false ]; then
+            RUNNING_SERVICES=$(docker compose --file "$DOCKER_COMPOSE_FILE_PATH" ps -a --services --filter "status=running")
+            SERVICES=$(docker compose --file "$DOCKER_COMPOSE_FILE_PATH" ps -a --services)
+
+            [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Running services $RUNNING_SERVICES"
+            [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Services $SERVICES"
+
+            if [ "$RUNNING_SERVICES" = "$SERVICES" ]; then
+                [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Restarting stack (tear down first)"
+                docker compose --file "$DOCKER_COMPOSE_FILE_PATH" down
+            fi
+
             if [ $P_UPDATE = true ]; then
                 [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Pulling latest images"
                 docker compose --file "$DOCKER_COMPOSE_FILE_PATH" pull
