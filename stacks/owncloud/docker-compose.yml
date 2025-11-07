@@ -28,6 +28,7 @@ services:
       - ${STACK_STORAGE_HDD}/data:/mnt/data
     networks:
       - traefik
+      - default
     labels:
       - traefik.enable=true
       # HTTPS router
@@ -54,12 +55,14 @@ services:
       - MARIADB_AUTO_UPGRADE=1
     command: ["--max-allowed-packet=128M", "--innodb-log-file-size=64M"]
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-u", "root", "--password=owncloud"]
+      test: ["CMD", "mysqladmin", "ping", "-u", "root", "--password=${OWNCLOUD_DB_ROOT_PASSWORD}"]
       interval: 10s
       timeout: 5s
       retries: 5
     volumes:
       - ${STACK_STORAGE_SSD}/db:/var/lib/mysql
+    networks:
+      - default
 
   redis:
     image: redis:6
@@ -73,6 +76,8 @@ services:
       retries: 5
     volumes:
       - ${STACK_STORAGE_SSD}/redis:/data
+    networks:
+      - default
 
 networks:
   traefik:
