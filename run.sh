@@ -23,6 +23,9 @@ Any parameters and flags can be ran in any order.
 tear-down
     Tear down docker-compose
 
+update
+    Pull latest images and restart stacks
+
 all
     Run on all stacks
 
@@ -51,6 +54,7 @@ F_DRY_RUN=false
 P_SERVICE_LIST=""
 P_ALL=false
 P_TEAR_DOWN=false
+P_UPDATE=false
 P_VARS_ONLY=false
 P_GET_VARS=false
 while [ $# -gt 0 ]; do
@@ -81,6 +85,10 @@ while [ $# -gt 0 ]; do
             ;;
         tear-down)
             P_TEAR_DOWN=true
+            shift
+            ;;
+        update)
+            P_UPDATE=true
             shift
             ;;
         vars-only)
@@ -127,11 +135,12 @@ if [ $P_ALL = true ]; then
 fi 
 
 
-if [ $F_DEBUG = true ]; then 
+if [ $F_DEBUG = true ]; then
     echo "[DEBUG]: dry run: $F_DRY_RUN"
     echo "[DEBUG]: service list: $P_SERVICE_LIST"
     echo "[DEBUG]: all services: $P_ALL"
     echo "[DEBUG]: tear down: $P_TEAR_DOWN"
+    echo "[DEBUG]: update: $P_UPDATE"
     echo "[DEBUG]: vars only: $P_VARS_ONLY"
 fi
 
@@ -291,8 +300,12 @@ run_docker_compose() {
             docker compose --file "$DOCKER_COMPOSE_FILE_PATH" down
         fi
 
-        if [ $P_TEAR_DOWN = false ]; then 
-            [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Bringing stack up"            
+        if [ $P_TEAR_DOWN = false ]; then
+            if [ $P_UPDATE = true ]; then
+                [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Pulling latest images"
+                docker compose --file "$DOCKER_COMPOSE_FILE_PATH" pull
+            fi
+            [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Bringing stack up"
             docker compose --file "$DOCKER_COMPOSE_FILE_PATH" up -d
         fi
     fi

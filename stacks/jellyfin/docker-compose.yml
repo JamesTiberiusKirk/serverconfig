@@ -1,8 +1,6 @@
 services:
   jellyfin:
     image: jellyfin/jellyfin
-    ports:
-      - 8096:8096
     container_name: jellyfin
     # user: uid:gid
     # network_mode: 'host'
@@ -15,3 +13,15 @@ services:
     restart: 'unless-stopped'
     environment:
       - JELLYFIN_PublishedServerUrl=https://jf.dumitruvulpe.com
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.jellyfin.rule=Host(`jt.dumitruvulpe.com`)
+      - traefik.http.routers.jellyfin.entrypoints=websecure
+      - traefik.http.routers.jellyfin.tls.certresolver=le
+      - traefik.http.services.jellyfin.loadbalancer.server.port=8096
+
+networks:
+  traefik:
+    name: traefik

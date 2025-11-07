@@ -3,8 +3,6 @@ services:
     image: owncloud/server:latest
     container_name: owncloud_server
     restart: always
-    ports:
-      - 8001:8080
     depends_on:
       - mariadb
       - redis
@@ -28,6 +26,14 @@ services:
       retries: 5
     volumes:
       - ${STACK_STORAGE_HDD}/data:/mnt/data
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.owncloud.rule=Host(`oc.dumitruvulpe.com`)
+      - traefik.http.routers.owncloud.entrypoints=websecure
+      - traefik.http.routers.owncloud.tls.certresolver=le
+      - traefik.http.services.owncloud.loadbalancer.server.port=8080
 
   mariadb:
     image: mariadb:10.11 # minimum required ownCloud version is 10.9
@@ -60,3 +66,7 @@ services:
       retries: 5
     volumes:
       - ${STACK_STORAGE_SSD}/redis:/data
+
+networks:
+  traefik:
+    name: traefik

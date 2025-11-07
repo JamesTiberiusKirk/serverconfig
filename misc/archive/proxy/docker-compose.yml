@@ -25,3 +25,4 @@ services:
       - ${STACK_STORAGE_SSD}/data:/data
       - ${STACK_STORAGE_SSD}/letsencrypt:/etc/letsencrypt
     networks: [revnet]
+

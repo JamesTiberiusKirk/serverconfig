@@ -28,8 +28,14 @@ services:
       DB_USERNAME: ${IMMICH_DB_USERNAME}
       DB_DATABASE_NAME: ${IMMICH_DB_DATABASE_NAME}
       # - DB_HOSTNAME:database
-    ports:
-      - '2283:2283'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.immich.rule=Host(`pics.dumitruvulpe.com`)
+      - traefik.http.routers.immich.entrypoints=websecure
+      - traefik.http.routers.immich.tls.certresolver=le
+      - traefik.http.services.immich.loadbalancer.server.port=2283
+    networks:
+      - traefik
     depends_on:
       - redis
       - database
@@ -85,3 +91,7 @@ services:
     command: >-
       postgres -c shared_preload_libraries=vectors.so -c 'search_path="$$user", public, vectors' -c logging_collector=on -c max_wal_size=2GB -c shared_buffers=512MB -c wal_compression=on
     restart: always
+
+networks:
+  traefik:
+    name: traefik
