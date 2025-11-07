@@ -30,9 +30,16 @@ services:
       - traefik
     labels:
       - traefik.enable=true
+      # HTTPS router
       - traefik.http.routers.owncloud.rule=Host(`oc.dumitruvulpe.com`)
       - traefik.http.routers.owncloud.entrypoints=websecure
       - traefik.http.routers.owncloud.tls.certresolver=le
+      # HTTP router (redirect to HTTPS, allows ACME challenges)
+      - traefik.http.routers.owncloud-http.rule=Host(`oc.dumitruvulpe.com`)
+      - traefik.http.routers.owncloud-http.entrypoints=web
+      - traefik.http.routers.owncloud-http.middlewares=redirect-to-https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
       - traefik.http.services.owncloud.loadbalancer.server.port=8080
 
   mariadb:
@@ -69,4 +76,4 @@ services:
 
 networks:
   traefik:
-    name: traefik
+    external: true
