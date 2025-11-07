@@ -136,6 +136,7 @@ fi
 
 
 if [ $F_DEBUG = true ]; then
+    echo "[DEBUG]: env file: $ENV_FILE"
     echo "[DEBUG]: dry run: $F_DRY_RUN"
     echo "[DEBUG]: service list: $P_SERVICE_LIST"
     echo "[DEBUG]: all services: $P_ALL"
@@ -234,16 +235,18 @@ run_docker_compose() {
         MISSING="${MISSING%\\n}"
         # [ $F_DEBUG == true ] && echo [DEBUG]: $DIR: about to write $MISSING
 
-        if  [ $F_DRY_RUN = false ] && [ -n "$MISSING" ]; then 
+        if  [ $F_DRY_RUN = false ] && [ -n "$MISSING" ]; then
+            [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Writing missing vars to $ENV_FILE"
             if ! check_substring "$ENV_FILE" "$DIR VARS"; then
                 {
                     printf '\n'
                     printf '############### %s VARS\n' "$DIR"
-                    printf  $MISSING 
+                    printf  $MISSING
                     printf  '\n'
                     printf '#####################\n'
                 } >> "$ENV_FILE"
             else
+                [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Updating existing vars section in $ENV_FILE"
                 awk -i inplace -v missing="$MISSING" -v dir="$DIR VARS" '
                 $0 ~ dir {found=1}
                 found && /^#*$/ {print missing; found=0}
