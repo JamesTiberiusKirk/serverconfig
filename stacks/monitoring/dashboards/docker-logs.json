@@ -25,7 +25,7 @@
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
-        "showLabels": false,
+        "showLabels": true,
         "showTime": true,
         "sortOrder": "Descending",
         "wrapLogMessage": false
@@ -48,7 +48,10 @@
   ],
   "refresh": "10s",
   "schemaVersion": 39,
-  "tags": ["logs", "docker"],
+  "tags": [
+    "logs",
+    "docker"
+  ],
   "templating": {
     "list": [
       {
