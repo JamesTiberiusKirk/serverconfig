@@ -26,6 +26,9 @@ tear-down
 update
     Pull latest images and restart stacks
 
+backup
+    Backup stack configs and volumes to timestamped directory
+
 all
     Run on all stacks
 
@@ -55,6 +58,7 @@ P_SERVICE_LIST=""
 P_ALL=false
 P_TEAR_DOWN=false
 P_UPDATE=false
+P_BACKUP=false
 P_VARS_ONLY=false
 P_GET_VARS=false
 while [ $# -gt 0 ]; do
@@ -89,6 +93,10 @@ while [ $# -gt 0 ]; do
             ;;
         update)
             P_UPDATE=true
+            shift
+            ;;
+        backup)
+            P_BACKUP=true
             shift
             ;;
         vars-only)
@@ -142,6 +150,7 @@ if [ $F_DEBUG = true ]; then
     echo "[DEBUG]: all services: $P_ALL"
     echo "[DEBUG]: tear down: $P_TEAR_DOWN"
     echo "[DEBUG]: update: $P_UPDATE"
+    echo "[DEBUG]: backup: $P_BACKUP"
     echo "[DEBUG]: vars only: $P_VARS_ONLY"
 fi
 
@@ -195,6 +204,82 @@ create_dir_if_not_exist() {
 
     if [ ! -d "$DIR" ]; then
         mkdir -p "$DIR"
+    fi
+}
+
+backup_stack() {
+    DIR="$1"
+    TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+    BACKUP_PATH="$BACKUP_DIR/$TIMESTAMP/$DIR"
+    CONFIG_PATH="$TARGET_DIRECTORY/$DIR"
+
+    [ $F_DEBUG = true ] && echo "[DEBUG]: Backing up stack $DIR"
+
+    # Create backup directory
+    if [ $F_DRY_RUN = false ]; then
+        mkdir -p "$BACKUP_PATH"
+        echo "Creating backup at: $BACKUP_PATH"
+    else
+        echo "[DRY RUN] Would create backup at: $BACKUP_PATH"
+    fi
+
+    # Backup config directory if it exists
+    if [ -d "$CONFIG_PATH/config" ]; then
+        [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Backing up config directory"
+        if [ $F_DRY_RUN = false ]; then
+            cp -r "$CONFIG_PATH/config" "$BACKUP_PATH/config"
+            echo "  ✓ Backed up config directory"
+        else
+            echo "  [DRY RUN] Would backup: $CONFIG_PATH/config -> $BACKUP_PATH/config"
+        fi
+    fi
+
+    # Backup dashboards directory if it exists (for monitoring stack)
+    if [ -d "$CONFIG_PATH/dashboards" ]; then
+        [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Backing up dashboards directory"
+        if [ $F_DRY_RUN = false ]; then
+            cp -r "$CONFIG_PATH/dashboards" "$BACKUP_PATH/dashboards"
+            echo "  ✓ Backed up dashboards directory"
+        else
+            echo "  [DRY RUN] Would backup: $CONFIG_PATH/dashboards -> $BACKUP_PATH/dashboards"
+        fi
+    fi
+
+    # Backup dynamic directory if it exists (for traefik stack)
+    if [ -d "$CONFIG_PATH/dynamic" ]; then
+        [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Backing up dynamic directory"
+        if [ $F_DRY_RUN = false ]; then
+            cp -r "$CONFIG_PATH/dynamic" "$BACKUP_PATH/dynamic"
+            echo "  ✓ Backed up dynamic directory"
+        else
+            echo "  [DRY RUN] Would backup: $CONFIG_PATH/dynamic -> $BACKUP_PATH/dynamic"
+        fi
+    fi
+
+    # Backup HDD volume data if it exists
+    if [ -d "$BASE_STORAGE_HDD/$DIR" ]; then
+        [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Backing up HDD volume data"
+        if [ $F_DRY_RUN = false ]; then
+            cp -r "$BASE_STORAGE_HDD/$DIR" "$BACKUP_PATH/volume_hdd"
+            echo "  ✓ Backed up HDD volume data"
+        else
+            echo "  [DRY RUN] Would backup: $BASE_STORAGE_HDD/$DIR -> $BACKUP_PATH/volume_hdd"
+        fi
+    fi
+
+    # Backup SSD volume data if it exists
+    if [ -d "$BASE_STORAGE_SSD/$DIR" ]; then
+        [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Backing up SSD volume data"
+        if [ $F_DRY_RUN = false ]; then
+            cp -r "$BASE_STORAGE_SSD/$DIR" "$BACKUP_PATH/volume_ssd"
+            echo "  ✓ Backed up SSD volume data"
+        else
+            echo "  [DRY RUN] Would backup: $BASE_STORAGE_SSD/$DIR -> $BACKUP_PATH/volume_ssd"
+        fi
+    fi
+
+    if [ $F_DRY_RUN = false ]; then
+        echo "Backup completed for $DIR"
     fi
 }
 
@@ -316,12 +401,24 @@ run_docker_compose() {
     fi
 }
 
-if [ $F_DRY_RUN = false ] && [ $P_GET_VARS = false ]; then 
-    create_dir_if_not_exist "$BASE_STORAGE_HDD" 
-    create_dir_if_not_exist "$BASE_STORAGE_SSD" 
+if [ $P_BACKUP = true ]; then
+    if [ -z "$BACKUP_DIR" ]; then
+        echo "Error: BACKUP_DIR not set in .env file"
+        exit 1
+    fi
+    [ $F_DEBUG = true ] && echo "[DEBUG]: Backup directory: $BACKUP_DIR"
+fi
+
+if [ $F_DRY_RUN = false ] && [ $P_GET_VARS = false ]; then
+    create_dir_if_not_exist "$BASE_STORAGE_HDD"
+    create_dir_if_not_exist "$BASE_STORAGE_SSD"
 fi
 
 for S in $P_SERVICE_LIST; do
-    echo "Stack: $S" 
-    run_docker_compose "$S" 
+    echo "Stack: $S"
+    if [ $P_BACKUP = true ]; then
+        backup_stack "$S"
+    else
+        run_docker_compose "$S"
+    fi
 done
