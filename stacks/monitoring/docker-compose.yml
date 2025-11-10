@@ -108,3 +108,5 @@ services:
 networks:
   traefik:
     external: true
+  default:
+    name: monitoring_internal
