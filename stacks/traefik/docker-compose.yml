@@ -13,6 +13,10 @@ services:
       - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
       - --certificatesresolvers.le.acme.httpchallenge=true
       - --certificatesresolvers.le.acme.httpchallenge.entrypoint=web
+      - --metrics.prometheus=true
+      - --metrics.prometheus.addEntryPointsLabels=true
+      - --metrics.prometheus.addRoutersLabels=true
+      - --metrics.prometheus.addServicesLabels=true
     ports:
       - "80:80"
       - "443:443"
@@ -20,9 +24,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${STACK_STORAGE_SSD}/letsencrypt:/letsencrypt
       - ./dynamic:/etc/traefik/dynamic
-    networks: [traefik]
+    networks:
+      - traefik
+      - monitoring_internal
     restart: unless-stopped
 
 networks:
   traefik:
+    external: true
+  monitoring_internal:
     external: true
