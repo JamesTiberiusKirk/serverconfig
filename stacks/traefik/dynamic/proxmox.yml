@@ -29,6 +29,6 @@ http:
         scheme: https
         permanent: true
 
-serversTransports:
-  proxmoxTransport:
-    insecureSkipVerify: true
+  serversTransports:
+    proxmoxTransport:
+      insecureSkipVerify: true
