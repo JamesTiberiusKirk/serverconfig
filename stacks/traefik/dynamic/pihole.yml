@@ -1,0 +1,29 @@
+http:
+  routers:
+    pihole:
+      rule: "Host(`pihole.dumitruvulpe.com`)"
+      entryPoints:
+        - websecure
+      service: pihole
+      tls:
+        certResolver: le
+
+    pihole-http:
+      rule: "Host(`pihole.dumitruvulpe.com`)"
+      entryPoints:
+        - web
+      middlewares:
+        - redirect-to-https
+      service: pihole
+
+  services:
+    pihole:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.101"
+
+  middlewares:
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
