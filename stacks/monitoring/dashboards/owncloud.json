@@ -98,7 +98,7 @@
       },
       "targets": [
         {
-          "expr": "min(container_last_seen{name=\"owncloud\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"/owncloud\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -149,7 +149,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"owncloud\"}",
+          "expr": "time() - container_start_time_seconds{name=\"/owncloud\"}",
           "refId": "A"
         }
       ],
@@ -458,17 +458,17 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"owncloud\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"/owncloud\"}[5m]) * 100",
           "legendFormat": "OwnCloud",
           "refId": "A"
         },
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"owncloud_mariadb\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"/owncloud_mariadb\"}[5m]) * 100",
           "legendFormat": "MariaDB",
           "refId": "B"
         },
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"owncloud_redis\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"/owncloud_redis\"}[5m]) * 100",
           "legendFormat": "Redis",
           "refId": "C"
         }
@@ -550,17 +550,17 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"owncloud\"}",
+          "expr": "container_memory_usage_bytes{name=\"/owncloud\"}",
           "legendFormat": "OwnCloud",
           "refId": "A"
         },
         {
-          "expr": "container_memory_usage_bytes{name=\"owncloud_mariadb\"}",
+          "expr": "container_memory_usage_bytes{name=\"/owncloud_mariadb\"}",
           "legendFormat": "MariaDB",
           "refId": "B"
         },
         {
-          "expr": "container_memory_usage_bytes{name=\"owncloud_redis\"}",
+          "expr": "container_memory_usage_bytes{name=\"/owncloud_redis\"}",
           "legendFormat": "Redis",
           "refId": "C"
         }
@@ -642,12 +642,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"owncloud\"}[5m])",
+          "expr": "rate(container_network_receive_bytes_total{name=\"/owncloud\"}[5m])",
           "legendFormat": "RX",
           "refId": "A"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"owncloud\"}[5m])",
+          "expr": "rate(container_network_transmit_bytes_total{name=\"/owncloud\"}[5m])",
           "legendFormat": "TX",
           "refId": "B"
         }

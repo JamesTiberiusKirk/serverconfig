@@ -98,7 +98,7 @@
       },
       "targets": [
         {
-          "expr": "min(container_last_seen{name=\"nextcloud\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"/nextcloud\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -149,7 +149,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"nextcloud\"}",
+          "expr": "time() - container_start_time_seconds{name=\"/nextcloud\"}",
           "refId": "A"
         }
       ],
@@ -458,17 +458,17 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"nextcloud\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"/nextcloud\"}[5m]) * 100",
           "legendFormat": "Nextcloud",
           "refId": "A"
         },
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"nextcloud_db\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"/nextcloud_db\"}[5m]) * 100",
           "legendFormat": "PostgreSQL",
           "refId": "B"
         },
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"nextcloud_redis\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"/nextcloud_redis\"}[5m]) * 100",
           "legendFormat": "Redis",
           "refId": "C"
         }
@@ -550,17 +550,17 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"nextcloud\"}",
+          "expr": "container_memory_usage_bytes{name=\"/nextcloud\"}",
           "legendFormat": "Nextcloud",
           "refId": "A"
         },
         {
-          "expr": "container_memory_usage_bytes{name=\"nextcloud_db\"}",
+          "expr": "container_memory_usage_bytes{name=\"/nextcloud_db\"}",
           "legendFormat": "PostgreSQL",
           "refId": "B"
         },
         {
-          "expr": "container_memory_usage_bytes{name=\"nextcloud_redis\"}",
+          "expr": "container_memory_usage_bytes{name=\"/nextcloud_redis\"}",
           "legendFormat": "Redis",
           "refId": "C"
         }
@@ -642,12 +642,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"nextcloud\"}[5m])",
+          "expr": "rate(container_network_receive_bytes_total{name=\"/nextcloud\"}[5m])",
           "legendFormat": "RX",
           "refId": "A"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"nextcloud\"}[5m])",
+          "expr": "rate(container_network_transmit_bytes_total{name=\"/nextcloud\"}[5m])",
           "legendFormat": "TX",
           "refId": "B"
         }

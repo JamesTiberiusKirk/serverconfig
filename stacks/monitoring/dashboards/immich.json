@@ -98,7 +98,7 @@
       },
       "targets": [
         {
-          "expr": "min(container_last_seen{name=\"immich_server\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"/immich_server\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -149,7 +149,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"immich_server\"}",
+          "expr": "time() - container_start_time_seconds{name=\"/immich_server\"}",
           "refId": "A"
         }
       ],
@@ -458,22 +458,22 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"immich_server\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"/immich_server\"}[5m]) * 100",
           "legendFormat": "Immich Server",
           "refId": "A"
         },
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"immich_machine_learning\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"/immich_machine_learning\"}[5m]) * 100",
           "legendFormat": "Machine Learning",
           "refId": "B"
         },
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"immich_postgres\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"/immich_postgres\"}[5m]) * 100",
           "legendFormat": "PostgreSQL",
           "refId": "C"
         },
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"immich_redis\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"/immich_redis\"}[5m]) * 100",
           "legendFormat": "Redis",
           "refId": "D"
         }
@@ -555,22 +555,22 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"immich_server\"}",
+          "expr": "container_memory_usage_bytes{name=\"/immich_server\"}",
           "legendFormat": "Immich Server",
           "refId": "A"
         },
         {
-          "expr": "container_memory_usage_bytes{name=\"immich_machine_learning\"}",
+          "expr": "container_memory_usage_bytes{name=\"/immich_machine_learning\"}",
           "legendFormat": "Machine Learning",
           "refId": "B"
         },
         {
-          "expr": "container_memory_usage_bytes{name=\"immich_postgres\"}",
+          "expr": "container_memory_usage_bytes{name=\"/immich_postgres\"}",
           "legendFormat": "PostgreSQL",
           "refId": "C"
         },
         {
-          "expr": "container_memory_usage_bytes{name=\"immich_redis\"}",
+          "expr": "container_memory_usage_bytes{name=\"/immich_redis\"}",
           "legendFormat": "Redis",
           "refId": "D"
         }
@@ -652,12 +652,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"immich_server\"}[5m])",
+          "expr": "rate(container_network_receive_bytes_total{name=\"/immich_server\"}[5m])",
           "legendFormat": "RX",
           "refId": "A"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"immich_server\"}[5m])",
+          "expr": "rate(container_network_transmit_bytes_total{name=\"/immich_server\"}[5m])",
           "legendFormat": "TX",
           "refId": "B"
         }
