@@ -105,6 +105,29 @@ services:
     networks:
       - default
 
+  # Dozzle - Real-time Docker log viewer
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dozzle
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - traefik
+      - default
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      # HTTPS router
+      - traefik.http.routers.dozzle.rule=Host(`logs.dumitruvulpe.com`)
+      - traefik.http.routers.dozzle.entrypoints=websecure
+      - traefik.http.routers.dozzle.tls.certresolver=le
+      # HTTP router (redirect to HTTPS)
+      - traefik.http.routers.dozzle-http.rule=Host(`logs.dumitruvulpe.com`)
+      - traefik.http.routers.dozzle-http.entrypoints=web
+      - traefik.http.routers.dozzle-http.middlewares=redirect-to-https
+      - traefik.http.services.dozzle.loadbalancer.server.port=8080
+
 networks:
   traefik:
     external: true
