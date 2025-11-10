@@ -37,7 +37,7 @@
             "uid": "loki"
           },
           "editorMode": "code",
-          "expr": "{container=~\"$container\", compose_project=~\"$project\"} |~ \"$search\"",
+          "expr": "{container=~\"$container\", compose_project=~\"$project\", level=~\"$level\"} |~ \"$search\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -115,6 +115,30 @@
         "query": "",
         "skipUrlSync": false,
         "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": ".*"
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "definition": "label_values(level)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Log Level",
+        "multi": true,
+        "name": "level",
+        "options": [],
+        "query": "label_values(level)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
       }
     ]
   },
