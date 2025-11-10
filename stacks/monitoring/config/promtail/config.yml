@@ -30,8 +30,8 @@ scrape_configs:
         target_label: 'compose_service'
     pipeline_stages:
       - docker: {}
-      # Extract log level from log content
+      # Extract log level from log content (handles [Warning], # WARNING, ERROR:, etc.)
       - regex:
-          expression: '(?i)(?P<level>(error|err|warn|warning|info|debug|trace|fatal|critical))'
+          expression: '(?i)(\[|\s|#\s*)(?P<level>error|err|warn|warning|info|debug|trace|fatal|critical|panic|notice)(\]|:|\s)'
       - labels:
           level:

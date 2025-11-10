@@ -31,6 +31,7 @@ services:
       - default
     labels:
       - traefik.enable=true
+      - traefik.docker.network=traefik
       # HTTPS router
       - traefik.http.routers.owncloud.rule=Host(`oc.dumitruvulpe.com`)
       - traefik.http.routers.owncloud.entrypoints=websecure
@@ -55,7 +56,7 @@ services:
       - MARIADB_AUTO_UPGRADE=1
     command: ["--max-allowed-packet=128M", "--innodb-log-file-size=64M"]
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-u", "root", "--password=${OWNCLOUD_DB_ROOT_PASSWORD}"]
+      test: ["CMD-SHELL", "mysqladmin ping -u root --password=$$MYSQL_ROOT_PASSWORD || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5
