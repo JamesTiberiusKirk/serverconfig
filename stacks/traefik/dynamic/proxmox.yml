@@ -1,0 +1,34 @@
+http:
+  routers:
+    proxmox:
+      rule: "Host(`vms.dumitruvulpe.com`)"
+      entryPoints:
+        - websecure
+      service: proxmox
+      tls:
+        certResolver: le
+
+    proxmox-http:
+      rule: "Host(`vms.dumitruvulpe.com`)"
+      entryPoints:
+        - web
+      middlewares:
+        - redirect-to-https
+      service: proxmox
+
+  services:
+    proxmox:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.1.99:8006"
+        serversTransport: proxmoxTransport
+
+  middlewares:
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+serversTransports:
+  proxmoxTransport:
+    insecureSkipVerify: true
