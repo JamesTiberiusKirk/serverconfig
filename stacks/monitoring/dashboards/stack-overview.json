@@ -218,7 +218,7 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -250,7 +250,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"nextcloud\"}",
+          "expr": "(container_last_seen{name=\"nextcloud\"} > bool (time() - 60)) * 100",
           "refId": "A"
         }
       ],
@@ -674,7 +674,7 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -706,7 +706,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"owncloud_server\"}",
+          "expr": "(container_last_seen{name=\"owncloud_server\"} > bool (time() - 60)) * 100",
           "refId": "A"
         }
       ],
@@ -1122,7 +1122,7 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -1154,7 +1154,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"jellyfin\"}",
+          "expr": "(container_last_seen{name=\"jellyfin\"} > bool (time() - 60)) * 100",
           "refId": "A"
         }
       ],
@@ -1570,7 +1570,7 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -1602,7 +1602,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "min(time() - container_start_time_seconds{name=~\"immich.*\"})",
+          "expr": "(container_last_seen{name=\"immich_server\"} > bool (time() - 60)) * 100",
           "refId": "A"
         }
       ],
@@ -2018,7 +2018,7 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -2050,7 +2050,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"plex\"}",
+          "expr": "(container_last_seen{name=\"plex\"} > bool (time() - 60)) * 100",
           "refId": "A"
         }
       ],
@@ -2466,7 +2466,7 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -2498,7 +2498,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"flame\"}",
+          "expr": "(container_last_seen{name=\"flame\"} > bool (time() - 60)) * 100",
           "refId": "A"
         }
       ],
@@ -2914,7 +2914,7 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -2946,7 +2946,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"portainer-portainer-1\"}",
+          "expr": "(container_last_seen{name=\"portainer-portainer-1\"} > bool (time() - 60)) * 100",
           "refId": "A"
         }
       ],
@@ -3362,7 +3362,7 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -3394,7 +3394,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"traefik\"}",
+          "expr": "(container_last_seen{name=\"traefik\"} > bool (time() - 60)) * 100",
           "refId": "A"
         }
       ],
@@ -3802,7 +3802,7 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -3834,7 +3834,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"grafana\"}",
+          "expr": "(container_last_seen{name=\"grafana\"} > bool (time() - 60)) * 100",
           "refId": "A"
         }
       ],
@@ -4250,7 +4250,7 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -4282,7 +4282,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"dozzle\"}",
+          "expr": "(container_last_seen{name=\"dozzle\"} > bool (time() - 60)) * 100",
           "refId": "A"
         }
       ],
