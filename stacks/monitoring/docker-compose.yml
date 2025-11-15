@@ -122,10 +122,10 @@ services:
       - DOZZLE_NO_ANALYTICS=true
       - DOZZLE_FILTER=
       - DOZZLE_TAILSIZE=300
-      - DOZZLE_USERNAME=${DOZZLE_USERNAME}
-      - DOZZLE_PASSWORD=${DOZZLE_PASSWORD}
+      - DOZZLE_AUTH_PROVIDER=simple
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${STACK_STORAGE_SSD}/dozzle:/data
     networks:
       - traefik
       - default
