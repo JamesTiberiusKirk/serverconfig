@@ -122,6 +122,8 @@ services:
       - DOZZLE_NO_ANALYTICS=true
       - DOZZLE_FILTER=
       - DOZZLE_TAILSIZE=300
+      - DOZZLE_USERNAME=${DOZZLE_USERNAME}
+      - DOZZLE_PASSWORD=${DOZZLE_PASSWORD}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
