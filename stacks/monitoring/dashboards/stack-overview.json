@@ -191,7 +191,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "min(container_last_seen{name=\"/nextcloud\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"nextcloud\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -250,7 +250,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"/nextcloud\"}",
+          "expr": "time() - container_start_time_seconds{name=\"nextcloud\"}",
           "refId": "A"
         }
       ],
@@ -347,7 +347,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"/nextcloud\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"nextcloud\"}[5m]) * 100",
           "refId": "A"
         }
       ],
@@ -434,7 +434,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "container_memory_usage_bytes{name=\"/nextcloud\"}",
+          "expr": "container_memory_usage_bytes{name=\"nextcloud\"}",
           "refId": "A"
         }
       ],
@@ -647,7 +647,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "min(container_last_seen{name=\"/owncloud\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"owncloud\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -706,7 +706,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"/owncloud\"}",
+          "expr": "time() - container_start_time_seconds{name=\"owncloud\"}",
           "refId": "A"
         }
       ],
@@ -795,7 +795,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"/owncloud\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"owncloud\"}[5m]) * 100",
           "refId": "A"
         }
       ],
@@ -882,7 +882,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "container_memory_usage_bytes{name=\"/owncloud\"}",
+          "expr": "container_memory_usage_bytes{name=\"owncloud\"}",
           "refId": "A"
         }
       ],
@@ -1095,7 +1095,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "min(container_last_seen{name=\"/jellyfin\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"jellyfin\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -1154,7 +1154,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"/jellyfin\"}",
+          "expr": "time() - container_start_time_seconds{name=\"jellyfin\"}",
           "refId": "A"
         }
       ],
@@ -1243,7 +1243,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"/jellyfin\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"jellyfin\"}[5m]) * 100",
           "refId": "A"
         }
       ],
@@ -1330,7 +1330,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "container_memory_usage_bytes{name=\"/jellyfin\"}",
+          "expr": "container_memory_usage_bytes{name=\"jellyfin\"}",
           "refId": "A"
         }
       ],
@@ -1543,7 +1543,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "min(container_last_seen{name=\"/immich_server\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"immich_server\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -1602,7 +1602,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"/immich_server\"}",
+          "expr": "time() - container_start_time_seconds{name=\"immich_server\"}",
           "refId": "A"
         }
       ],
@@ -1691,7 +1691,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"/immich_server\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"immich_server\"}[5m]) * 100",
           "refId": "A"
         }
       ],
@@ -1778,7 +1778,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "container_memory_usage_bytes{name=\"/immich_server\"}",
+          "expr": "container_memory_usage_bytes{name=\"immich_server\"}",
           "refId": "A"
         }
       ],
@@ -1991,7 +1991,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "min(container_last_seen{name=\"/plex\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"plex\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -2050,7 +2050,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"/plex\"}",
+          "expr": "time() - container_start_time_seconds{name=\"plex\"}",
           "refId": "A"
         }
       ],
@@ -2139,7 +2139,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"/plex\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"plex\"}[5m]) * 100",
           "refId": "A"
         }
       ],
@@ -2226,7 +2226,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "container_memory_usage_bytes{name=\"/plex\"}",
+          "expr": "container_memory_usage_bytes{name=\"plex\"}",
           "refId": "A"
         }
       ],
@@ -2439,7 +2439,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "min(container_last_seen{name=\"/flame\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"flame\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -2498,7 +2498,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"/flame\"}",
+          "expr": "time() - container_start_time_seconds{name=\"flame\"}",
           "refId": "A"
         }
       ],
@@ -2587,7 +2587,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"/flame\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"flame\"}[5m]) * 100",
           "refId": "A"
         }
       ],
@@ -2674,7 +2674,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "container_memory_usage_bytes{name=\"/flame\"}",
+          "expr": "container_memory_usage_bytes{name=\"flame\"}",
           "refId": "A"
         }
       ],
@@ -2887,7 +2887,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "min(container_last_seen{name=\"/portainer\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"portainer\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -2946,7 +2946,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"/portainer\"}",
+          "expr": "time() - container_start_time_seconds{name=\"portainer\"}",
           "refId": "A"
         }
       ],
@@ -3035,7 +3035,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"/portainer\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"portainer\"}[5m]) * 100",
           "refId": "A"
         }
       ],
@@ -3122,7 +3122,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "container_memory_usage_bytes{name=\"/portainer\"}",
+          "expr": "container_memory_usage_bytes{name=\"portainer\"}",
           "refId": "A"
         }
       ],
@@ -3335,7 +3335,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "min(container_last_seen{name=\"/traefik\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"traefik\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -3394,7 +3394,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"/traefik\"}",
+          "expr": "time() - container_start_time_seconds{name=\"traefik\"}",
           "refId": "A"
         }
       ],
@@ -3483,7 +3483,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"/traefik\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"traefik\"}[5m]) * 100",
           "refId": "A"
         }
       ],
@@ -3570,7 +3570,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "container_memory_usage_bytes{name=\"/traefik\"}",
+          "expr": "container_memory_usage_bytes{name=\"traefik\"}",
           "refId": "A"
         }
       ],
@@ -3775,7 +3775,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "min(container_last_seen{name=\"/grafana\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"grafana\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -3834,7 +3834,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"/grafana\"}",
+          "expr": "time() - container_start_time_seconds{name=\"grafana\"}",
           "refId": "A"
         }
       ],
@@ -3923,7 +3923,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"/grafana\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"grafana\"}[5m]) * 100",
           "refId": "A"
         }
       ],
@@ -4010,7 +4010,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "container_memory_usage_bytes{name=\"/grafana\"}",
+          "expr": "container_memory_usage_bytes{name=\"grafana\"}",
           "refId": "A"
         }
       ],
@@ -4223,7 +4223,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "min(container_last_seen{name=\"/dozzle\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"dozzle\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -4282,7 +4282,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"/dozzle\"}",
+          "expr": "time() - container_start_time_seconds{name=\"dozzle\"}",
           "refId": "A"
         }
       ],
@@ -4371,7 +4371,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"/dozzle\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"dozzle\"}[5m]) * 100",
           "refId": "A"
         }
       ],
@@ -4458,7 +4458,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "container_memory_usage_bytes{name=\"/dozzle\"}",
+          "expr": "container_memory_usage_bytes{name=\"dozzle\"}",
           "refId": "A"
         }
       ],

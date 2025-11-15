@@ -98,7 +98,7 @@
       },
       "targets": [
         {
-          "expr": "min(container_last_seen{name=\"/plex\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"plex\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -149,7 +149,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"/plex\"}",
+          "expr": "time() - container_start_time_seconds{name=\"plex\"}",
           "refId": "A"
         }
       ],
@@ -356,7 +356,7 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"/plex\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"plex\"}[5m]) * 100",
           "legendFormat": "CPU Usage",
           "refId": "A"
         }
@@ -438,7 +438,7 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"/plex\"}",
+          "expr": "container_memory_usage_bytes{name=\"plex\"}",
           "legendFormat": "Memory Usage",
           "refId": "A"
         }
@@ -520,12 +520,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"/plex\"}[5m])",
+          "expr": "rate(container_network_receive_bytes_total{name=\"plex\"}[5m])",
           "legendFormat": "RX",
           "refId": "A"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"/plex\"}[5m])",
+          "expr": "rate(container_network_transmit_bytes_total{name=\"plex\"}[5m])",
           "legendFormat": "TX",
           "refId": "B"
         }
