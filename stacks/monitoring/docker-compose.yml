@@ -41,7 +41,9 @@ services:
       - ./config/loki/config.yml:/etc/loki/config.yml
       - ${STACK_STORAGE_HDD}/loki:/loki
     networks:
-      - default
+      default:
+        aliases:
+          - loki
 
   # Promtail - Log collector (reads Docker logs)
   promtail:
@@ -69,7 +71,9 @@ services:
       - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ${STACK_STORAGE_SSD}/prometheus:/prometheus
     networks:
-      - default
+      default:
+        aliases:
+          - prometheus
 
   # Node Exporter - Server metrics (CPU, RAM, Disk, Network)
   node-exporter:
@@ -86,7 +90,9 @@ services:
       - /sys:/host/sys:ro
       - /:/rootfs:ro
     networks:
-      - default
+      default:
+        aliases:
+          - node-exporter
 
   # cAdvisor - Container metrics
   cadvisor:
@@ -103,7 +109,9 @@ services:
       - /var/lib/docker:/var/lib/docker:ro
       - /dev/disk:/dev/disk:ro
     networks:
-      - default
+      default:
+        aliases:
+          - cadvisor
 
   # Dozzle - Real-time Docker log viewer
   dozzle:

@@ -17,12 +17,17 @@ services:
       - --metrics.prometheus.addEntryPointsLabels=true
       - --metrics.prometheus.addRoutersLabels=true
       - --metrics.prometheus.addServicesLabels=true
+      - --accesslog=true
+      - --accesslog.filepath=/var/log/traefik/access.log
+      - --accesslog.format=json
+      - --accesslog.fields.headers.defaultmode=keep
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${STACK_STORAGE_SSD}/letsencrypt:/letsencrypt
+      - ${STACK_STORAGE_SSD}/logs:/var/log/traefik
       - ./dynamic:/etc/traefik/dynamic
     networks:
       - traefik
