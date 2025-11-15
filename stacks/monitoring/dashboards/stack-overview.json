@@ -501,7 +501,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container_name=\"nextcloud\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"nextcloud\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -647,7 +647,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "min(container_last_seen{name=\"owncloud\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"owncloud_server\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -706,7 +706,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"owncloud\"}",
+          "expr": "time() - container_start_time_seconds{name=\"owncloud_server\"}",
           "refId": "A"
         }
       ],
@@ -795,7 +795,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"owncloud\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"owncloud_server\"}[5m]) * 100",
           "refId": "A"
         }
       ],
@@ -882,7 +882,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "container_memory_usage_bytes{name=\"owncloud\"}",
+          "expr": "container_memory_usage_bytes{name=\"owncloud_server\"}",
           "refId": "A"
         }
       ],
@@ -949,7 +949,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container_name=\"owncloud\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"owncloud_server\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -1397,7 +1397,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container_name=\"jellyfin\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"jellyfin\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -1602,7 +1602,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"immich_server\"}",
+          "expr": "min(time() - container_start_time_seconds{name=~\"immich.*\"})",
           "refId": "A"
         }
       ],
@@ -1778,7 +1778,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "container_memory_usage_bytes{name=\"immich_server\"}",
+          "expr": "sum(container_memory_usage_bytes{name=~\"immich.*\"})",
           "refId": "A"
         }
       ],
@@ -1845,7 +1845,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container_name=\"immich_server\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"immich_server\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -2293,7 +2293,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container_name=\"plex\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"plex\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -2741,7 +2741,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container_name=\"flame\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"flame\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -2887,7 +2887,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "min(container_last_seen{name=\"portainer\"} > bool (time() - 60))",
+          "expr": "min(container_last_seen{name=\"portainer-portainer-1\"} > bool (time() - 60))",
           "refId": "A"
         }
       ],
@@ -2946,7 +2946,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "time() - container_start_time_seconds{name=\"portainer\"}",
+          "expr": "time() - container_start_time_seconds{name=\"portainer-portainer-1\"}",
           "refId": "A"
         }
       ],
@@ -3035,7 +3035,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"portainer\"}[5m]) * 100",
+          "expr": "rate(container_cpu_usage_seconds_total{name=\"portainer-portainer-1\"}[5m]) * 100",
           "refId": "A"
         }
       ],
@@ -3122,7 +3122,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "container_memory_usage_bytes{name=\"portainer\"}",
+          "expr": "container_memory_usage_bytes{name=\"portainer-portainer-1\"}",
           "refId": "A"
         }
       ],
@@ -3189,7 +3189,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container_name=\"portainer\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"portainer-portainer-1\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -3637,7 +3637,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container_name=\"traefik\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"traefik\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -4077,7 +4077,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container_name=\"grafana\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"grafana\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -4525,7 +4525,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container_name=\"dozzle\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"dozzle\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
           "refId": "A"
         }
       ],
