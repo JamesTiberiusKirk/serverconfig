@@ -125,7 +125,7 @@ def create_row_panels(stack_name, pattern, y_position):
                 }
             }
         },
-        "gridPos": {"h": 4, "w": 3, "x": 3, "y": y_position},
+        "gridPos": {"h": 4, "w": 4, "x": 3, "y": y_position},
         "id": None,
         "options": {
             "legend": {
@@ -169,7 +169,7 @@ def create_row_panels(stack_name, pattern, y_position):
                 }
             }
         },
-        "gridPos": {"h": 4, "w": 3, "x": 6, "y": y_position},
+        "gridPos": {"h": 4, "w": 4, "x": 7, "y": y_position},
         "id": None,
         "options": {
             "legend": {
@@ -209,7 +209,7 @@ def create_row_panels(stack_name, pattern, y_position):
                 }
             }
         },
-        "gridPos": {"h": 4, "w": 5, "x": 9, "y": y_position},
+        "gridPos": {"h": 4, "w": 5, "x": 11, "y": y_position},
         "id": None,
         "options": {
             "legend": {"displayMode": "list", "placement": "bottom"},
@@ -246,7 +246,7 @@ def create_row_panels(stack_name, pattern, y_position):
                 }
             }
         },
-        "gridPos": {"h": 4, "w": 5, "x": 14, "y": y_position},
+        "gridPos": {"h": 4, "w": 5, "x": 16, "y": y_position},
         "id": None,
         "options": {
             "legend": {"displayMode": "list", "placement": "bottom"},
@@ -284,7 +284,7 @@ def create_row_panels(stack_name, pattern, y_position):
                 "unit": "none"
             }
         },
-        "gridPos": {"h": 4, "w": 2, "x": 22, "y": y_position},
+        "gridPos": {"h": 4, "w": 3, "x": 21, "y": y_position},
         "id": None,
         "options": {
             "graphMode": "none",
