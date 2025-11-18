@@ -61,17 +61,18 @@ def create_row_panels(stack_name, pattern, y_position):
 
     panels = []
 
-    # Status panel
+    # Status panel - shows running and total container counts
     panels.append({
         "datasource": {"type": "prometheus", "uid": "prometheus"},
         "fieldConfig": {
             "defaults": {
                 "mappings": [],
                 "thresholds": {
-                    "mode": "absolute",
+                    "mode": "percentage",
                     "steps": [
                         {"color": "red", "value": None},
-                        {"color": "green", "value": 1}
+                        {"color": "yellow", "value": 50},
+                        {"color": "green", "value": 100}
                     ]
                 },
                 "unit": "none"
@@ -81,90 +82,92 @@ def create_row_panels(stack_name, pattern, y_position):
         "id": None,
         "options": {
             "graphMode": "none",
-            "textMode": "value",
+            "textMode": "name",
             "colorMode": "background",
-            "justifyMode": "center"
+            "justifyMode": "center",
+            "reduceOptions": {
+                "values": False,
+                "calcs": ["lastNotNull"]
+            }
         },
         "targets": [
             {
+                "expr": f'count(container_last_seen{{name=~"{pattern}"}} > bool (time() - 60)) or vector(0)',
+                "refId": "Running",
+                "legendFormat": "Running"
+            },
+            {
                 "expr": f'count(container_start_time_seconds{{name=~"{pattern}"}}) or vector(0)',
-                "refId": "A"
+                "refId": "Total",
+                "legendFormat": "Total"
             }
         ],
         "title": f"{stack_name.title()} Status",
         "type": "stat"
     })
 
-    # CPU panel
+    # CPU panel - timeline graph
     panels.append({
         "datasource": {"type": "prometheus", "uid": "prometheus"},
         "fieldConfig": {
             "defaults": {
-                "mappings": [],
-                "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                        {"color": "green", "value": None},
-                        {"color": "yellow", "value": 50},
-                        {"color": "red", "value": 80}
-                    ]
-                },
                 "unit": "percent",
-                "decimals": 1
+                "decimals": 1,
+                "custom": {
+                    "drawStyle": "line",
+                    "lineInterpolation": "smooth",
+                    "showPoints": "never",
+                    "fillOpacity": 10
+                }
             }
         },
         "gridPos": {"h": 4, "w": 3, "x": 3, "y": y_position},
         "id": None,
         "options": {
-            "graphMode": "area",
-            "textMode": "value_and_name",
-            "colorMode": "value",
-            "justifyMode": "center"
+            "legend": {"displayMode": "hidden"},
+            "tooltip": {"mode": "single"}
         },
         "targets": [
             {
                 "expr": f'sum(rate(container_cpu_usage_seconds_total{{name=~"{pattern}"}}[5m]) * 100)',
-                "refId": "A"
+                "refId": "A",
+                "legendFormat": "CPU"
             }
         ],
         "title": f"{stack_name.title()} CPU",
-        "type": "stat"
+        "type": "timeseries"
     })
 
-    # Memory panel
+    # Memory panel - timeline graph
     panels.append({
         "datasource": {"type": "prometheus", "uid": "prometheus"},
         "fieldConfig": {
             "defaults": {
-                "mappings": [],
-                "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                        {"color": "green", "value": None},
-                        {"color": "yellow", "value": 1073741824},
-                        {"color": "red", "value": 2147483648}
-                    ]
-                },
                 "unit": "bytes",
-                "decimals": 1
+                "decimals": 1,
+                "custom": {
+                    "drawStyle": "line",
+                    "lineInterpolation": "smooth",
+                    "showPoints": "never",
+                    "fillOpacity": 10
+                }
             }
         },
         "gridPos": {"h": 4, "w": 3, "x": 6, "y": y_position},
         "id": None,
         "options": {
-            "graphMode": "area",
-            "textMode": "value_and_name",
-            "colorMode": "value",
-            "justifyMode": "center"
+            "legend": {"displayMode": "hidden"},
+            "tooltip": {"mode": "single"}
         },
         "targets": [
             {
                 "expr": f'sum(container_memory_usage_bytes{{name=~"{pattern}"}})',
-                "refId": "A"
+                "refId": "A",
+                "legendFormat": "Memory"
             }
         ],
         "title": f"{stack_name.title()} Memory",
-        "type": "stat"
+        "type": "timeseries"
     })
 
     # Network I/O panel

@@ -140,15 +140,19 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
+                "color": "yellow",
+                "value": 50
+              },
+              {
                 "color": "green",
-                "value": 1
+                "value": 100
               }
             ]
           },
@@ -164,14 +168,26 @@
       "id": 1,
       "options": {
         "graphMode": "none",
-        "textMode": "value",
+        "textMode": "name",
         "colorMode": "background",
-        "justifyMode": "center"
+        "justifyMode": "center",
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
       },
       "targets": [
         {
+          "expr": "count(container_last_seen{name=~\"flame\"} > bool (time() - 60)) or vector(0)",
+          "refId": "Running",
+          "legendFormat": "Running"
+        },
+        {
           "expr": "count(container_start_time_seconds{name=~\"flame\"}) or vector(0)",
-          "refId": "A"
+          "refId": "Total",
+          "legendFormat": "Total"
         }
       ],
       "title": "Flame Status",
@@ -184,26 +200,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
           "unit": "percent",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -214,19 +218,22 @@
       },
       "id": 2,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"flame\"}[5m]) * 100)",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "CPU"
         }
       ],
       "title": "Flame CPU",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -235,26 +242,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1073741824
-              },
-              {
-                "color": "red",
-                "value": 2147483648
-              }
-            ]
-          },
           "unit": "bytes",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -265,19 +260,22 @@
       },
       "id": 3,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"flame\"})",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "Memory"
         }
       ],
       "title": "Flame Memory",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -434,15 +432,19 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
+                "color": "yellow",
+                "value": 50
+              },
+              {
                 "color": "green",
-                "value": 1
+                "value": 100
               }
             ]
           },
@@ -458,14 +460,26 @@
       "id": 7,
       "options": {
         "graphMode": "none",
-        "textMode": "value",
+        "textMode": "name",
         "colorMode": "background",
-        "justifyMode": "center"
+        "justifyMode": "center",
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
       },
       "targets": [
         {
+          "expr": "count(container_last_seen{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"} > bool (time() - 60)) or vector(0)",
+          "refId": "Running",
+          "legendFormat": "Running"
+        },
+        {
           "expr": "count(container_start_time_seconds{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"}) or vector(0)",
-          "refId": "A"
+          "refId": "Total",
+          "legendFormat": "Total"
         }
       ],
       "title": "Immich Status",
@@ -478,26 +492,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
           "unit": "percent",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -508,19 +510,22 @@
       },
       "id": 8,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"}[5m]) * 100)",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "CPU"
         }
       ],
       "title": "Immich CPU",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -529,26 +534,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1073741824
-              },
-              {
-                "color": "red",
-                "value": 2147483648
-              }
-            ]
-          },
           "unit": "bytes",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -559,19 +552,22 @@
       },
       "id": 9,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"})",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "Memory"
         }
       ],
       "title": "Immich Memory",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -728,15 +724,19 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
+                "color": "yellow",
+                "value": 50
+              },
+              {
                 "color": "green",
-                "value": 1
+                "value": 100
               }
             ]
           },
@@ -752,14 +752,26 @@
       "id": 13,
       "options": {
         "graphMode": "none",
-        "textMode": "value",
+        "textMode": "name",
         "colorMode": "background",
-        "justifyMode": "center"
+        "justifyMode": "center",
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
       },
       "targets": [
         {
+          "expr": "count(container_last_seen{name=~\"jellyfin\"} > bool (time() - 60)) or vector(0)",
+          "refId": "Running",
+          "legendFormat": "Running"
+        },
+        {
           "expr": "count(container_start_time_seconds{name=~\"jellyfin\"}) or vector(0)",
-          "refId": "A"
+          "refId": "Total",
+          "legendFormat": "Total"
         }
       ],
       "title": "Jellyfin Status",
@@ -772,26 +784,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
           "unit": "percent",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -802,19 +802,22 @@
       },
       "id": 14,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"jellyfin\"}[5m]) * 100)",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "CPU"
         }
       ],
       "title": "Jellyfin CPU",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -823,26 +826,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1073741824
-              },
-              {
-                "color": "red",
-                "value": 2147483648
-              }
-            ]
-          },
           "unit": "bytes",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -853,19 +844,22 @@
       },
       "id": 15,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"jellyfin\"})",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "Memory"
         }
       ],
       "title": "Jellyfin Memory",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1022,15 +1016,19 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
+                "color": "yellow",
+                "value": 50
+              },
+              {
                 "color": "green",
-                "value": 1
+                "value": 100
               }
             ]
           },
@@ -1046,14 +1044,26 @@
       "id": 19,
       "options": {
         "graphMode": "none",
-        "textMode": "value",
+        "textMode": "name",
         "colorMode": "background",
-        "justifyMode": "center"
+        "justifyMode": "center",
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
       },
       "targets": [
         {
+          "expr": "count(container_last_seen{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"} > bool (time() - 60)) or vector(0)",
+          "refId": "Running",
+          "legendFormat": "Running"
+        },
+        {
           "expr": "count(container_start_time_seconds{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"}) or vector(0)",
-          "refId": "A"
+          "refId": "Total",
+          "legendFormat": "Total"
         }
       ],
       "title": "Monitoring Status",
@@ -1066,26 +1076,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
           "unit": "percent",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -1096,19 +1094,22 @@
       },
       "id": 20,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"}[5m]) * 100)",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "CPU"
         }
       ],
       "title": "Monitoring CPU",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1117,26 +1118,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1073741824
-              },
-              {
-                "color": "red",
-                "value": 2147483648
-              }
-            ]
-          },
           "unit": "bytes",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -1147,19 +1136,22 @@
       },
       "id": 21,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"})",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "Memory"
         }
       ],
       "title": "Monitoring Memory",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1316,15 +1308,19 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
+                "color": "yellow",
+                "value": 50
+              },
+              {
                 "color": "green",
-                "value": 1
+                "value": 100
               }
             ]
           },
@@ -1340,14 +1336,26 @@
       "id": 25,
       "options": {
         "graphMode": "none",
-        "textMode": "value",
+        "textMode": "name",
         "colorMode": "background",
-        "justifyMode": "center"
+        "justifyMode": "center",
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
       },
       "targets": [
         {
+          "expr": "count(container_last_seen{name=~\"(nextcloud|nextcloud_db|nextcloud_redis)\"} > bool (time() - 60)) or vector(0)",
+          "refId": "Running",
+          "legendFormat": "Running"
+        },
+        {
           "expr": "count(container_start_time_seconds{name=~\"(nextcloud|nextcloud_db|nextcloud_redis)\"}) or vector(0)",
-          "refId": "A"
+          "refId": "Total",
+          "legendFormat": "Total"
         }
       ],
       "title": "Nextcloud Status",
@@ -1360,26 +1368,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
           "unit": "percent",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -1390,19 +1386,22 @@
       },
       "id": 26,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(nextcloud|nextcloud_db|nextcloud_redis)\"}[5m]) * 100)",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "CPU"
         }
       ],
       "title": "Nextcloud CPU",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1411,26 +1410,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1073741824
-              },
-              {
-                "color": "red",
-                "value": 2147483648
-              }
-            ]
-          },
           "unit": "bytes",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -1441,19 +1428,22 @@
       },
       "id": 27,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"(nextcloud|nextcloud_db|nextcloud_redis)\"})",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "Memory"
         }
       ],
       "title": "Nextcloud Memory",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1610,15 +1600,19 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
+                "color": "yellow",
+                "value": 50
+              },
+              {
                 "color": "green",
-                "value": 1
+                "value": 100
               }
             ]
           },
@@ -1634,14 +1628,26 @@
       "id": 31,
       "options": {
         "graphMode": "none",
-        "textMode": "value",
+        "textMode": "name",
         "colorMode": "background",
-        "justifyMode": "center"
+        "justifyMode": "center",
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
       },
       "targets": [
         {
+          "expr": "count(container_last_seen{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"} > bool (time() - 60)) or vector(0)",
+          "refId": "Running",
+          "legendFormat": "Running"
+        },
+        {
           "expr": "count(container_start_time_seconds{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"}) or vector(0)",
-          "refId": "A"
+          "refId": "Total",
+          "legendFormat": "Total"
         }
       ],
       "title": "Owncloud Status",
@@ -1654,26 +1660,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
           "unit": "percent",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -1684,19 +1678,22 @@
       },
       "id": 32,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"}[5m]) * 100)",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "CPU"
         }
       ],
       "title": "Owncloud CPU",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1705,26 +1702,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1073741824
-              },
-              {
-                "color": "red",
-                "value": 2147483648
-              }
-            ]
-          },
           "unit": "bytes",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -1735,19 +1720,22 @@
       },
       "id": 33,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"})",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "Memory"
         }
       ],
       "title": "Owncloud Memory",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1904,15 +1892,19 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
+                "color": "yellow",
+                "value": 50
+              },
+              {
                 "color": "green",
-                "value": 1
+                "value": 100
               }
             ]
           },
@@ -1928,14 +1920,26 @@
       "id": 37,
       "options": {
         "graphMode": "none",
-        "textMode": "value",
+        "textMode": "name",
         "colorMode": "background",
-        "justifyMode": "center"
+        "justifyMode": "center",
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
       },
       "targets": [
         {
+          "expr": "count(container_last_seen{name=~\"plex\"} > bool (time() - 60)) or vector(0)",
+          "refId": "Running",
+          "legendFormat": "Running"
+        },
+        {
           "expr": "count(container_start_time_seconds{name=~\"plex\"}) or vector(0)",
-          "refId": "A"
+          "refId": "Total",
+          "legendFormat": "Total"
         }
       ],
       "title": "Plex Status",
@@ -1948,26 +1952,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
           "unit": "percent",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -1978,19 +1970,22 @@
       },
       "id": 38,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"plex\"}[5m]) * 100)",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "CPU"
         }
       ],
       "title": "Plex CPU",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1999,26 +1994,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1073741824
-              },
-              {
-                "color": "red",
-                "value": 2147483648
-              }
-            ]
-          },
           "unit": "bytes",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -2029,19 +2012,22 @@
       },
       "id": 39,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"plex\"})",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "Memory"
         }
       ],
       "title": "Plex Memory",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2198,15 +2184,19 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
+                "color": "yellow",
+                "value": 50
+              },
+              {
                 "color": "green",
-                "value": 1
+                "value": 100
               }
             ]
           },
@@ -2222,14 +2212,26 @@
       "id": 43,
       "options": {
         "graphMode": "none",
-        "textMode": "value",
+        "textMode": "name",
         "colorMode": "background",
-        "justifyMode": "center"
+        "justifyMode": "center",
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
       },
       "targets": [
         {
+          "expr": "count(container_last_seen{name=~\"portainer.*\"} > bool (time() - 60)) or vector(0)",
+          "refId": "Running",
+          "legendFormat": "Running"
+        },
+        {
           "expr": "count(container_start_time_seconds{name=~\"portainer.*\"}) or vector(0)",
-          "refId": "A"
+          "refId": "Total",
+          "legendFormat": "Total"
         }
       ],
       "title": "Portainer Status",
@@ -2242,26 +2244,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
           "unit": "percent",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -2272,19 +2262,22 @@
       },
       "id": 44,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"portainer.*\"}[5m]) * 100)",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "CPU"
         }
       ],
       "title": "Portainer CPU",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2293,26 +2286,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1073741824
-              },
-              {
-                "color": "red",
-                "value": 2147483648
-              }
-            ]
-          },
           "unit": "bytes",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -2323,19 +2304,22 @@
       },
       "id": 45,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"portainer.*\"})",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "Memory"
         }
       ],
       "title": "Portainer Memory",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2492,15 +2476,19 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
+                "color": "yellow",
+                "value": 50
+              },
+              {
                 "color": "green",
-                "value": 1
+                "value": 100
               }
             ]
           },
@@ -2516,14 +2504,26 @@
       "id": 49,
       "options": {
         "graphMode": "none",
-        "textMode": "value",
+        "textMode": "name",
         "colorMode": "background",
-        "justifyMode": "center"
+        "justifyMode": "center",
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
       },
       "targets": [
         {
+          "expr": "count(container_last_seen{name=~\"traefik\"} > bool (time() - 60)) or vector(0)",
+          "refId": "Running",
+          "legendFormat": "Running"
+        },
+        {
           "expr": "count(container_start_time_seconds{name=~\"traefik\"}) or vector(0)",
-          "refId": "A"
+          "refId": "Total",
+          "legendFormat": "Total"
         }
       ],
       "title": "Traefik Status",
@@ -2536,26 +2536,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
           "unit": "percent",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -2566,19 +2554,22 @@
       },
       "id": 50,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"traefik\"}[5m]) * 100)",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "CPU"
         }
       ],
       "title": "Traefik CPU",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2587,26 +2578,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1073741824
-              },
-              {
-                "color": "red",
-                "value": 2147483648
-              }
-            ]
-          },
           "unit": "bytes",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -2617,19 +2596,22 @@
       },
       "id": 51,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"traefik\"})",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "Memory"
         }
       ],
       "title": "Traefik Memory",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2786,15 +2768,19 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
+                "color": "yellow",
+                "value": 50
+              },
+              {
                 "color": "green",
-                "value": 1
+                "value": 100
               }
             ]
           },
@@ -2810,14 +2796,26 @@
       "id": 55,
       "options": {
         "graphMode": "none",
-        "textMode": "value",
+        "textMode": "name",
         "colorMode": "background",
-        "justifyMode": "center"
+        "justifyMode": "center",
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
       },
       "targets": [
         {
+          "expr": "count(container_last_seen{name=~\"(vikunja|vikunja_db)\"} > bool (time() - 60)) or vector(0)",
+          "refId": "Running",
+          "legendFormat": "Running"
+        },
+        {
           "expr": "count(container_start_time_seconds{name=~\"(vikunja|vikunja_db)\"}) or vector(0)",
-          "refId": "A"
+          "refId": "Total",
+          "legendFormat": "Total"
         }
       ],
       "title": "Vikunja Status",
@@ -2830,26 +2828,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
           "unit": "percent",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -2860,19 +2846,22 @@
       },
       "id": 56,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(vikunja|vikunja_db)\"}[5m]) * 100)",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "CPU"
         }
       ],
       "title": "Vikunja CPU",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2881,26 +2870,14 @@
       },
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1073741824
-              },
-              {
-                "color": "red",
-                "value": 2147483648
-              }
-            ]
-          },
           "unit": "bytes",
-          "decimals": 1
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
         }
       },
       "gridPos": {
@@ -2911,19 +2888,22 @@
       },
       "id": 57,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
-        "justifyMode": "center"
+        "legend": {
+          "displayMode": "hidden"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"(vikunja|vikunja_db)\"})",
-          "refId": "A"
+          "refId": "A",
+          "legendFormat": "Memory"
         }
       ],
       "title": "Vikunja Memory",
-      "type": "stat"
+      "type": "timeseries"
     },
     {
       "datasource": {
