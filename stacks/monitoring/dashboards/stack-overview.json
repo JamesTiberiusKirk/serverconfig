@@ -4982,7 +4982,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container=\"vikunja\"} | logfmt | level=\"ERROR\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"vikunja\",detected_level=\"error\"} [$__range]))",
           "refId": "A"
         }
       ],
