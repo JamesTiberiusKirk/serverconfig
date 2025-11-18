@@ -419,15 +419,11 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
+                "value": 0
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 1
               }
             ]
           },
@@ -436,22 +432,21 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
-        "x": 19,
+        "w": 2,
+        "x": 22,
         "y": 0
       },
       "id": 6,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
         "justifyMode": "center"
       },
       "targets": [
         {
           "expr": "sum(count_over_time({container=~\"flame\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Errors"
+          "refId": "A"
         }
       ],
       "title": "Flame Errors",
@@ -745,15 +740,11 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
+                "value": 0
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 1
               }
             ]
           },
@@ -762,22 +753,21 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
-        "x": 19,
+        "w": 2,
+        "x": 22,
         "y": 4
       },
       "id": 12,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
         "justifyMode": "center"
       },
       "targets": [
         {
           "expr": "sum(count_over_time({container=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Errors"
+          "refId": "A"
         }
       ],
       "title": "Immich Errors",
@@ -1071,15 +1061,11 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
+                "value": 0
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 1
               }
             ]
           },
@@ -1088,22 +1074,21 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
-        "x": 19,
+        "w": 2,
+        "x": 22,
         "y": 8
       },
       "id": 18,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
         "justifyMode": "center"
       },
       "targets": [
         {
           "expr": "sum(count_over_time({container=~\"jellyfin\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Errors"
+          "refId": "A"
         }
       ],
       "title": "Jellyfin Errors",
@@ -1397,15 +1382,11 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
+                "value": 0
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 1
               }
             ]
           },
@@ -1414,22 +1395,21 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
-        "x": 19,
+        "w": 2,
+        "x": 22,
         "y": 12
       },
       "id": 24,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
         "justifyMode": "center"
       },
       "targets": [
         {
           "expr": "sum(count_over_time({container=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Errors"
+          "refId": "A"
         }
       ],
       "title": "Monitoring Errors",
@@ -1723,15 +1703,11 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
+                "value": 0
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 1
               }
             ]
           },
@@ -1740,22 +1716,21 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
-        "x": 19,
+        "w": 2,
+        "x": 22,
         "y": 16
       },
       "id": 30,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
         "justifyMode": "center"
       },
       "targets": [
         {
           "expr": "sum(count_over_time({container=~\"(nextcloud|nextcloud_db|nextcloud_redis)\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Errors"
+          "refId": "A"
         }
       ],
       "title": "Nextcloud Errors",
@@ -2049,15 +2024,11 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
+                "value": 0
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 1
               }
             ]
           },
@@ -2066,22 +2037,21 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
-        "x": 19,
+        "w": 2,
+        "x": 22,
         "y": 20
       },
       "id": 36,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
         "justifyMode": "center"
       },
       "targets": [
         {
           "expr": "sum(count_over_time({container=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Errors"
+          "refId": "A"
         }
       ],
       "title": "Owncloud Errors",
@@ -2375,15 +2345,11 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
+                "value": 0
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 1
               }
             ]
           },
@@ -2392,22 +2358,21 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
-        "x": 19,
+        "w": 2,
+        "x": 22,
         "y": 24
       },
       "id": 42,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
         "justifyMode": "center"
       },
       "targets": [
         {
           "expr": "sum(count_over_time({container=~\"plex\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Errors"
+          "refId": "A"
         }
       ],
       "title": "Plex Errors",
@@ -2701,15 +2666,11 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
+                "value": 0
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 1
               }
             ]
           },
@@ -2718,22 +2679,21 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
-        "x": 19,
+        "w": 2,
+        "x": 22,
         "y": 28
       },
       "id": 48,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
         "justifyMode": "center"
       },
       "targets": [
         {
           "expr": "sum(count_over_time({container=~\"portainer.*\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Errors"
+          "refId": "A"
         }
       ],
       "title": "Portainer Errors",
@@ -3027,15 +2987,11 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
+                "value": 0
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 1
               }
             ]
           },
@@ -3044,22 +3000,21 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
-        "x": 19,
+        "w": 2,
+        "x": 22,
         "y": 32
       },
       "id": 54,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
         "justifyMode": "center"
       },
       "targets": [
         {
           "expr": "sum(count_over_time({container=~\"traefik\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Errors"
+          "refId": "A"
         }
       ],
       "title": "Traefik Errors",
@@ -3353,15 +3308,11 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
+                "value": 0
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 1
               }
             ]
           },
@@ -3370,22 +3321,21 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
-        "x": 19,
+        "w": 2,
+        "x": 22,
         "y": 36
       },
       "id": 60,
       "options": {
-        "graphMode": "area",
-        "textMode": "value_and_name",
-        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
         "justifyMode": "center"
       },
       "targets": [
         {
           "expr": "sum(count_over_time({container=~\"(vikunja|vikunja_db)\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Errors"
+          "refId": "A"
         }
       ],
       "title": "Vikunja Errors",

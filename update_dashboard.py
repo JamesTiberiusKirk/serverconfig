@@ -268,7 +268,7 @@ def create_row_panels(stack_name, pattern, y_position):
         "type": "timeseries"
     })
 
-    # Errors panel
+    # Errors panel - small square, green if 0, red if errors
     panels.append({
         "datasource": {"type": "loki", "uid": "loki"},
         "fieldConfig": {
@@ -277,27 +277,25 @@ def create_row_panels(stack_name, pattern, y_position):
                 "thresholds": {
                     "mode": "absolute",
                     "steps": [
-                        {"color": "green", "value": None},
-                        {"color": "yellow", "value": 1},
-                        {"color": "red", "value": 10}
+                        {"color": "green", "value": 0},
+                        {"color": "red", "value": 1}
                     ]
                 },
                 "unit": "none"
             }
         },
-        "gridPos": {"h": 4, "w": 5, "x": 19, "y": y_position},
+        "gridPos": {"h": 4, "w": 2, "x": 22, "y": y_position},
         "id": None,
         "options": {
-            "graphMode": "area",
-            "textMode": "value_and_name",
-            "colorMode": "value",
+            "graphMode": "none",
+            "textMode": "value",
+            "colorMode": "background",
             "justifyMode": "center"
         },
         "targets": [
             {
                 "expr": f'sum(count_over_time({{container=~"{pattern}",detected_level="error"}} [$__range])) or vector(0)',
-                "refId": "A",
-                "legendFormat": "Errors"
+                "refId": "A"
             }
         ],
         "title": f"{stack_name.title()} Errors",
