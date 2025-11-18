@@ -295,8 +295,9 @@ def create_row_panels(stack_name, pattern, y_position):
         },
         "targets": [
             {
-                "expr": f'sum(count_over_time({{container=~"{pattern}",detected_level="error"}} [$__range]))',
-                "refId": "A"
+                "expr": f'sum(count_over_time({{container=~"{pattern}",detected_level="error"}} [$__range])) or vector(0)',
+                "refId": "A",
+                "legendFormat": "Errors"
             }
         ],
         "title": f"{stack_name.title()} Errors",

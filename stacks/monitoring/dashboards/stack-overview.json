@@ -449,8 +449,9 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"flame\",detected_level=\"error\"} [$__range]))",
-          "refId": "A"
+          "expr": "sum(count_over_time({container=~\"flame\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A",
+          "legendFormat": "Errors"
         }
       ],
       "title": "Flame Errors",
@@ -774,8 +775,9 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\",detected_level=\"error\"} [$__range]))",
-          "refId": "A"
+          "expr": "sum(count_over_time({container=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A",
+          "legendFormat": "Errors"
         }
       ],
       "title": "Immich Errors",
@@ -1099,8 +1101,9 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"jellyfin\",detected_level=\"error\"} [$__range]))",
-          "refId": "A"
+          "expr": "sum(count_over_time({container=~\"jellyfin\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A",
+          "legendFormat": "Errors"
         }
       ],
       "title": "Jellyfin Errors",
@@ -1424,8 +1427,9 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\",detected_level=\"error\"} [$__range]))",
-          "refId": "A"
+          "expr": "sum(count_over_time({container=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A",
+          "legendFormat": "Errors"
         }
       ],
       "title": "Monitoring Errors",
@@ -1749,8 +1753,9 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"(nextcloud|nextcloud_db|nextcloud_redis)\",detected_level=\"error\"} [$__range]))",
-          "refId": "A"
+          "expr": "sum(count_over_time({container=~\"(nextcloud|nextcloud_db|nextcloud_redis)\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A",
+          "legendFormat": "Errors"
         }
       ],
       "title": "Nextcloud Errors",
@@ -2074,8 +2079,9 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\",detected_level=\"error\"} [$__range]))",
-          "refId": "A"
+          "expr": "sum(count_over_time({container=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A",
+          "legendFormat": "Errors"
         }
       ],
       "title": "Owncloud Errors",
@@ -2399,8 +2405,9 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"plex\",detected_level=\"error\"} [$__range]))",
-          "refId": "A"
+          "expr": "sum(count_over_time({container=~\"plex\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A",
+          "legendFormat": "Errors"
         }
       ],
       "title": "Plex Errors",
@@ -2724,8 +2731,9 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"portainer.*\",detected_level=\"error\"} [$__range]))",
-          "refId": "A"
+          "expr": "sum(count_over_time({container=~\"portainer.*\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A",
+          "legendFormat": "Errors"
         }
       ],
       "title": "Portainer Errors",
@@ -3049,8 +3057,9 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"traefik\",detected_level=\"error\"} [$__range]))",
-          "refId": "A"
+          "expr": "sum(count_over_time({container=~\"traefik\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A",
+          "legendFormat": "Errors"
         }
       ],
       "title": "Traefik Errors",
@@ -3374,8 +3383,9 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"(vikunja|vikunja_db)\",detected_level=\"error\"} [$__range]))",
-          "refId": "A"
+          "expr": "sum(count_over_time({container=~\"(vikunja|vikunja_db)\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A",
+          "legendFormat": "Errors"
         }
       ],
       "title": "Vikunja Errors",
