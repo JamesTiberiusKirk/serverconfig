@@ -1,19 +1,60 @@
 #!/usr/bin/env python3
 import json
+import os
+import re
+from pathlib import Path
 
-# Stack configurations - mapping stack name to container name patterns
-STACKS = {
-    "nextcloud": "(nextcloud|nextcloud_db|nextcloud_redis)",
-    "owncloud": "(owncloud_server|owncloud_mariadb|owncloud_redis)",
-    "immich": "(immich_server|immich_machine_learning|immich_redis|immich_postgres)",
-    "jellyfin": "jellyfin",
-    "plex": "plex",
-    "traefik": "traefik",
-    "monitoring": "(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)",
-    "portainer": "portainer.*",
-    "flame": "flame",
-    "vikunja": "(vikunja|vikunja_db)"
-}
+def discover_stacks(stacks_dir="./stacks"):
+    """
+    Auto-discover stacks by scanning the stacks directory.
+    Reads docker-compose.yml files to find container_name declarations.
+    Returns a dict mapping stack_name -> container_name_pattern
+    """
+    stacks = {}
+    stacks_path = Path(stacks_dir)
+
+    if not stacks_path.exists():
+        print(f"Error: Stacks directory '{stacks_dir}' not found")
+        return stacks
+
+    for stack_dir in sorted(stacks_path.iterdir()):
+        if not stack_dir.is_dir():
+            continue
+
+        compose_file = stack_dir / "docker-compose.yml"
+        if not compose_file.exists():
+            continue
+
+        stack_name = stack_dir.name
+        container_names = []
+
+        # Read docker-compose.yml and extract container_name values
+        with open(compose_file, 'r') as f:
+            for line in f:
+                # Match: container_name: some_name
+                match = re.search(r'container_name:\s*(.+)', line)
+                if match:
+                    container_name = match.group(1).strip()
+                    container_names.append(container_name)
+
+        if container_names:
+            # If multiple containers, create a regex group pattern
+            if len(container_names) == 1:
+                pattern = container_names[0]
+                # If no explicit container_name, use pattern matching
+                if not pattern:
+                    pattern = f"{stack_name}.*"
+            else:
+                # Create regex OR pattern: (name1|name2|name3)
+                pattern = f"({'|'.join(container_names)})"
+
+            stacks[stack_name] = pattern
+        else:
+            # No explicit container_name found, use wildcard pattern
+            # Docker Compose auto-generates names like: stackname-servicename-1
+            stacks[stack_name] = f"{stack_name}.*"
+
+    return stacks
 
 def create_row_panels(stack_name, pattern, y_position):
     """Create all 6 panels for a single stack row"""
@@ -238,11 +279,35 @@ def create_row_panels(stack_name, pattern, y_position):
     return panels
 
 def generate_dashboard():
-    """Generate dashboard by creating one row definition and repeating it for each stack"""
+    """Generate dashboard by auto-discovering stacks and creating panels for each"""
+
+    dashboard_path = "./stacks/monitoring/dashboards/stack-overview.json"
+
+    # Auto-discover stacks
+    print("Discovering stacks...")
+    stacks = discover_stacks()
+
+    if not stacks:
+        print("No stacks found!")
+        return
+
+    print(f"Found {len(stacks)} stacks:")
+    for stack_name, pattern in stacks.items():
+        print(f"  - {stack_name}: {pattern}")
 
     # Read existing dashboard to preserve metadata
-    with open('stack-overview.json', 'r') as f:
-        dashboard = json.load(f)
+    if os.path.exists(dashboard_path):
+        with open(dashboard_path, 'r') as f:
+            dashboard = json.load(f)
+    else:
+        # Create minimal dashboard structure if it doesn't exist
+        dashboard = {
+            "title": "Stack Overview",
+            "panels": [],
+            "schemaVersion": 36,
+            "version": 1,
+            "refresh": "30s"
+        }
 
     # Generate all panels
     all_panels = []
@@ -250,7 +315,7 @@ def generate_dashboard():
     y_position = 0
 
     # Create panels for each stack (reusing the same panel structure)
-    for stack_name, pattern in STACKS.items():
+    for stack_name, pattern in stacks.items():
         row_panels = create_row_panels(stack_name, pattern, y_position)
 
         # Assign IDs to each panel
@@ -266,10 +331,11 @@ def generate_dashboard():
     dashboard['title'] = 'Stack Overview'
 
     # Write updated dashboard
-    with open('stack-overview.json', 'w') as f:
+    with open(dashboard_path, 'w') as f:
         json.dump(dashboard, f, indent=2)
 
-    print(f"Generated dashboard with {len(all_panels)} panels ({len(STACKS)} stacks × 6 panels each)")
+    print(f"\n✓ Generated dashboard with {len(all_panels)} panels ({len(stacks)} stacks × 6 panels each)")
+    print(f"✓ Written to {dashboard_path}")
 
 if __name__ == '__main__':
     generate_dashboard()

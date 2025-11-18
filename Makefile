@@ -13,5 +13,5 @@ check_script:
 	shellcheck --shell=sh ./run.sh
 
 generate:
-	cd stacks/monitoring/dashboards && python3 update_dashboard.py
+	python3 update_dashboard.py
 
