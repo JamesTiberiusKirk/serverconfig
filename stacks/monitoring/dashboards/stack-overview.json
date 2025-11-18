@@ -140,19 +140,15 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 50
-              },
-              {
                 "color": "green",
-                "value": 100
+                "value": 1
               }
             ]
           },
@@ -168,9 +164,10 @@
       "id": 1,
       "options": {
         "graphMode": "none",
-        "textMode": "name",
+        "textMode": "value_and_name",
         "colorMode": "background",
         "justifyMode": "center",
+        "orientation": "vertical",
         "reduceOptions": {
           "values": false,
           "calcs": [
@@ -181,12 +178,12 @@
       "targets": [
         {
           "expr": "count(container_last_seen{name=~\"flame\"} > bool (time() - 60)) or vector(0)",
-          "refId": "Running",
+          "refId": "A",
           "legendFormat": "Running"
         },
         {
           "expr": "count(container_start_time_seconds{name=~\"flame\"}) or vector(0)",
-          "refId": "Total",
+          "refId": "B",
           "legendFormat": "Total"
         }
       ],
@@ -432,19 +429,15 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 50
-              },
-              {
                 "color": "green",
-                "value": 100
+                "value": 1
               }
             ]
           },
@@ -460,9 +453,10 @@
       "id": 7,
       "options": {
         "graphMode": "none",
-        "textMode": "name",
+        "textMode": "value_and_name",
         "colorMode": "background",
         "justifyMode": "center",
+        "orientation": "vertical",
         "reduceOptions": {
           "values": false,
           "calcs": [
@@ -473,12 +467,12 @@
       "targets": [
         {
           "expr": "count(container_last_seen{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"} > bool (time() - 60)) or vector(0)",
-          "refId": "Running",
+          "refId": "A",
           "legendFormat": "Running"
         },
         {
           "expr": "count(container_start_time_seconds{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"}) or vector(0)",
-          "refId": "Total",
+          "refId": "B",
           "legendFormat": "Total"
         }
       ],
@@ -724,19 +718,15 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 50
-              },
-              {
                 "color": "green",
-                "value": 100
+                "value": 1
               }
             ]
           },
@@ -752,9 +742,10 @@
       "id": 13,
       "options": {
         "graphMode": "none",
-        "textMode": "name",
+        "textMode": "value_and_name",
         "colorMode": "background",
         "justifyMode": "center",
+        "orientation": "vertical",
         "reduceOptions": {
           "values": false,
           "calcs": [
@@ -765,12 +756,12 @@
       "targets": [
         {
           "expr": "count(container_last_seen{name=~\"jellyfin\"} > bool (time() - 60)) or vector(0)",
-          "refId": "Running",
+          "refId": "A",
           "legendFormat": "Running"
         },
         {
           "expr": "count(container_start_time_seconds{name=~\"jellyfin\"}) or vector(0)",
-          "refId": "Total",
+          "refId": "B",
           "legendFormat": "Total"
         }
       ],
@@ -1016,19 +1007,15 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 50
-              },
-              {
                 "color": "green",
-                "value": 100
+                "value": 1
               }
             ]
           },
@@ -1044,9 +1031,10 @@
       "id": 19,
       "options": {
         "graphMode": "none",
-        "textMode": "name",
+        "textMode": "value_and_name",
         "colorMode": "background",
         "justifyMode": "center",
+        "orientation": "vertical",
         "reduceOptions": {
           "values": false,
           "calcs": [
@@ -1057,12 +1045,12 @@
       "targets": [
         {
           "expr": "count(container_last_seen{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"} > bool (time() - 60)) or vector(0)",
-          "refId": "Running",
+          "refId": "A",
           "legendFormat": "Running"
         },
         {
           "expr": "count(container_start_time_seconds{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"}) or vector(0)",
-          "refId": "Total",
+          "refId": "B",
           "legendFormat": "Total"
         }
       ],
@@ -1308,19 +1296,15 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 50
-              },
-              {
                 "color": "green",
-                "value": 100
+                "value": 1
               }
             ]
           },
@@ -1336,9 +1320,10 @@
       "id": 25,
       "options": {
         "graphMode": "none",
-        "textMode": "name",
+        "textMode": "value_and_name",
         "colorMode": "background",
         "justifyMode": "center",
+        "orientation": "vertical",
         "reduceOptions": {
           "values": false,
           "calcs": [
@@ -1349,12 +1334,12 @@
       "targets": [
         {
           "expr": "count(container_last_seen{name=~\"(nextcloud|nextcloud_db|nextcloud_redis)\"} > bool (time() - 60)) or vector(0)",
-          "refId": "Running",
+          "refId": "A",
           "legendFormat": "Running"
         },
         {
           "expr": "count(container_start_time_seconds{name=~\"(nextcloud|nextcloud_db|nextcloud_redis)\"}) or vector(0)",
-          "refId": "Total",
+          "refId": "B",
           "legendFormat": "Total"
         }
       ],
@@ -1600,19 +1585,15 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 50
-              },
-              {
                 "color": "green",
-                "value": 100
+                "value": 1
               }
             ]
           },
@@ -1628,9 +1609,10 @@
       "id": 31,
       "options": {
         "graphMode": "none",
-        "textMode": "name",
+        "textMode": "value_and_name",
         "colorMode": "background",
         "justifyMode": "center",
+        "orientation": "vertical",
         "reduceOptions": {
           "values": false,
           "calcs": [
@@ -1641,12 +1623,12 @@
       "targets": [
         {
           "expr": "count(container_last_seen{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"} > bool (time() - 60)) or vector(0)",
-          "refId": "Running",
+          "refId": "A",
           "legendFormat": "Running"
         },
         {
           "expr": "count(container_start_time_seconds{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"}) or vector(0)",
-          "refId": "Total",
+          "refId": "B",
           "legendFormat": "Total"
         }
       ],
@@ -1892,19 +1874,15 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 50
-              },
-              {
                 "color": "green",
-                "value": 100
+                "value": 1
               }
             ]
           },
@@ -1920,9 +1898,10 @@
       "id": 37,
       "options": {
         "graphMode": "none",
-        "textMode": "name",
+        "textMode": "value_and_name",
         "colorMode": "background",
         "justifyMode": "center",
+        "orientation": "vertical",
         "reduceOptions": {
           "values": false,
           "calcs": [
@@ -1933,12 +1912,12 @@
       "targets": [
         {
           "expr": "count(container_last_seen{name=~\"plex\"} > bool (time() - 60)) or vector(0)",
-          "refId": "Running",
+          "refId": "A",
           "legendFormat": "Running"
         },
         {
           "expr": "count(container_start_time_seconds{name=~\"plex\"}) or vector(0)",
-          "refId": "Total",
+          "refId": "B",
           "legendFormat": "Total"
         }
       ],
@@ -2184,19 +2163,15 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 50
-              },
-              {
                 "color": "green",
-                "value": 100
+                "value": 1
               }
             ]
           },
@@ -2212,9 +2187,10 @@
       "id": 43,
       "options": {
         "graphMode": "none",
-        "textMode": "name",
+        "textMode": "value_and_name",
         "colorMode": "background",
         "justifyMode": "center",
+        "orientation": "vertical",
         "reduceOptions": {
           "values": false,
           "calcs": [
@@ -2225,12 +2201,12 @@
       "targets": [
         {
           "expr": "count(container_last_seen{name=~\"portainer.*\"} > bool (time() - 60)) or vector(0)",
-          "refId": "Running",
+          "refId": "A",
           "legendFormat": "Running"
         },
         {
           "expr": "count(container_start_time_seconds{name=~\"portainer.*\"}) or vector(0)",
-          "refId": "Total",
+          "refId": "B",
           "legendFormat": "Total"
         }
       ],
@@ -2476,19 +2452,15 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 50
-              },
-              {
                 "color": "green",
-                "value": 100
+                "value": 1
               }
             ]
           },
@@ -2504,9 +2476,10 @@
       "id": 49,
       "options": {
         "graphMode": "none",
-        "textMode": "name",
+        "textMode": "value_and_name",
         "colorMode": "background",
         "justifyMode": "center",
+        "orientation": "vertical",
         "reduceOptions": {
           "values": false,
           "calcs": [
@@ -2517,12 +2490,12 @@
       "targets": [
         {
           "expr": "count(container_last_seen{name=~\"traefik\"} > bool (time() - 60)) or vector(0)",
-          "refId": "Running",
+          "refId": "A",
           "legendFormat": "Running"
         },
         {
           "expr": "count(container_start_time_seconds{name=~\"traefik\"}) or vector(0)",
-          "refId": "Total",
+          "refId": "B",
           "legendFormat": "Total"
         }
       ],
@@ -2768,19 +2741,15 @@
         "defaults": {
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "red",
                 "value": null
               },
               {
-                "color": "yellow",
-                "value": 50
-              },
-              {
                 "color": "green",
-                "value": 100
+                "value": 1
               }
             ]
           },
@@ -2796,9 +2765,10 @@
       "id": 55,
       "options": {
         "graphMode": "none",
-        "textMode": "name",
+        "textMode": "value_and_name",
         "colorMode": "background",
         "justifyMode": "center",
+        "orientation": "vertical",
         "reduceOptions": {
           "values": false,
           "calcs": [
@@ -2809,12 +2779,12 @@
       "targets": [
         {
           "expr": "count(container_last_seen{name=~\"(vikunja|vikunja_db)\"} > bool (time() - 60)) or vector(0)",
-          "refId": "Running",
+          "refId": "A",
           "legendFormat": "Running"
         },
         {
           "expr": "count(container_start_time_seconds{name=~\"(vikunja|vikunja_db)\"}) or vector(0)",
-          "refId": "Total",
+          "refId": "B",
           "legendFormat": "Total"
         }
       ],

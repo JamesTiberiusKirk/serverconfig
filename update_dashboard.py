@@ -68,11 +68,10 @@ def create_row_panels(stack_name, pattern, y_position):
             "defaults": {
                 "mappings": [],
                 "thresholds": {
-                    "mode": "percentage",
+                    "mode": "absolute",
                     "steps": [
                         {"color": "red", "value": None},
-                        {"color": "yellow", "value": 50},
-                        {"color": "green", "value": 100}
+                        {"color": "green", "value": 1}
                     ]
                 },
                 "unit": "none"
@@ -82,9 +81,10 @@ def create_row_panels(stack_name, pattern, y_position):
         "id": None,
         "options": {
             "graphMode": "none",
-            "textMode": "name",
+            "textMode": "value_and_name",
             "colorMode": "background",
             "justifyMode": "center",
+            "orientation": "vertical",
             "reduceOptions": {
                 "values": False,
                 "calcs": ["lastNotNull"]
@@ -93,12 +93,12 @@ def create_row_panels(stack_name, pattern, y_position):
         "targets": [
             {
                 "expr": f'count(container_last_seen{{name=~"{pattern}"}} > bool (time() - 60)) or vector(0)',
-                "refId": "Running",
+                "refId": "A",
                 "legendFormat": "Running"
             },
             {
                 "expr": f'count(container_start_time_seconds{{name=~"{pattern}"}}) or vector(0)',
-                "refId": "Total",
+                "refId": "B",
                 "legendFormat": "Total"
             }
         ],
