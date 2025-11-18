@@ -96,7 +96,7 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"nextcloud\"}[5m]) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"nextcloud\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -156,7 +156,7 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"nextcloud\"}",
+          "expr": "sum(container_memory_usage_bytes{name=\"nextcloud\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -203,12 +203,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"nextcloud\"}[5m])",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"nextcloud\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"nextcloud\"}[5m])",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"nextcloud\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -251,7 +251,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"nextcloud\"}",
+          "expr": "max(time() - container_start_time_seconds{name=\"nextcloud\"})",
           "refId": "A"
         }
       ],
@@ -301,7 +301,7 @@
       },
       "targets": [
         {
-          "expr": "changes(container_start_time_seconds{name=\"nextcloud\"}[24h])",
+          "expr": "max(changes(container_start_time_seconds{name=\"nextcloud\"}[24h]))",
           "refId": "A"
         }
       ],
@@ -448,7 +448,7 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"nextcloud_db\"}[5m]) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"nextcloud_db\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -508,7 +508,7 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"nextcloud_db\"}",
+          "expr": "sum(container_memory_usage_bytes{name=\"nextcloud_db\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -555,12 +555,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"nextcloud_db\"}[5m])",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"nextcloud_db\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"nextcloud_db\"}[5m])",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"nextcloud_db\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -603,7 +603,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"nextcloud_db\"}",
+          "expr": "max(time() - container_start_time_seconds{name=\"nextcloud_db\"})",
           "refId": "A"
         }
       ],
@@ -653,7 +653,7 @@
       },
       "targets": [
         {
-          "expr": "changes(container_start_time_seconds{name=\"nextcloud_db\"}[24h])",
+          "expr": "max(changes(container_start_time_seconds{name=\"nextcloud_db\"}[24h]))",
           "refId": "A"
         }
       ],
@@ -800,7 +800,7 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"nextcloud_redis\"}[5m]) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"nextcloud_redis\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -860,7 +860,7 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"nextcloud_redis\"}",
+          "expr": "sum(container_memory_usage_bytes{name=\"nextcloud_redis\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -907,12 +907,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"nextcloud_redis\"}[5m])",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"nextcloud_redis\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"nextcloud_redis\"}[5m])",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"nextcloud_redis\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -955,7 +955,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"nextcloud_redis\"}",
+          "expr": "max(time() - container_start_time_seconds{name=\"nextcloud_redis\"})",
           "refId": "A"
         }
       ],
@@ -1005,7 +1005,7 @@
       },
       "targets": [
         {
-          "expr": "changes(container_start_time_seconds{name=\"nextcloud_redis\"}[24h])",
+          "expr": "max(changes(container_start_time_seconds{name=\"nextcloud_redis\"}[24h]))",
           "refId": "A"
         }
       ],

@@ -96,7 +96,7 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"grafana\"}[5m]) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"grafana\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -156,7 +156,7 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"grafana\"}",
+          "expr": "sum(container_memory_usage_bytes{name=\"grafana\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -203,12 +203,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"grafana\"}[5m])",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"grafana\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"grafana\"}[5m])",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"grafana\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -251,7 +251,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"grafana\"}",
+          "expr": "max(time() - container_start_time_seconds{name=\"grafana\"})",
           "refId": "A"
         }
       ],
@@ -301,7 +301,7 @@
       },
       "targets": [
         {
-          "expr": "changes(container_start_time_seconds{name=\"grafana\"}[24h])",
+          "expr": "max(changes(container_start_time_seconds{name=\"grafana\"}[24h]))",
           "refId": "A"
         }
       ],
@@ -448,7 +448,7 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"loki\"}[5m]) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"loki\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -508,7 +508,7 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"loki\"}",
+          "expr": "sum(container_memory_usage_bytes{name=\"loki\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -555,12 +555,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"loki\"}[5m])",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"loki\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"loki\"}[5m])",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"loki\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -603,7 +603,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"loki\"}",
+          "expr": "max(time() - container_start_time_seconds{name=\"loki\"})",
           "refId": "A"
         }
       ],
@@ -653,7 +653,7 @@
       },
       "targets": [
         {
-          "expr": "changes(container_start_time_seconds{name=\"loki\"}[24h])",
+          "expr": "max(changes(container_start_time_seconds{name=\"loki\"}[24h]))",
           "refId": "A"
         }
       ],
@@ -800,7 +800,7 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"promtail\"}[5m]) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"promtail\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -860,7 +860,7 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"promtail\"}",
+          "expr": "sum(container_memory_usage_bytes{name=\"promtail\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -907,12 +907,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"promtail\"}[5m])",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"promtail\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"promtail\"}[5m])",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"promtail\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -955,7 +955,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"promtail\"}",
+          "expr": "max(time() - container_start_time_seconds{name=\"promtail\"})",
           "refId": "A"
         }
       ],
@@ -1005,7 +1005,7 @@
       },
       "targets": [
         {
-          "expr": "changes(container_start_time_seconds{name=\"promtail\"}[24h])",
+          "expr": "max(changes(container_start_time_seconds{name=\"promtail\"}[24h]))",
           "refId": "A"
         }
       ],
@@ -1152,7 +1152,7 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"prometheus\"}[5m]) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"prometheus\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -1212,7 +1212,7 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"prometheus\"}",
+          "expr": "sum(container_memory_usage_bytes{name=\"prometheus\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -1259,12 +1259,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"prometheus\"}[5m])",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"prometheus\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"prometheus\"}[5m])",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"prometheus\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -1307,7 +1307,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"prometheus\"}",
+          "expr": "max(time() - container_start_time_seconds{name=\"prometheus\"})",
           "refId": "A"
         }
       ],
@@ -1357,7 +1357,7 @@
       },
       "targets": [
         {
-          "expr": "changes(container_start_time_seconds{name=\"prometheus\"}[24h])",
+          "expr": "max(changes(container_start_time_seconds{name=\"prometheus\"}[24h]))",
           "refId": "A"
         }
       ],
@@ -1504,7 +1504,7 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"node-exporter\"}[5m]) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"node-exporter\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -1564,7 +1564,7 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"node-exporter\"}",
+          "expr": "sum(container_memory_usage_bytes{name=\"node-exporter\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -1611,12 +1611,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"node-exporter\"}[5m])",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"node-exporter\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"node-exporter\"}[5m])",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"node-exporter\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -1659,7 +1659,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"node-exporter\"}",
+          "expr": "max(time() - container_start_time_seconds{name=\"node-exporter\"})",
           "refId": "A"
         }
       ],
@@ -1709,7 +1709,7 @@
       },
       "targets": [
         {
-          "expr": "changes(container_start_time_seconds{name=\"node-exporter\"}[24h])",
+          "expr": "max(changes(container_start_time_seconds{name=\"node-exporter\"}[24h]))",
           "refId": "A"
         }
       ],
@@ -1856,7 +1856,7 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"cadvisor\"}[5m]) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"cadvisor\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -1916,7 +1916,7 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"cadvisor\"}",
+          "expr": "sum(container_memory_usage_bytes{name=\"cadvisor\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -1963,12 +1963,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"cadvisor\"}[5m])",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"cadvisor\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"cadvisor\"}[5m])",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"cadvisor\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -2011,7 +2011,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"cadvisor\"}",
+          "expr": "max(time() - container_start_time_seconds{name=\"cadvisor\"})",
           "refId": "A"
         }
       ],
@@ -2061,7 +2061,7 @@
       },
       "targets": [
         {
-          "expr": "changes(container_start_time_seconds{name=\"cadvisor\"}[24h])",
+          "expr": "max(changes(container_start_time_seconds{name=\"cadvisor\"}[24h]))",
           "refId": "A"
         }
       ],
@@ -2208,7 +2208,7 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"dozzle\"}[5m]) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"dozzle\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -2268,7 +2268,7 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"dozzle\"}",
+          "expr": "sum(container_memory_usage_bytes{name=\"dozzle\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -2315,12 +2315,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"dozzle\"}[5m])",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"dozzle\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"dozzle\"}[5m])",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"dozzle\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -2363,7 +2363,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"dozzle\"}",
+          "expr": "max(time() - container_start_time_seconds{name=\"dozzle\"})",
           "refId": "A"
         }
       ],
@@ -2413,7 +2413,7 @@
       },
       "targets": [
         {
-          "expr": "changes(container_start_time_seconds{name=\"dozzle\"}[24h])",
+          "expr": "max(changes(container_start_time_seconds{name=\"dozzle\"}[24h]))",
           "refId": "A"
         }
       ],

@@ -96,7 +96,7 @@
       },
       "targets": [
         {
-          "expr": "rate(container_cpu_usage_seconds_total{name=\"flame\"}[5m]) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"flame\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -156,7 +156,7 @@
       },
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name=\"flame\"}",
+          "expr": "sum(container_memory_usage_bytes{name=\"flame\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -203,12 +203,12 @@
       },
       "targets": [
         {
-          "expr": "rate(container_network_receive_bytes_total{name=\"flame\"}[5m])",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"flame\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{name=\"flame\"}[5m])",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"flame\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -251,7 +251,7 @@
       },
       "targets": [
         {
-          "expr": "time() - container_start_time_seconds{name=\"flame\"}",
+          "expr": "max(time() - container_start_time_seconds{name=\"flame\"})",
           "refId": "A"
         }
       ],
@@ -301,7 +301,7 @@
       },
       "targets": [
         {
-          "expr": "changes(container_start_time_seconds{name=\"flame\"}[24h])",
+          "expr": "max(changes(container_start_time_seconds{name=\"flame\"}[24h]))",
           "refId": "A"
         }
       ],

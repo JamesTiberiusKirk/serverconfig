@@ -422,7 +422,7 @@ def create_container_row_panels(container_name, y_position):
         },
         "targets": [
             {
-                "expr": f'rate(container_cpu_usage_seconds_total{{name="{container_name}"}}[5m]) * 100',
+                "expr": f'sum(rate(container_cpu_usage_seconds_total{{name="{container_name}"}}[5m])) * 100',
                 "refId": "A",
                 "legendFormat": "CPU",
                 "datasource": {"type": "prometheus", "uid": "prometheus"}
@@ -459,7 +459,7 @@ def create_container_row_panels(container_name, y_position):
         },
         "targets": [
             {
-                "expr": f'container_memory_usage_bytes{{name="{container_name}"}}',
+                "expr": f'sum(container_memory_usage_bytes{{name="{container_name}"}})',
                 "refId": "A",
                 "legendFormat": "Memory",
                 "datasource": {"type": "prometheus", "uid": "prometheus"}
@@ -492,12 +492,12 @@ def create_container_row_panels(container_name, y_position):
         },
         "targets": [
             {
-                "expr": f'rate(container_network_receive_bytes_total{{name="{container_name}"}}[5m])',
+                "expr": f'sum(rate(container_network_receive_bytes_total{{name="{container_name}"}}[5m]))',
                 "refId": "A",
                 "legendFormat": "RX"
             },
             {
-                "expr": f'rate(container_network_transmit_bytes_total{{name="{container_name}"}}[5m])',
+                "expr": f'sum(rate(container_network_transmit_bytes_total{{name="{container_name}"}}[5m]))',
                 "refId": "B",
                 "legendFormat": "TX"
             }
@@ -531,7 +531,7 @@ def create_container_row_panels(container_name, y_position):
         },
         "targets": [
             {
-                "expr": f'time() - container_start_time_seconds{{name="{container_name}"}}',
+                "expr": f'max(time() - container_start_time_seconds{{name="{container_name}"}})',
                 "refId": "A"
             }
         ],
@@ -566,7 +566,7 @@ def create_container_row_panels(container_name, y_position):
         },
         "targets": [
             {
-                "expr": f'changes(container_start_time_seconds{{name="{container_name}"}}[24h])',
+                "expr": f'max(changes(container_start_time_seconds{{name="{container_name}"}}[24h]))',
                 "refId": "A"
             }
         ],
