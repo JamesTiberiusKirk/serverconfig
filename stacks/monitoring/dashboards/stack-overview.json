@@ -177,12 +177,12 @@
       },
       "targets": [
         {
-          "expr": "count(container_last_seen{name=~\"flame\"} > bool (time() - 60)) or vector(0)",
+          "expr": "count(count_over_time(container_last_seen{name=~\"flame\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
         },
         {
-          "expr": "count(container_start_time_seconds{name=~\"flame\"}) or vector(0)",
+          "expr": "count(group by (name) (container_start_time_seconds{name=~\"flame\"})) or vector(0)",
           "refId": "B",
           "legendFormat": "Total"
         }
@@ -203,7 +203,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -216,17 +227,24 @@
       "id": 2,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"flame\"}[5m]) * 100)",
           "refId": "A",
-          "legendFormat": "CPU"
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Flame CPU",
@@ -245,7 +263,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -258,17 +287,24 @@
       "id": 3,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"flame\"})",
           "refId": "A",
-          "legendFormat": "Memory"
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Flame Memory",
@@ -466,12 +502,12 @@
       },
       "targets": [
         {
-          "expr": "count(container_last_seen{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"} > bool (time() - 60)) or vector(0)",
+          "expr": "count(count_over_time(container_last_seen{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
         },
         {
-          "expr": "count(container_start_time_seconds{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"}) or vector(0)",
+          "expr": "count(group by (name) (container_start_time_seconds{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"})) or vector(0)",
           "refId": "B",
           "legendFormat": "Total"
         }
@@ -492,7 +528,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -505,17 +552,24 @@
       "id": 8,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"}[5m]) * 100)",
           "refId": "A",
-          "legendFormat": "CPU"
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Immich CPU",
@@ -534,7 +588,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -547,17 +612,24 @@
       "id": 9,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"})",
           "refId": "A",
-          "legendFormat": "Memory"
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Immich Memory",
@@ -755,12 +827,12 @@
       },
       "targets": [
         {
-          "expr": "count(container_last_seen{name=~\"jellyfin\"} > bool (time() - 60)) or vector(0)",
+          "expr": "count(count_over_time(container_last_seen{name=~\"jellyfin\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
         },
         {
-          "expr": "count(container_start_time_seconds{name=~\"jellyfin\"}) or vector(0)",
+          "expr": "count(group by (name) (container_start_time_seconds{name=~\"jellyfin\"})) or vector(0)",
           "refId": "B",
           "legendFormat": "Total"
         }
@@ -781,7 +853,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -794,17 +877,24 @@
       "id": 14,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"jellyfin\"}[5m]) * 100)",
           "refId": "A",
-          "legendFormat": "CPU"
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Jellyfin CPU",
@@ -823,7 +913,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -836,17 +937,24 @@
       "id": 15,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"jellyfin\"})",
           "refId": "A",
-          "legendFormat": "Memory"
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Jellyfin Memory",
@@ -1044,12 +1152,12 @@
       },
       "targets": [
         {
-          "expr": "count(container_last_seen{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"} > bool (time() - 60)) or vector(0)",
+          "expr": "count(count_over_time(container_last_seen{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
         },
         {
-          "expr": "count(container_start_time_seconds{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"}) or vector(0)",
+          "expr": "count(group by (name) (container_start_time_seconds{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"})) or vector(0)",
           "refId": "B",
           "legendFormat": "Total"
         }
@@ -1070,7 +1178,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -1083,17 +1202,24 @@
       "id": 20,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"}[5m]) * 100)",
           "refId": "A",
-          "legendFormat": "CPU"
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Monitoring CPU",
@@ -1112,7 +1238,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -1125,17 +1262,24 @@
       "id": 21,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"})",
           "refId": "A",
-          "legendFormat": "Memory"
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Monitoring Memory",
@@ -1333,12 +1477,12 @@
       },
       "targets": [
         {
-          "expr": "count(container_last_seen{name=~\"(nextcloud|nextcloud_db|nextcloud_redis)\"} > bool (time() - 60)) or vector(0)",
+          "expr": "count(count_over_time(container_last_seen{name=~\"(nextcloud|nextcloud_db|nextcloud_redis)\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
         },
         {
-          "expr": "count(container_start_time_seconds{name=~\"(nextcloud|nextcloud_db|nextcloud_redis)\"}) or vector(0)",
+          "expr": "count(group by (name) (container_start_time_seconds{name=~\"(nextcloud|nextcloud_db|nextcloud_redis)\"})) or vector(0)",
           "refId": "B",
           "legendFormat": "Total"
         }
@@ -1359,7 +1503,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -1372,17 +1527,24 @@
       "id": 26,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(nextcloud|nextcloud_db|nextcloud_redis)\"}[5m]) * 100)",
           "refId": "A",
-          "legendFormat": "CPU"
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Nextcloud CPU",
@@ -1401,7 +1563,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -1414,17 +1587,24 @@
       "id": 27,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"(nextcloud|nextcloud_db|nextcloud_redis)\"})",
           "refId": "A",
-          "legendFormat": "Memory"
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Nextcloud Memory",
@@ -1622,12 +1802,12 @@
       },
       "targets": [
         {
-          "expr": "count(container_last_seen{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"} > bool (time() - 60)) or vector(0)",
+          "expr": "count(count_over_time(container_last_seen{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
         },
         {
-          "expr": "count(container_start_time_seconds{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"}) or vector(0)",
+          "expr": "count(group by (name) (container_start_time_seconds{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"})) or vector(0)",
           "refId": "B",
           "legendFormat": "Total"
         }
@@ -1648,7 +1828,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -1661,17 +1852,24 @@
       "id": 32,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"}[5m]) * 100)",
           "refId": "A",
-          "legendFormat": "CPU"
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Owncloud CPU",
@@ -1690,7 +1888,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -1703,17 +1912,24 @@
       "id": 33,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"})",
           "refId": "A",
-          "legendFormat": "Memory"
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Owncloud Memory",
@@ -1911,12 +2127,12 @@
       },
       "targets": [
         {
-          "expr": "count(container_last_seen{name=~\"plex\"} > bool (time() - 60)) or vector(0)",
+          "expr": "count(count_over_time(container_last_seen{name=~\"plex\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
         },
         {
-          "expr": "count(container_start_time_seconds{name=~\"plex\"}) or vector(0)",
+          "expr": "count(group by (name) (container_start_time_seconds{name=~\"plex\"})) or vector(0)",
           "refId": "B",
           "legendFormat": "Total"
         }
@@ -1937,7 +2153,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -1950,17 +2177,24 @@
       "id": 38,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"plex\"}[5m]) * 100)",
           "refId": "A",
-          "legendFormat": "CPU"
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Plex CPU",
@@ -1979,7 +2213,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -1992,17 +2237,24 @@
       "id": 39,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"plex\"})",
           "refId": "A",
-          "legendFormat": "Memory"
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Plex Memory",
@@ -2200,12 +2452,12 @@
       },
       "targets": [
         {
-          "expr": "count(container_last_seen{name=~\"portainer.*\"} > bool (time() - 60)) or vector(0)",
+          "expr": "count(count_over_time(container_last_seen{name=~\"portainer.*\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
         },
         {
-          "expr": "count(container_start_time_seconds{name=~\"portainer.*\"}) or vector(0)",
+          "expr": "count(group by (name) (container_start_time_seconds{name=~\"portainer.*\"})) or vector(0)",
           "refId": "B",
           "legendFormat": "Total"
         }
@@ -2226,7 +2478,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -2239,17 +2502,24 @@
       "id": 44,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"portainer.*\"}[5m]) * 100)",
           "refId": "A",
-          "legendFormat": "CPU"
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Portainer CPU",
@@ -2268,7 +2538,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -2281,17 +2562,24 @@
       "id": 45,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"portainer.*\"})",
           "refId": "A",
-          "legendFormat": "Memory"
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Portainer Memory",
@@ -2489,12 +2777,12 @@
       },
       "targets": [
         {
-          "expr": "count(container_last_seen{name=~\"traefik\"} > bool (time() - 60)) or vector(0)",
+          "expr": "count(count_over_time(container_last_seen{name=~\"traefik\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
         },
         {
-          "expr": "count(container_start_time_seconds{name=~\"traefik\"}) or vector(0)",
+          "expr": "count(group by (name) (container_start_time_seconds{name=~\"traefik\"})) or vector(0)",
           "refId": "B",
           "legendFormat": "Total"
         }
@@ -2515,7 +2803,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -2528,17 +2827,24 @@
       "id": 50,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"traefik\"}[5m]) * 100)",
           "refId": "A",
-          "legendFormat": "CPU"
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Traefik CPU",
@@ -2557,7 +2863,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -2570,17 +2887,24 @@
       "id": 51,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"traefik\"})",
           "refId": "A",
-          "legendFormat": "Memory"
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Traefik Memory",
@@ -2778,12 +3102,12 @@
       },
       "targets": [
         {
-          "expr": "count(container_last_seen{name=~\"(vikunja|vikunja_db)\"} > bool (time() - 60)) or vector(0)",
+          "expr": "count(count_over_time(container_last_seen{name=~\"(vikunja|vikunja_db)\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
         },
         {
-          "expr": "count(container_start_time_seconds{name=~\"(vikunja|vikunja_db)\"}) or vector(0)",
+          "expr": "count(group by (name) (container_start_time_seconds{name=~\"(vikunja|vikunja_db)\"})) or vector(0)",
           "refId": "B",
           "legendFormat": "Total"
         }
@@ -2804,7 +3128,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -2817,17 +3152,24 @@
       "id": 56,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(vikunja|vikunja_db)\"}[5m]) * 100)",
           "refId": "A",
-          "legendFormat": "CPU"
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Vikunja CPU",
@@ -2846,7 +3188,18 @@
             "drawStyle": "line",
             "lineInterpolation": "smooth",
             "showPoints": "never",
-            "fillOpacity": 10
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
           }
         }
       },
@@ -2859,17 +3212,24 @@
       "id": 57,
       "options": {
         "legend": {
-          "displayMode": "hidden"
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "expr": "sum(container_memory_usage_bytes{name=~\"(vikunja|vikunja_db)\"})",
           "refId": "A",
-          "legendFormat": "Memory"
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "title": "Vikunja Memory",

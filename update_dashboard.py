@@ -92,12 +92,12 @@ def create_row_panels(stack_name, pattern, y_position):
         },
         "targets": [
             {
-                "expr": f'count(container_last_seen{{name=~"{pattern}"}} > bool (time() - 60)) or vector(0)',
+                "expr": f'count(count_over_time(container_last_seen{{name=~"{pattern}"}}[1m])) or vector(0)',
                 "refId": "A",
                 "legendFormat": "Running"
             },
             {
-                "expr": f'count(container_start_time_seconds{{name=~"{pattern}"}}) or vector(0)',
+                "expr": f'count(group by (name) (container_start_time_seconds{{name=~"{pattern}"}})) or vector(0)',
                 "refId": "B",
                 "legendFormat": "Total"
             }
@@ -117,21 +117,33 @@ def create_row_panels(stack_name, pattern, y_position):
                     "drawStyle": "line",
                     "lineInterpolation": "smooth",
                     "showPoints": "never",
-                    "fillOpacity": 10
+                    "fillOpacity": 10,
+                    "lineWidth": 1,
+                    "spanNulls": False,
+                    "stacking": {"mode": "none", "group": "A"},
+                    "hideFrom": {"tooltip": False, "viz": False, "legend": False}
                 }
             }
         },
         "gridPos": {"h": 4, "w": 3, "x": 3, "y": y_position},
         "id": None,
         "options": {
-            "legend": {"displayMode": "hidden"},
-            "tooltip": {"mode": "single"}
+            "legend": {
+                "displayMode": "hidden",
+                "placement": "bottom",
+                "showLegend": False
+            },
+            "tooltip": {
+                "mode": "single",
+                "sort": "none"
+            }
         },
         "targets": [
             {
                 "expr": f'sum(rate(container_cpu_usage_seconds_total{{name=~"{pattern}"}}[5m]) * 100)',
                 "refId": "A",
-                "legendFormat": "CPU"
+                "legendFormat": "CPU",
+                "datasource": {"type": "prometheus", "uid": "prometheus"}
             }
         ],
         "title": f"{stack_name.title()} CPU",
@@ -149,21 +161,33 @@ def create_row_panels(stack_name, pattern, y_position):
                     "drawStyle": "line",
                     "lineInterpolation": "smooth",
                     "showPoints": "never",
-                    "fillOpacity": 10
+                    "fillOpacity": 10,
+                    "lineWidth": 1,
+                    "spanNulls": False,
+                    "stacking": {"mode": "none", "group": "A"},
+                    "hideFrom": {"tooltip": False, "viz": False, "legend": False}
                 }
             }
         },
         "gridPos": {"h": 4, "w": 3, "x": 6, "y": y_position},
         "id": None,
         "options": {
-            "legend": {"displayMode": "hidden"},
-            "tooltip": {"mode": "single"}
+            "legend": {
+                "displayMode": "hidden",
+                "placement": "bottom",
+                "showLegend": False
+            },
+            "tooltip": {
+                "mode": "single",
+                "sort": "none"
+            }
         },
         "targets": [
             {
                 "expr": f'sum(container_memory_usage_bytes{{name=~"{pattern}"}})',
                 "refId": "A",
-                "legendFormat": "Memory"
+                "legendFormat": "Memory",
+                "datasource": {"type": "prometheus", "uid": "prometheus"}
             }
         ],
         "title": f"{stack_name.title()} Memory",
