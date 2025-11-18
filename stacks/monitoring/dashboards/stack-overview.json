@@ -5050,6 +5050,46 @@
       ],
       "title": "Vikunja 5xx Errors",
       "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 44
+      },
+      "id": 67,
+      "options": {
+        "showTime": true,
+        "showLabels": false,
+        "showCommonLabels": false,
+        "wrapLogMessage": true,
+        "prettifyLogMessage": false,
+        "enableLogDetails": true,
+        "dedupStrategy": "none",
+        "sortOrder": "Descending"
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "expr": "{container=~\"nextcloud|owncloud_server|jellyfin|immich_server|plex|flame|portainer-portainer-1|traefik|grafana|dozzle|vikunja\"} | logfmt | level=\"ERROR\"",
+          "refId": "A"
+        }
+      ],
+      "title": "Recent Error Logs (All Services)",
+      "type": "logs"
     }
   ],
   "refresh": "30s",
