@@ -3,6 +3,18 @@
   "title": "Stackr: Nextcloud",
   "panels": [
     {
+      "type": "row",
+      "title": "nextcloud",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "collapsed": false
+    },
+    {
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -30,9 +42,9 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 0
+        "y": 1
       },
-      "id": 1,
+      "id": 2,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -80,9 +92,9 @@
         "h": 4,
         "w": 5,
         "x": 3,
-        "y": 0
+        "y": 1
       },
-      "id": 2,
+      "id": 3,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -140,9 +152,9 @@
         "h": 4,
         "w": 5,
         "x": 8,
-        "y": 0
+        "y": 1
       },
-      "id": 3,
+      "id": 4,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -189,9 +201,9 @@
         "h": 4,
         "w": 4,
         "x": 13,
-        "y": 0
+        "y": 1
       },
-      "id": 4,
+      "id": 5,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -237,9 +249,9 @@
         "h": 4,
         "w": 4,
         "x": 17,
-        "y": 0
+        "y": 1
       },
-      "id": 5,
+      "id": 6,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -288,9 +300,9 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 4
+        "y": 5
       },
-      "id": 6,
+      "id": 7,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -338,9 +350,9 @@
         "h": 4,
         "w": 3,
         "x": 3,
-        "y": 4
+        "y": 5
       },
-      "id": 7,
+      "id": 8,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -384,9 +396,9 @@
         "h": 4,
         "w": 3,
         "x": 6,
-        "y": 4
+        "y": 5
       },
-      "id": 8,
+      "id": 9,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -401,6 +413,18 @@
       ],
       "title": "Errors",
       "type": "stat"
+    },
+    {
+      "type": "row",
+      "title": "nextcloud_db",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 10,
+      "collapsed": false
     },
     {
       "datasource": {
@@ -430,9 +454,9 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 8
+        "y": 10
       },
-      "id": 9,
+      "id": 11,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -480,9 +504,9 @@
         "h": 4,
         "w": 5,
         "x": 3,
-        "y": 8
+        "y": 10
       },
-      "id": 10,
+      "id": 12,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -540,9 +564,9 @@
         "h": 4,
         "w": 5,
         "x": 8,
-        "y": 8
+        "y": 10
       },
-      "id": 11,
+      "id": 13,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -589,9 +613,9 @@
         "h": 4,
         "w": 4,
         "x": 13,
-        "y": 8
+        "y": 10
       },
-      "id": 12,
+      "id": 14,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -637,9 +661,9 @@
         "h": 4,
         "w": 4,
         "x": 17,
-        "y": 8
+        "y": 10
       },
-      "id": 13,
+      "id": 15,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -688,9 +712,9 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 12
+        "y": 14
       },
-      "id": 14,
+      "id": 16,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -738,9 +762,9 @@
         "h": 4,
         "w": 3,
         "x": 3,
-        "y": 12
+        "y": 14
       },
-      "id": 15,
+      "id": 17,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -784,9 +808,9 @@
         "h": 4,
         "w": 3,
         "x": 6,
-        "y": 12
+        "y": 14
       },
-      "id": 16,
+      "id": 18,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -801,6 +825,18 @@
       ],
       "title": "Errors",
       "type": "stat"
+    },
+    {
+      "type": "row",
+      "title": "nextcloud_redis",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "id": 19,
+      "collapsed": false
     },
     {
       "datasource": {
@@ -830,9 +866,9 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 16
+        "y": 19
       },
-      "id": 17,
+      "id": 20,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -880,9 +916,9 @@
         "h": 4,
         "w": 5,
         "x": 3,
-        "y": 16
+        "y": 19
       },
-      "id": 18,
+      "id": 21,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -940,9 +976,9 @@
         "h": 4,
         "w": 5,
         "x": 8,
-        "y": 16
+        "y": 19
       },
-      "id": 19,
+      "id": 22,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -989,9 +1025,9 @@
         "h": 4,
         "w": 4,
         "x": 13,
-        "y": 16
+        "y": 19
       },
-      "id": 20,
+      "id": 23,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -1037,9 +1073,9 @@
         "h": 4,
         "w": 4,
         "x": 17,
-        "y": 16
+        "y": 19
       },
-      "id": 21,
+      "id": 24,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -1088,9 +1124,9 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 20
+        "y": 23
       },
-      "id": 22,
+      "id": 25,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -1138,9 +1174,9 @@
         "h": 4,
         "w": 3,
         "x": 3,
-        "y": 20
+        "y": 23
       },
-      "id": 23,
+      "id": 26,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -1184,9 +1220,9 @@
         "h": 4,
         "w": 3,
         "x": 6,
-        "y": 20
+        "y": 23
       },
-      "id": 24,
+      "id": 27,
       "options": {
         "graphMode": "none",
         "textMode": "value",

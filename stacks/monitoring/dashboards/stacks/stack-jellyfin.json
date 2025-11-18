@@ -3,6 +3,18 @@
   "title": "Stackr: Jellyfin",
   "panels": [
     {
+      "type": "row",
+      "title": "jellyfin",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "collapsed": false
+    },
+    {
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -30,9 +42,9 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 0
+        "y": 1
       },
-      "id": 1,
+      "id": 2,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -80,9 +92,9 @@
         "h": 4,
         "w": 5,
         "x": 3,
-        "y": 0
+        "y": 1
       },
-      "id": 2,
+      "id": 3,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -140,9 +152,9 @@
         "h": 4,
         "w": 5,
         "x": 8,
-        "y": 0
+        "y": 1
       },
-      "id": 3,
+      "id": 4,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -189,9 +201,9 @@
         "h": 4,
         "w": 4,
         "x": 13,
-        "y": 0
+        "y": 1
       },
-      "id": 4,
+      "id": 5,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -237,9 +249,9 @@
         "h": 4,
         "w": 4,
         "x": 17,
-        "y": 0
+        "y": 1
       },
-      "id": 5,
+      "id": 6,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -288,9 +300,9 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 4
+        "y": 5
       },
-      "id": 6,
+      "id": 7,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -338,9 +350,9 @@
         "h": 4,
         "w": 3,
         "x": 3,
-        "y": 4
+        "y": 5
       },
-      "id": 7,
+      "id": 8,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -384,9 +396,9 @@
         "h": 4,
         "w": 3,
         "x": 6,
-        "y": 4
+        "y": 5
       },
-      "id": 8,
+      "id": 9,
       "options": {
         "graphMode": "none",
         "textMode": "value",
