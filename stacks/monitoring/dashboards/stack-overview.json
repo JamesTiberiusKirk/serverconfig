@@ -188,7 +188,14 @@
         }
       ],
       "title": "Flame Status",
-      "type": "stat"
+      "type": "stat",
+      "links": [
+        {
+          "title": "Stackr: Flame",
+          "url": "/d/stack-flame",
+          "targetBlank": false
+        }
+      ]
     },
     {
       "datasource": {
@@ -509,7 +516,14 @@
         }
       ],
       "title": "Immich Status",
-      "type": "stat"
+      "type": "stat",
+      "links": [
+        {
+          "title": "Stackr: Immich",
+          "url": "/d/stack-immich",
+          "targetBlank": false
+        }
+      ]
     },
     {
       "datasource": {
@@ -830,7 +844,14 @@
         }
       ],
       "title": "Jellyfin Status",
-      "type": "stat"
+      "type": "stat",
+      "links": [
+        {
+          "title": "Stackr: Jellyfin",
+          "url": "/d/stack-jellyfin",
+          "targetBlank": false
+        }
+      ]
     },
     {
       "datasource": {
@@ -1151,7 +1172,14 @@
         }
       ],
       "title": "Monitoring Status",
-      "type": "stat"
+      "type": "stat",
+      "links": [
+        {
+          "title": "Stackr: Monitoring",
+          "url": "/d/stack-monitoring",
+          "targetBlank": false
+        }
+      ]
     },
     {
       "datasource": {
@@ -1472,7 +1500,14 @@
         }
       ],
       "title": "Nextcloud Status",
-      "type": "stat"
+      "type": "stat",
+      "links": [
+        {
+          "title": "Stackr: Nextcloud",
+          "url": "/d/stack-nextcloud",
+          "targetBlank": false
+        }
+      ]
     },
     {
       "datasource": {
@@ -1793,7 +1828,14 @@
         }
       ],
       "title": "Owncloud Status",
-      "type": "stat"
+      "type": "stat",
+      "links": [
+        {
+          "title": "Stackr: Owncloud",
+          "url": "/d/stack-owncloud",
+          "targetBlank": false
+        }
+      ]
     },
     {
       "datasource": {
@@ -2114,7 +2156,14 @@
         }
       ],
       "title": "Plex Status",
-      "type": "stat"
+      "type": "stat",
+      "links": [
+        {
+          "title": "Stackr: Plex",
+          "url": "/d/stack-plex",
+          "targetBlank": false
+        }
+      ]
     },
     {
       "datasource": {
@@ -2435,7 +2484,14 @@
         }
       ],
       "title": "Portainer Status",
-      "type": "stat"
+      "type": "stat",
+      "links": [
+        {
+          "title": "Stackr: Portainer",
+          "url": "/d/stack-portainer",
+          "targetBlank": false
+        }
+      ]
     },
     {
       "datasource": {
@@ -2756,7 +2812,14 @@
         }
       ],
       "title": "Traefik Status",
-      "type": "stat"
+      "type": "stat",
+      "links": [
+        {
+          "title": "Stackr: Traefik",
+          "url": "/d/stack-traefik",
+          "targetBlank": false
+        }
+      ]
     },
     {
       "datasource": {
@@ -3077,7 +3140,14 @@
         }
       ],
       "title": "Vikunja Status",
-      "type": "stat"
+      "type": "stat",
+      "links": [
+        {
+          "title": "Stackr: Vikunja",
+          "url": "/d/stack-vikunja",
+          "targetBlank": false
+        }
+      ]
     },
     {
       "datasource": {
@@ -3359,7 +3429,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Stack Overview",
+  "title": "Stackr Overview",
   "uid": "stack-overview",
   "version": 1,
   "weekStart": ""
