@@ -187,7 +187,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
+        "w": 4,
         "x": 12,
         "y": 0
       },
@@ -223,6 +223,54 @@
       },
       "fieldConfig": {
         "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"portainer\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "Read"
+        },
+        {
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"portainer\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "Write"
+        }
+      ],
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -238,11 +286,11 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 17,
+        "w": 2,
+        "x": 20,
         "y": 0
       },
-      "id": 5,
+      "id": 6,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -292,7 +340,7 @@
         "x": 20,
         "y": 0
       },
-      "id": 6,
+      "id": 7,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -301,11 +349,11 @@
       },
       "targets": [
         {
-          "expr": "max(changes(container_start_time_seconds{name=\"portainer\"}[24h]))",
+          "expr": "max(changes(container_start_time_seconds{name=\"portainer\"}[$__range]))",
           "refId": "A"
         }
       ],
-      "title": "Restarts (24h)",
+      "title": "Restarts",
       "type": "stat"
     },
     {
@@ -338,7 +386,7 @@
         "x": 22,
         "y": 0
       },
-      "id": 7,
+      "id": 8,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -367,8 +415,8 @@
       "icon": "dashboard"
     },
     {
-      "title": "View Logs in Dozzle",
-      "url": "https://logs.dumitruvulpe.com",
+      "title": "View Portainer Logs",
+      "url": "https://logs.dumitruvulpe.com?filter=portainer.%2A",
       "type": "link",
       "icon": "external link",
       "targetBlank": true

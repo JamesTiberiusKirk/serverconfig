@@ -484,7 +484,7 @@ def create_container_row_panels(container_name, y_position):
                 }
             }
         },
-        "gridPos": {"h": 4, "w": 5, "x": 12, "y": y_position},
+        "gridPos": {"h": 4, "w": 4, "x": 12, "y": y_position},
         "id": None,
         "options": {
             "legend": {"displayMode": "list", "placement": "bottom"},
@@ -506,6 +506,43 @@ def create_container_row_panels(container_name, y_position):
         "type": "timeseries"
     })
 
+    # Disk I/O
+    panels.append({
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {
+            "defaults": {
+                "unit": "Bps",
+                "decimals": 1,
+                "custom": {
+                    "drawStyle": "line",
+                    "lineInterpolation": "smooth",
+                    "showPoints": "never",
+                    "fillOpacity": 10
+                }
+            }
+        },
+        "gridPos": {"h": 4, "w": 4, "x": 16, "y": y_position},
+        "id": None,
+        "options": {
+            "legend": {"displayMode": "list", "placement": "bottom"},
+            "tooltip": {"mode": "multi"}
+        },
+        "targets": [
+            {
+                "expr": f'sum(rate(container_fs_reads_bytes_total{{name="{container_name}"}}[5m]))',
+                "refId": "A",
+                "legendFormat": "Read"
+            },
+            {
+                "expr": f'sum(rate(container_fs_writes_bytes_total{{name="{container_name}"}}[5m]))',
+                "refId": "B",
+                "legendFormat": "Write"
+            }
+        ],
+        "title": "Disk I/O",
+        "type": "timeseries"
+    })
+
     # Uptime
     panels.append({
         "datasource": {"type": "prometheus", "uid": "prometheus"},
@@ -521,7 +558,7 @@ def create_container_row_panels(container_name, y_position):
                 "unit": "s"
             }
         },
-        "gridPos": {"h": 4, "w": 3, "x": 17, "y": y_position},
+        "gridPos": {"h": 4, "w": 2, "x": 20, "y": y_position},
         "id": None,
         "options": {
             "graphMode": "none",
@@ -566,11 +603,11 @@ def create_container_row_panels(container_name, y_position):
         },
         "targets": [
             {
-                "expr": f'max(changes(container_start_time_seconds{{name="{container_name}"}}[24h]))',
+                "expr": f'max(changes(container_start_time_seconds{{name="{container_name}"}}[$__range]))',
                 "refId": "A"
             }
         ],
-        "title": "Restarts (24h)",
+        "title": "Restarts",
         "type": "stat"
     })
 
@@ -635,8 +672,8 @@ def generate_detail_dashboard(stack_name, stack_data):
                 "icon": "dashboard"
             },
             {
-                "title": "View Logs in Dozzle",
-                "url": f"{DOZZLE_URL}",
+                "title": f"View {stack_name.title()} Logs",
+                "url": f"{DOZZLE_URL}?filter={urllib.parse.quote(pattern)}",
                 "type": "link",
                 "icon": "external link",
                 "targetBlank": True

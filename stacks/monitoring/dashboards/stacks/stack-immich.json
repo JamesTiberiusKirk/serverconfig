@@ -187,7 +187,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
+        "w": 4,
         "x": 12,
         "y": 0
       },
@@ -223,6 +223,54 @@
       },
       "fieldConfig": {
         "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"immich_server\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "Read"
+        },
+        {
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"immich_server\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "Write"
+        }
+      ],
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -238,11 +286,11 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 17,
+        "w": 2,
+        "x": 20,
         "y": 0
       },
-      "id": 5,
+      "id": 6,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -292,7 +340,7 @@
         "x": 20,
         "y": 0
       },
-      "id": 6,
+      "id": 7,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -301,11 +349,11 @@
       },
       "targets": [
         {
-          "expr": "max(changes(container_start_time_seconds{name=\"immich_server\"}[24h]))",
+          "expr": "max(changes(container_start_time_seconds{name=\"immich_server\"}[$__range]))",
           "refId": "A"
         }
       ],
-      "title": "Restarts (24h)",
+      "title": "Restarts",
       "type": "stat"
     },
     {
@@ -338,7 +386,7 @@
         "x": 22,
         "y": 0
       },
-      "id": 7,
+      "id": 8,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -384,7 +432,7 @@
         "x": 0,
         "y": 4
       },
-      "id": 8,
+      "id": 9,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -434,7 +482,7 @@
         "x": 2,
         "y": 4
       },
-      "id": 9,
+      "id": 10,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -494,7 +542,7 @@
         "x": 7,
         "y": 4
       },
-      "id": 10,
+      "id": 11,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -539,11 +587,11 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
+        "w": 4,
         "x": 12,
         "y": 4
       },
-      "id": 11,
+      "id": 12,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -575,6 +623,54 @@
       },
       "fieldConfig": {
         "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 4
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"immich_machine_learning\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "Read"
+        },
+        {
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"immich_machine_learning\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "Write"
+        }
+      ],
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -590,11 +686,11 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 17,
+        "w": 2,
+        "x": 20,
         "y": 4
       },
-      "id": 12,
+      "id": 14,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -644,7 +740,7 @@
         "x": 20,
         "y": 4
       },
-      "id": 13,
+      "id": 15,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -653,11 +749,11 @@
       },
       "targets": [
         {
-          "expr": "max(changes(container_start_time_seconds{name=\"immich_machine_learning\"}[24h]))",
+          "expr": "max(changes(container_start_time_seconds{name=\"immich_machine_learning\"}[$__range]))",
           "refId": "A"
         }
       ],
-      "title": "Restarts (24h)",
+      "title": "Restarts",
       "type": "stat"
     },
     {
@@ -690,7 +786,7 @@
         "x": 22,
         "y": 4
       },
-      "id": 14,
+      "id": 16,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -736,7 +832,7 @@
         "x": 0,
         "y": 8
       },
-      "id": 15,
+      "id": 17,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -786,7 +882,7 @@
         "x": 2,
         "y": 8
       },
-      "id": 16,
+      "id": 18,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -846,7 +942,7 @@
         "x": 7,
         "y": 8
       },
-      "id": 17,
+      "id": 19,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -891,11 +987,11 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
+        "w": 4,
         "x": 12,
         "y": 8
       },
-      "id": 18,
+      "id": 20,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -927,6 +1023,54 @@
       },
       "fieldConfig": {
         "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 8
+      },
+      "id": 21,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"immich_redis\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "Read"
+        },
+        {
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"immich_redis\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "Write"
+        }
+      ],
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -942,11 +1086,11 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 17,
+        "w": 2,
+        "x": 20,
         "y": 8
       },
-      "id": 19,
+      "id": 22,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -996,7 +1140,7 @@
         "x": 20,
         "y": 8
       },
-      "id": 20,
+      "id": 23,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -1005,11 +1149,11 @@
       },
       "targets": [
         {
-          "expr": "max(changes(container_start_time_seconds{name=\"immich_redis\"}[24h]))",
+          "expr": "max(changes(container_start_time_seconds{name=\"immich_redis\"}[$__range]))",
           "refId": "A"
         }
       ],
-      "title": "Restarts (24h)",
+      "title": "Restarts",
       "type": "stat"
     },
     {
@@ -1042,7 +1186,7 @@
         "x": 22,
         "y": 8
       },
-      "id": 21,
+      "id": 24,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -1088,7 +1232,7 @@
         "x": 0,
         "y": 12
       },
-      "id": 22,
+      "id": 25,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -1138,7 +1282,7 @@
         "x": 2,
         "y": 12
       },
-      "id": 23,
+      "id": 26,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -1198,7 +1342,7 @@
         "x": 7,
         "y": 12
       },
-      "id": 24,
+      "id": 27,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -1243,11 +1387,11 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
+        "w": 4,
         "x": 12,
         "y": 12
       },
-      "id": 25,
+      "id": 28,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -1279,6 +1423,54 @@
       },
       "fieldConfig": {
         "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 12
+      },
+      "id": 29,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"immich_postgres\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "Read"
+        },
+        {
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"immich_postgres\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "Write"
+        }
+      ],
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -1294,11 +1486,11 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 17,
+        "w": 2,
+        "x": 20,
         "y": 12
       },
-      "id": 26,
+      "id": 30,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -1348,7 +1540,7 @@
         "x": 20,
         "y": 12
       },
-      "id": 27,
+      "id": 31,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -1357,11 +1549,11 @@
       },
       "targets": [
         {
-          "expr": "max(changes(container_start_time_seconds{name=\"immich_postgres\"}[24h]))",
+          "expr": "max(changes(container_start_time_seconds{name=\"immich_postgres\"}[$__range]))",
           "refId": "A"
         }
       ],
-      "title": "Restarts (24h)",
+      "title": "Restarts",
       "type": "stat"
     },
     {
@@ -1394,7 +1586,7 @@
         "x": 22,
         "y": 12
       },
-      "id": 28,
+      "id": 32,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -1423,8 +1615,8 @@
       "icon": "dashboard"
     },
     {
-      "title": "View Logs in Dozzle",
-      "url": "https://logs.dumitruvulpe.com",
+      "title": "View Immich Logs",
+      "url": "https://logs.dumitruvulpe.com?filter=%28immich_server%7Cimmich_machine_learning%7Cimmich_redis%7Cimmich_postgres%29",
       "type": "link",
       "icon": "external link",
       "targetBlank": true
