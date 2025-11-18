@@ -227,8 +227,12 @@ backup_stack() {
     if [ -d "$CONFIG_PATH/config" ]; then
         [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Backing up config directory"
         if [ $F_DRY_RUN = false ]; then
-            cp -r "$CONFIG_PATH/config" "$BACKUP_PATH/config"
-            echo "  ✓ Backed up config directory"
+            if cp -r "$CONFIG_PATH/config" "$BACKUP_PATH/config" 2>&1; then
+                echo "  ✓ Backed up config directory"
+            else
+                echo "  ✗ FAILED to backup config directory" >&2
+                return 1
+            fi
         else
             echo "  [DRY RUN] Would backup: $CONFIG_PATH/config -> $BACKUP_PATH/config"
         fi
@@ -238,8 +242,12 @@ backup_stack() {
     if [ -d "$CONFIG_PATH/dashboards" ]; then
         [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Backing up dashboards directory"
         if [ $F_DRY_RUN = false ]; then
-            cp -r "$CONFIG_PATH/dashboards" "$BACKUP_PATH/dashboards"
-            echo "  ✓ Backed up dashboards directory"
+            if cp -r "$CONFIG_PATH/dashboards" "$BACKUP_PATH/dashboards" 2>&1; then
+                echo "  ✓ Backed up dashboards directory"
+            else
+                echo "  ✗ FAILED to backup dashboards directory" >&2
+                return 1
+            fi
         else
             echo "  [DRY RUN] Would backup: $CONFIG_PATH/dashboards -> $BACKUP_PATH/dashboards"
         fi
@@ -249,8 +257,12 @@ backup_stack() {
     if [ -d "$CONFIG_PATH/dynamic" ]; then
         [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Backing up dynamic directory"
         if [ $F_DRY_RUN = false ]; then
-            cp -r "$CONFIG_PATH/dynamic" "$BACKUP_PATH/dynamic"
-            echo "  ✓ Backed up dynamic directory"
+            if cp -r "$CONFIG_PATH/dynamic" "$BACKUP_PATH/dynamic" 2>&1; then
+                echo "  ✓ Backed up dynamic directory"
+            else
+                echo "  ✗ FAILED to backup dynamic directory" >&2
+                return 1
+            fi
         else
             echo "  [DRY RUN] Would backup: $CONFIG_PATH/dynamic -> $BACKUP_PATH/dynamic"
         fi
@@ -260,8 +272,12 @@ backup_stack() {
     if [ -d "$BASE_STORAGE_HDD/$DIR" ]; then
         [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Backing up HDD volume data"
         if [ $F_DRY_RUN = false ]; then
-            cp -r "$BASE_STORAGE_HDD/$DIR" "$BACKUP_PATH/volume_hdd"
-            echo "  ✓ Backed up HDD volume data"
+            if cp -r "$BASE_STORAGE_HDD/$DIR" "$BACKUP_PATH/volume_hdd" 2>&1; then
+                echo "  ✓ Backed up HDD volume data"
+            else
+                echo "  ✗ FAILED to backup HDD volume data" >&2
+                return 1
+            fi
         else
             echo "  [DRY RUN] Would backup: $BASE_STORAGE_HDD/$DIR -> $BACKUP_PATH/volume_hdd"
         fi
@@ -271,8 +287,12 @@ backup_stack() {
     if [ -d "$BASE_STORAGE_SSD/$DIR" ]; then
         [ $F_DEBUG = true ] && echo "[DEBUG]: $DIR: Backing up SSD volume data"
         if [ $F_DRY_RUN = false ]; then
-            cp -r "$BASE_STORAGE_SSD/$DIR" "$BACKUP_PATH/volume_ssd"
-            echo "  ✓ Backed up SSD volume data"
+            if cp -r "$BASE_STORAGE_SSD/$DIR" "$BACKUP_PATH/volume_ssd" 2>&1; then
+                echo "  ✓ Backed up SSD volume data"
+            else
+                echo "  ✗ FAILED to backup SSD volume data" >&2
+                return 1
+            fi
         else
             echo "  [DRY RUN] Would backup: $BASE_STORAGE_SSD/$DIR -> $BACKUP_PATH/volume_ssd"
         fi

@@ -1,0 +1,55 @@
+services:
+  vikunja:
+    image: vikunja/vikunja:latest
+    container_name: vikunja
+    restart: unless-stopped
+    environment:
+      VIKUNJA_SERVICE_PUBLICURL: https://vikunja.dumitruvulpe.com
+      VIKUNJA_DATABASE_TYPE: postgres
+      VIKUNJA_DATABASE_HOST: vikunja_db
+      VIKUNJA_DATABASE_DATABASE: vikunja
+      VIKUNJA_DATABASE_USER: vikunja
+      VIKUNJA_DATABASE_PASSWORD: ${VIKUNJA_DB_PASSWORD}
+    volumes:
+      - ${STACK_STORAGE_SSD}/files:/app/vikunja/files
+    networks:
+      - traefik
+      - default
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      # HTTPS router
+      - traefik.http.routers.vikunja.rule=Host(`vikunja.dumitruvulpe.com`)
+      - traefik.http.routers.vikunja.entrypoints=websecure
+      - traefik.http.routers.vikunja.tls.certresolver=le
+      # HTTP router (redirect to HTTPS)
+      - traefik.http.routers.vikunja-http.rule=Host(`vikunja.dumitruvulpe.com`)
+      - traefik.http.routers.vikunja-http.entrypoints=web
+      - traefik.http.routers.vikunja-http.middlewares=redirect-to-https
+      - traefik.http.services.vikunja.loadbalancer.server.port=3456
+    depends_on:
+      - vikunja_db
+
+  vikunja_db:
+    image: postgres:16-alpine
+    container_name: vikunja_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: vikunja
+      POSTGRES_PASSWORD: ${VIKUNJA_DB_PASSWORD}
+      POSTGRES_DB: vikunja
+    volumes:
+      - ${STACK_STORAGE_SSD}/db:/var/lib/postgresql/data
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vikunja"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  traefik:
+    external: true
+  default:
+    name: vikunja_internal
