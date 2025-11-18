@@ -513,7 +513,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container=\"nextcloud\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"nextcloud\"} | logfmt | level=\"ERROR\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -961,7 +961,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container=\"owncloud_server\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"owncloud_server\"} | logfmt | level=\"ERROR\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -1409,7 +1409,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container=\"jellyfin\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"jellyfin\"} | logfmt | level=\"ERROR\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -1857,7 +1857,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container=\"immich_server\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"immich_server\"} | logfmt | level=\"ERROR\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -2305,7 +2305,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container=\"plex\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"plex\"} | logfmt | level=\"ERROR\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -2753,7 +2753,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container=\"flame\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"flame\"} | logfmt | level=\"ERROR\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -3201,7 +3201,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container=\"portainer-portainer-1\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"portainer-portainer-1\"} | logfmt | level=\"ERROR\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -3649,7 +3649,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container=\"traefik\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"traefik\"} | logfmt | level=\"ERROR\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -4089,7 +4089,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container=\"grafana\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"grafana\"} | logfmt | level=\"ERROR\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -4537,7 +4537,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container=\"dozzle\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"dozzle\"} | logfmt | level=\"ERROR\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -4982,7 +4982,7 @@
             "type": "loki",
             "uid": "loki"
           },
-          "expr": "sum(count_over_time({container=\"vikunja\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"vikunja\"} | logfmt | level=\"ERROR\" [$__range]))",
           "refId": "A"
         }
       ],
