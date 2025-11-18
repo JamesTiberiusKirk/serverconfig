@@ -165,7 +165,14 @@ def create_row_panels(stack_name, pattern, y_position):
             }
         ],
         "title": f"{stack_name.title()} CPU",
-        "type": "timeseries"
+        "type": "timeseries",
+        "links": [
+            {
+                "title": f"Stackr: {stack_name.title()}",
+                "url": f"/d/stack-{stack_name}",
+                "targetBlank": False
+            }
+        ]
     })
 
     # Memory panel - timeline graph
@@ -209,7 +216,14 @@ def create_row_panels(stack_name, pattern, y_position):
             }
         ],
         "title": f"{stack_name.title()} Memory",
-        "type": "timeseries"
+        "type": "timeseries",
+        "links": [
+            {
+                "title": f"Stackr: {stack_name.title()}",
+                "url": f"/d/stack-{stack_name}",
+                "targetBlank": False
+            }
+        ]
     })
 
     # Network I/O panel
@@ -246,7 +260,14 @@ def create_row_panels(stack_name, pattern, y_position):
             }
         ],
         "title": f"{stack_name.title()} Network I/O",
-        "type": "timeseries"
+        "type": "timeseries",
+        "links": [
+            {
+                "title": f"Stackr: {stack_name.title()}",
+                "url": f"/d/stack-{stack_name}",
+                "targetBlank": False
+            }
+        ]
     })
 
     # Disk I/O panel
@@ -283,7 +304,14 @@ def create_row_panels(stack_name, pattern, y_position):
             }
         ],
         "title": f"{stack_name.title()} Disk I/O",
-        "type": "timeseries"
+        "type": "timeseries",
+        "links": [
+            {
+                "title": f"Stackr: {stack_name.title()}",
+                "url": f"/d/stack-{stack_name}",
+                "targetBlank": False
+            }
+        ]
     })
 
     # Errors panel - small square, green if 0, red if errors
@@ -317,7 +345,14 @@ def create_row_panels(stack_name, pattern, y_position):
             }
         ],
         "title": f"{stack_name.title()} Errors",
-        "type": "stat"
+        "type": "stat",
+        "links": [
+            {
+                "title": f"Stackr: {stack_name.title()}",
+                "url": f"/d/stack-{stack_name}",
+                "targetBlank": False
+            }
+        ]
     })
 
     return panels
