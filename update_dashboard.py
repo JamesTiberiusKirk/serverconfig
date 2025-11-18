@@ -358,8 +358,11 @@ def create_row_panels(stack_name, pattern, y_position):
     return panels
 
 def create_container_row_panels(container_name, y_position):
-    """Create detailed panels for a single container"""
+    """Create detailed panels for a single container spanning 2 rows"""
     panels = []
+
+    # Row 1: Status, CPU, Memory, Network I/O, Disk I/O
+    # Row 2: Uptime, Restarts, Errors (and space for more metrics)
 
     # Status panel
     panels.append({
@@ -377,7 +380,7 @@ def create_container_row_panels(container_name, y_position):
                 "unit": "none"
             }
         },
-        "gridPos": {"h": 4, "w": 2, "x": 0, "y": y_position},
+        "gridPos": {"h": 4, "w": 3, "x": 0, "y": y_position},
         "id": None,
         "options": {
             "graphMode": "none",
@@ -414,7 +417,7 @@ def create_container_row_panels(container_name, y_position):
                 }
             }
         },
-        "gridPos": {"h": 4, "w": 5, "x": 2, "y": y_position},
+        "gridPos": {"h": 4, "w": 5, "x": 3, "y": y_position},
         "id": None,
         "options": {
             "legend": {"displayMode": "hidden", "placement": "bottom", "showLegend": False},
@@ -451,7 +454,7 @@ def create_container_row_panels(container_name, y_position):
                 }
             }
         },
-        "gridPos": {"h": 4, "w": 5, "x": 7, "y": y_position},
+        "gridPos": {"h": 4, "w": 5, "x": 8, "y": y_position},
         "id": None,
         "options": {
             "legend": {"displayMode": "hidden", "placement": "bottom", "showLegend": False},
@@ -484,7 +487,7 @@ def create_container_row_panels(container_name, y_position):
                 }
             }
         },
-        "gridPos": {"h": 4, "w": 4, "x": 12, "y": y_position},
+        "gridPos": {"h": 4, "w": 4, "x": 13, "y": y_position},
         "id": None,
         "options": {
             "legend": {"displayMode": "list", "placement": "bottom"},
@@ -521,7 +524,7 @@ def create_container_row_panels(container_name, y_position):
                 }
             }
         },
-        "gridPos": {"h": 4, "w": 4, "x": 16, "y": y_position},
+        "gridPos": {"h": 4, "w": 4, "x": 17, "y": y_position},
         "id": None,
         "options": {
             "legend": {"displayMode": "list", "placement": "bottom"},
@@ -543,7 +546,7 @@ def create_container_row_panels(container_name, y_position):
         "type": "timeseries"
     })
 
-    # Uptime
+    # Uptime (Row 2)
     panels.append({
         "datasource": {"type": "prometheus", "uid": "prometheus"},
         "fieldConfig": {
@@ -558,7 +561,7 @@ def create_container_row_panels(container_name, y_position):
                 "unit": "s"
             }
         },
-        "gridPos": {"h": 4, "w": 2, "x": 20, "y": y_position},
+        "gridPos": {"h": 4, "w": 3, "x": 0, "y": y_position + 4},
         "id": None,
         "options": {
             "graphMode": "none",
@@ -576,7 +579,7 @@ def create_container_row_panels(container_name, y_position):
         "type": "stat"
     })
 
-    # Restart count
+    # Restart count (Row 2)
     panels.append({
         "datasource": {"type": "prometheus", "uid": "prometheus"},
         "fieldConfig": {
@@ -593,7 +596,7 @@ def create_container_row_panels(container_name, y_position):
                 "unit": "none"
             }
         },
-        "gridPos": {"h": 4, "w": 2, "x": 20, "y": y_position},
+        "gridPos": {"h": 4, "w": 3, "x": 3, "y": y_position + 4},
         "id": None,
         "options": {
             "graphMode": "none",
@@ -611,7 +614,7 @@ def create_container_row_panels(container_name, y_position):
         "type": "stat"
     })
 
-    # Errors
+    # Errors (Row 2)
     panels.append({
         "datasource": {"type": "loki", "uid": "loki"},
         "fieldConfig": {
@@ -627,7 +630,7 @@ def create_container_row_panels(container_name, y_position):
                 "unit": "none"
             }
         },
-        "gridPos": {"h": 4, "w": 2, "x": 22, "y": y_position},
+        "gridPos": {"h": 4, "w": 3, "x": 6, "y": y_position + 4},
         "id": None,
         "options": {
             "graphMode": "none",
@@ -685,7 +688,7 @@ def generate_detail_dashboard(stack_name, stack_data):
     panel_id = 1
     y_position = 0
 
-    # Create panels for each container
+    # Create panels for each container (2 rows per container)
     for container_name in containers:
         container_panels = create_container_row_panels(container_name, y_position)
 
@@ -694,7 +697,7 @@ def generate_detail_dashboard(stack_name, stack_data):
             panel_id += 1
 
         all_panels.extend(container_panels)
-        y_position += 4
+        y_position += 8  # Each container uses 2 rows (8 grid units)
 
     dashboard['panels'] = all_panels
 
