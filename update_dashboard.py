@@ -118,7 +118,7 @@ def create_row_panels(stack_name, pattern, y_position):
         "links": [
             {
                 "title": f"Stackr: {stack_name.title()}",
-                "url": f"/d/stack-{stack_name}",
+                "url": f"/d/stackr-{stack_name}",
                 "targetBlank": False
             }
         ]
@@ -169,7 +169,7 @@ def create_row_panels(stack_name, pattern, y_position):
         "links": [
             {
                 "title": f"Stackr: {stack_name.title()}",
-                "url": f"/d/stack-{stack_name}",
+                "url": f"/d/stackr-{stack_name}",
                 "targetBlank": False
             }
         ]
@@ -220,7 +220,7 @@ def create_row_panels(stack_name, pattern, y_position):
         "links": [
             {
                 "title": f"Stackr: {stack_name.title()}",
-                "url": f"/d/stack-{stack_name}",
+                "url": f"/d/stackr-{stack_name}",
                 "targetBlank": False
             }
         ]
@@ -264,7 +264,7 @@ def create_row_panels(stack_name, pattern, y_position):
         "links": [
             {
                 "title": f"Stackr: {stack_name.title()}",
-                "url": f"/d/stack-{stack_name}",
+                "url": f"/d/stackr-{stack_name}",
                 "targetBlank": False
             }
         ]
@@ -308,7 +308,7 @@ def create_row_panels(stack_name, pattern, y_position):
         "links": [
             {
                 "title": f"Stackr: {stack_name.title()}",
-                "url": f"/d/stack-{stack_name}",
+                "url": f"/d/stackr-{stack_name}",
                 "targetBlank": False
             }
         ]
@@ -349,7 +349,7 @@ def create_row_panels(stack_name, pattern, y_position):
         "links": [
             {
                 "title": f"Stackr: {stack_name.title()}",
-                "url": f"/d/stack-{stack_name}",
+                "url": f"/d/stackr-{stack_name}",
                 "targetBlank": False
             }
         ]
@@ -620,6 +620,7 @@ def generate_detail_dashboard(stack_name, stack_data):
         containers = [stack_name]  # Use stack name as fallback
 
     dashboard = {
+        "uid": f"stackr-{stack_name}",
         "title": f"Stackr: {stack_name.title()}",
         "panels": [],
         "schemaVersion": 36,
@@ -629,7 +630,7 @@ def generate_detail_dashboard(stack_name, stack_data):
         "links": [
             {
                 "title": "Back to Stackr Overview",
-                "url": "/d/stack-overview",
+                "url": "/d/stackr-overview",
                 "type": "link",
                 "icon": "dashboard"
             },
@@ -686,6 +687,7 @@ def generate_dashboard():
     else:
         # Create minimal dashboard structure if it doesn't exist
         dashboard = {
+            "uid": "stackr-overview",
             "title": "Stackr Overview",
             "panels": [],
             "schemaVersion": 36,
@@ -713,6 +715,7 @@ def generate_dashboard():
     # Update dashboard
     dashboard['panels'] = all_panels
     dashboard['title'] = 'Stackr Overview'
+    dashboard['uid'] = 'stackr-overview'
 
     # Write updated dashboard
     with open(dashboard_path, 'w') as f:

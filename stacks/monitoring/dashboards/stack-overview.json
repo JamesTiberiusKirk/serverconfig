@@ -192,7 +192,7 @@
       "links": [
         {
           "title": "Stackr: Flame",
-          "url": "/d/stack-flame",
+          "url": "/d/stackr-flame",
           "targetBlank": false
         }
       ]
@@ -259,7 +259,7 @@
       "links": [
         {
           "title": "Stackr: Flame",
-          "url": "/d/stack-flame",
+          "url": "/d/stackr-flame",
           "targetBlank": false
         }
       ]
@@ -326,7 +326,7 @@
       "links": [
         {
           "title": "Stackr: Flame",
-          "url": "/d/stack-flame",
+          "url": "/d/stackr-flame",
           "targetBlank": false
         }
       ]
@@ -381,7 +381,7 @@
       "links": [
         {
           "title": "Stackr: Flame",
-          "url": "/d/stack-flame",
+          "url": "/d/stackr-flame",
           "targetBlank": false
         }
       ]
@@ -436,7 +436,7 @@
       "links": [
         {
           "title": "Stackr: Flame",
-          "url": "/d/stack-flame",
+          "url": "/d/stackr-flame",
           "targetBlank": false
         }
       ]
@@ -489,7 +489,7 @@
       "links": [
         {
           "title": "Stackr: Flame",
-          "url": "/d/stack-flame",
+          "url": "/d/stackr-flame",
           "targetBlank": false
         }
       ]
@@ -555,7 +555,7 @@
       "links": [
         {
           "title": "Stackr: Immich",
-          "url": "/d/stack-immich",
+          "url": "/d/stackr-immich",
           "targetBlank": false
         }
       ]
@@ -622,7 +622,7 @@
       "links": [
         {
           "title": "Stackr: Immich",
-          "url": "/d/stack-immich",
+          "url": "/d/stackr-immich",
           "targetBlank": false
         }
       ]
@@ -689,7 +689,7 @@
       "links": [
         {
           "title": "Stackr: Immich",
-          "url": "/d/stack-immich",
+          "url": "/d/stackr-immich",
           "targetBlank": false
         }
       ]
@@ -744,7 +744,7 @@
       "links": [
         {
           "title": "Stackr: Immich",
-          "url": "/d/stack-immich",
+          "url": "/d/stackr-immich",
           "targetBlank": false
         }
       ]
@@ -799,7 +799,7 @@
       "links": [
         {
           "title": "Stackr: Immich",
-          "url": "/d/stack-immich",
+          "url": "/d/stackr-immich",
           "targetBlank": false
         }
       ]
@@ -852,7 +852,7 @@
       "links": [
         {
           "title": "Stackr: Immich",
-          "url": "/d/stack-immich",
+          "url": "/d/stackr-immich",
           "targetBlank": false
         }
       ]
@@ -918,7 +918,7 @@
       "links": [
         {
           "title": "Stackr: Jellyfin",
-          "url": "/d/stack-jellyfin",
+          "url": "/d/stackr-jellyfin",
           "targetBlank": false
         }
       ]
@@ -985,7 +985,7 @@
       "links": [
         {
           "title": "Stackr: Jellyfin",
-          "url": "/d/stack-jellyfin",
+          "url": "/d/stackr-jellyfin",
           "targetBlank": false
         }
       ]
@@ -1052,7 +1052,7 @@
       "links": [
         {
           "title": "Stackr: Jellyfin",
-          "url": "/d/stack-jellyfin",
+          "url": "/d/stackr-jellyfin",
           "targetBlank": false
         }
       ]
@@ -1107,7 +1107,7 @@
       "links": [
         {
           "title": "Stackr: Jellyfin",
-          "url": "/d/stack-jellyfin",
+          "url": "/d/stackr-jellyfin",
           "targetBlank": false
         }
       ]
@@ -1162,7 +1162,7 @@
       "links": [
         {
           "title": "Stackr: Jellyfin",
-          "url": "/d/stack-jellyfin",
+          "url": "/d/stackr-jellyfin",
           "targetBlank": false
         }
       ]
@@ -1215,7 +1215,7 @@
       "links": [
         {
           "title": "Stackr: Jellyfin",
-          "url": "/d/stack-jellyfin",
+          "url": "/d/stackr-jellyfin",
           "targetBlank": false
         }
       ]
@@ -1281,7 +1281,7 @@
       "links": [
         {
           "title": "Stackr: Monitoring",
-          "url": "/d/stack-monitoring",
+          "url": "/d/stackr-monitoring",
           "targetBlank": false
         }
       ]
@@ -1348,7 +1348,7 @@
       "links": [
         {
           "title": "Stackr: Monitoring",
-          "url": "/d/stack-monitoring",
+          "url": "/d/stackr-monitoring",
           "targetBlank": false
         }
       ]
@@ -1415,7 +1415,7 @@
       "links": [
         {
           "title": "Stackr: Monitoring",
-          "url": "/d/stack-monitoring",
+          "url": "/d/stackr-monitoring",
           "targetBlank": false
         }
       ]
@@ -1470,7 +1470,7 @@
       "links": [
         {
           "title": "Stackr: Monitoring",
-          "url": "/d/stack-monitoring",
+          "url": "/d/stackr-monitoring",
           "targetBlank": false
         }
       ]
@@ -1525,7 +1525,7 @@
       "links": [
         {
           "title": "Stackr: Monitoring",
-          "url": "/d/stack-monitoring",
+          "url": "/d/stackr-monitoring",
           "targetBlank": false
         }
       ]
@@ -1578,7 +1578,7 @@
       "links": [
         {
           "title": "Stackr: Monitoring",
-          "url": "/d/stack-monitoring",
+          "url": "/d/stackr-monitoring",
           "targetBlank": false
         }
       ]
@@ -1644,7 +1644,7 @@
       "links": [
         {
           "title": "Stackr: Nextcloud",
-          "url": "/d/stack-nextcloud",
+          "url": "/d/stackr-nextcloud",
           "targetBlank": false
         }
       ]
@@ -1711,7 +1711,7 @@
       "links": [
         {
           "title": "Stackr: Nextcloud",
-          "url": "/d/stack-nextcloud",
+          "url": "/d/stackr-nextcloud",
           "targetBlank": false
         }
       ]
@@ -1778,7 +1778,7 @@
       "links": [
         {
           "title": "Stackr: Nextcloud",
-          "url": "/d/stack-nextcloud",
+          "url": "/d/stackr-nextcloud",
           "targetBlank": false
         }
       ]
@@ -1833,7 +1833,7 @@
       "links": [
         {
           "title": "Stackr: Nextcloud",
-          "url": "/d/stack-nextcloud",
+          "url": "/d/stackr-nextcloud",
           "targetBlank": false
         }
       ]
@@ -1888,7 +1888,7 @@
       "links": [
         {
           "title": "Stackr: Nextcloud",
-          "url": "/d/stack-nextcloud",
+          "url": "/d/stackr-nextcloud",
           "targetBlank": false
         }
       ]
@@ -1941,7 +1941,7 @@
       "links": [
         {
           "title": "Stackr: Nextcloud",
-          "url": "/d/stack-nextcloud",
+          "url": "/d/stackr-nextcloud",
           "targetBlank": false
         }
       ]
@@ -2007,7 +2007,7 @@
       "links": [
         {
           "title": "Stackr: Owncloud",
-          "url": "/d/stack-owncloud",
+          "url": "/d/stackr-owncloud",
           "targetBlank": false
         }
       ]
@@ -2074,7 +2074,7 @@
       "links": [
         {
           "title": "Stackr: Owncloud",
-          "url": "/d/stack-owncloud",
+          "url": "/d/stackr-owncloud",
           "targetBlank": false
         }
       ]
@@ -2141,7 +2141,7 @@
       "links": [
         {
           "title": "Stackr: Owncloud",
-          "url": "/d/stack-owncloud",
+          "url": "/d/stackr-owncloud",
           "targetBlank": false
         }
       ]
@@ -2196,7 +2196,7 @@
       "links": [
         {
           "title": "Stackr: Owncloud",
-          "url": "/d/stack-owncloud",
+          "url": "/d/stackr-owncloud",
           "targetBlank": false
         }
       ]
@@ -2251,7 +2251,7 @@
       "links": [
         {
           "title": "Stackr: Owncloud",
-          "url": "/d/stack-owncloud",
+          "url": "/d/stackr-owncloud",
           "targetBlank": false
         }
       ]
@@ -2304,7 +2304,7 @@
       "links": [
         {
           "title": "Stackr: Owncloud",
-          "url": "/d/stack-owncloud",
+          "url": "/d/stackr-owncloud",
           "targetBlank": false
         }
       ]
@@ -2370,7 +2370,7 @@
       "links": [
         {
           "title": "Stackr: Plex",
-          "url": "/d/stack-plex",
+          "url": "/d/stackr-plex",
           "targetBlank": false
         }
       ]
@@ -2437,7 +2437,7 @@
       "links": [
         {
           "title": "Stackr: Plex",
-          "url": "/d/stack-plex",
+          "url": "/d/stackr-plex",
           "targetBlank": false
         }
       ]
@@ -2504,7 +2504,7 @@
       "links": [
         {
           "title": "Stackr: Plex",
-          "url": "/d/stack-plex",
+          "url": "/d/stackr-plex",
           "targetBlank": false
         }
       ]
@@ -2559,7 +2559,7 @@
       "links": [
         {
           "title": "Stackr: Plex",
-          "url": "/d/stack-plex",
+          "url": "/d/stackr-plex",
           "targetBlank": false
         }
       ]
@@ -2614,7 +2614,7 @@
       "links": [
         {
           "title": "Stackr: Plex",
-          "url": "/d/stack-plex",
+          "url": "/d/stackr-plex",
           "targetBlank": false
         }
       ]
@@ -2667,7 +2667,7 @@
       "links": [
         {
           "title": "Stackr: Plex",
-          "url": "/d/stack-plex",
+          "url": "/d/stackr-plex",
           "targetBlank": false
         }
       ]
@@ -2733,7 +2733,7 @@
       "links": [
         {
           "title": "Stackr: Portainer",
-          "url": "/d/stack-portainer",
+          "url": "/d/stackr-portainer",
           "targetBlank": false
         }
       ]
@@ -2800,7 +2800,7 @@
       "links": [
         {
           "title": "Stackr: Portainer",
-          "url": "/d/stack-portainer",
+          "url": "/d/stackr-portainer",
           "targetBlank": false
         }
       ]
@@ -2867,7 +2867,7 @@
       "links": [
         {
           "title": "Stackr: Portainer",
-          "url": "/d/stack-portainer",
+          "url": "/d/stackr-portainer",
           "targetBlank": false
         }
       ]
@@ -2922,7 +2922,7 @@
       "links": [
         {
           "title": "Stackr: Portainer",
-          "url": "/d/stack-portainer",
+          "url": "/d/stackr-portainer",
           "targetBlank": false
         }
       ]
@@ -2977,7 +2977,7 @@
       "links": [
         {
           "title": "Stackr: Portainer",
-          "url": "/d/stack-portainer",
+          "url": "/d/stackr-portainer",
           "targetBlank": false
         }
       ]
@@ -3030,7 +3030,7 @@
       "links": [
         {
           "title": "Stackr: Portainer",
-          "url": "/d/stack-portainer",
+          "url": "/d/stackr-portainer",
           "targetBlank": false
         }
       ]
@@ -3096,7 +3096,7 @@
       "links": [
         {
           "title": "Stackr: Traefik",
-          "url": "/d/stack-traefik",
+          "url": "/d/stackr-traefik",
           "targetBlank": false
         }
       ]
@@ -3163,7 +3163,7 @@
       "links": [
         {
           "title": "Stackr: Traefik",
-          "url": "/d/stack-traefik",
+          "url": "/d/stackr-traefik",
           "targetBlank": false
         }
       ]
@@ -3230,7 +3230,7 @@
       "links": [
         {
           "title": "Stackr: Traefik",
-          "url": "/d/stack-traefik",
+          "url": "/d/stackr-traefik",
           "targetBlank": false
         }
       ]
@@ -3285,7 +3285,7 @@
       "links": [
         {
           "title": "Stackr: Traefik",
-          "url": "/d/stack-traefik",
+          "url": "/d/stackr-traefik",
           "targetBlank": false
         }
       ]
@@ -3340,7 +3340,7 @@
       "links": [
         {
           "title": "Stackr: Traefik",
-          "url": "/d/stack-traefik",
+          "url": "/d/stackr-traefik",
           "targetBlank": false
         }
       ]
@@ -3393,7 +3393,7 @@
       "links": [
         {
           "title": "Stackr: Traefik",
-          "url": "/d/stack-traefik",
+          "url": "/d/stackr-traefik",
           "targetBlank": false
         }
       ]
@@ -3459,7 +3459,7 @@
       "links": [
         {
           "title": "Stackr: Vikunja",
-          "url": "/d/stack-vikunja",
+          "url": "/d/stackr-vikunja",
           "targetBlank": false
         }
       ]
@@ -3526,7 +3526,7 @@
       "links": [
         {
           "title": "Stackr: Vikunja",
-          "url": "/d/stack-vikunja",
+          "url": "/d/stackr-vikunja",
           "targetBlank": false
         }
       ]
@@ -3593,7 +3593,7 @@
       "links": [
         {
           "title": "Stackr: Vikunja",
-          "url": "/d/stack-vikunja",
+          "url": "/d/stackr-vikunja",
           "targetBlank": false
         }
       ]
@@ -3648,7 +3648,7 @@
       "links": [
         {
           "title": "Stackr: Vikunja",
-          "url": "/d/stack-vikunja",
+          "url": "/d/stackr-vikunja",
           "targetBlank": false
         }
       ]
@@ -3703,7 +3703,7 @@
       "links": [
         {
           "title": "Stackr: Vikunja",
-          "url": "/d/stack-vikunja",
+          "url": "/d/stackr-vikunja",
           "targetBlank": false
         }
       ]
@@ -3756,7 +3756,7 @@
       "links": [
         {
           "title": "Stackr: Vikunja",
-          "url": "/d/stack-vikunja",
+          "url": "/d/stackr-vikunja",
           "targetBlank": false
         }
       ]
@@ -3780,7 +3780,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Stackr Overview",
-  "uid": "stack-overview",
+  "uid": "stackr-overview",
   "version": 1,
   "weekStart": ""
 }

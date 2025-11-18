@@ -1,4 +1,5 @@
 {
+  "uid": "stackr-monitoring",
   "title": "Stackr: Monitoring",
   "panels": [
     {
@@ -2473,7 +2474,7 @@
   "links": [
     {
       "title": "Back to Stackr Overview",
-      "url": "/d/stack-overview",
+      "url": "/d/stackr-overview",
       "type": "link",
       "icon": "dashboard"
     },
