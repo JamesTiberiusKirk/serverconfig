@@ -4,7 +4,7 @@ services:
     container_name: vikunja
     restart: unless-stopped
     environment:
-      VIKUNJA_SERVICE_PUBLICURL: https://board.dumitruvulpe.com
+      VIKUNJA_SERVICE_PUBLICURL: https://boards.dumitruvulpe.com
       VIKUNJA_DATABASE_TYPE: postgres
       VIKUNJA_DATABASE_HOST: vikunja_db
       VIKUNJA_DATABASE_DATABASE: vikunja
@@ -19,11 +19,11 @@ services:
       - traefik.enable=true
       - traefik.docker.network=traefik
       # HTTPS router
-      - traefik.http.routers.vikunja.rule=Host(`board.dumitruvulpe.com`)
+      - traefik.http.routers.vikunja.rule=Host(`boards.dumitruvulpe.com`)
       - traefik.http.routers.vikunja.entrypoints=websecure
       - traefik.http.routers.vikunja.tls.certresolver=le
       # HTTP router (redirect to HTTPS)
-      - traefik.http.routers.vikunja-http.rule=Host(`board.dumitruvulpe.com`)
+      - traefik.http.routers.vikunja-http.rule=Host(`boards.dumitruvulpe.com`)
       - traefik.http.routers.vikunja-http.entrypoints=web
       - traefik.http.routers.vikunja-http.middlewares=redirect-to-https
       - traefik.http.services.vikunja.loadbalancer.server.port=3456
