@@ -370,11 +370,11 @@ def create_container_row_panels(container_name, y_position):
         "collapsed": False
     })
 
-    # Row 1: Status, CPU, Memory, Network I/O, Disk I/O
-    # Row 2: Uptime, Restarts, Errors (and space for more metrics)
-    # Adjust y_position by 1 for the row header
+    # Layout: Left side has 4 stat panels (2x2 grid), right side has 4 tall graphs
+    # Left column (6 wide): Status, Uptime (top row) and Restarts, Errors (bottom row)
+    # Right side (18 wide): CPU, Memory, Network I/O, Disk I/O (all 8 units tall)
 
-    # Status panel
+    # Status panel (top-left)
     panels.append({
         "datasource": {"type": "prometheus", "uid": "prometheus"},
         "fieldConfig": {
@@ -408,7 +408,7 @@ def create_container_row_panels(container_name, y_position):
         "type": "stat"
     })
 
-    # CPU graph
+    # CPU graph (tall, right side)
     panels.append({
         "datasource": {"type": "prometheus", "uid": "prometheus"},
         "fieldConfig": {
@@ -427,7 +427,7 @@ def create_container_row_panels(container_name, y_position):
                 }
             }
         },
-        "gridPos": {"h": 4, "w": 5, "x": 3, "y": y_position + 1},
+        "gridPos": {"h": 8, "w": 5, "x": 6, "y": y_position + 1},
         "id": None,
         "options": {
             "legend": {"displayMode": "hidden", "placement": "bottom", "showLegend": False},
@@ -445,7 +445,7 @@ def create_container_row_panels(container_name, y_position):
         "type": "timeseries"
     })
 
-    # Memory graph
+    # Memory graph (tall, right side)
     panels.append({
         "datasource": {"type": "prometheus", "uid": "prometheus"},
         "fieldConfig": {
@@ -464,7 +464,7 @@ def create_container_row_panels(container_name, y_position):
                 }
             }
         },
-        "gridPos": {"h": 4, "w": 5, "x": 8, "y": y_position + 1},
+        "gridPos": {"h": 8, "w": 5, "x": 11, "y": y_position + 1},
         "id": None,
         "options": {
             "legend": {"displayMode": "hidden", "placement": "bottom", "showLegend": False},
@@ -482,7 +482,7 @@ def create_container_row_panels(container_name, y_position):
         "type": "timeseries"
     })
 
-    # Network I/O
+    # Network I/O (tall, right side)
     panels.append({
         "datasource": {"type": "prometheus", "uid": "prometheus"},
         "fieldConfig": {
@@ -497,7 +497,7 @@ def create_container_row_panels(container_name, y_position):
                 }
             }
         },
-        "gridPos": {"h": 4, "w": 4, "x": 13, "y": y_position + 1},
+        "gridPos": {"h": 8, "w": 4, "x": 16, "y": y_position + 1},
         "id": None,
         "options": {
             "legend": {"displayMode": "list", "placement": "bottom"},
@@ -519,7 +519,7 @@ def create_container_row_panels(container_name, y_position):
         "type": "timeseries"
     })
 
-    # Disk I/O
+    # Disk I/O (tall, right side)
     panels.append({
         "datasource": {"type": "prometheus", "uid": "prometheus"},
         "fieldConfig": {
@@ -534,7 +534,7 @@ def create_container_row_panels(container_name, y_position):
                 }
             }
         },
-        "gridPos": {"h": 4, "w": 4, "x": 17, "y": y_position + 1},
+        "gridPos": {"h": 8, "w": 4, "x": 20, "y": y_position + 1},
         "id": None,
         "options": {
             "legend": {"displayMode": "list", "placement": "bottom"},
@@ -556,7 +556,7 @@ def create_container_row_panels(container_name, y_position):
         "type": "timeseries"
     })
 
-    # Uptime (Row 2)
+    # Uptime (top-right of stat grid)
     panels.append({
         "datasource": {"type": "prometheus", "uid": "prometheus"},
         "fieldConfig": {
@@ -571,7 +571,7 @@ def create_container_row_panels(container_name, y_position):
                 "unit": "s"
             }
         },
-        "gridPos": {"h": 4, "w": 3, "x": 0, "y": y_position + 5},
+        "gridPos": {"h": 4, "w": 3, "x": 3, "y": y_position + 1},
         "id": None,
         "options": {
             "graphMode": "none",
@@ -589,7 +589,7 @@ def create_container_row_panels(container_name, y_position):
         "type": "stat"
     })
 
-    # Restart count (Row 2)
+    # Restart count (bottom-left of stat grid)
     panels.append({
         "datasource": {"type": "prometheus", "uid": "prometheus"},
         "fieldConfig": {
@@ -606,7 +606,7 @@ def create_container_row_panels(container_name, y_position):
                 "unit": "none"
             }
         },
-        "gridPos": {"h": 4, "w": 3, "x": 3, "y": y_position + 5},
+        "gridPos": {"h": 4, "w": 3, "x": 0, "y": y_position + 5},
         "id": None,
         "options": {
             "graphMode": "none",
@@ -624,7 +624,7 @@ def create_container_row_panels(container_name, y_position):
         "type": "stat"
     })
 
-    # Errors (Row 2)
+    # Errors (bottom-right of stat grid)
     panels.append({
         "datasource": {"type": "loki", "uid": "loki"},
         "fieldConfig": {
@@ -640,7 +640,7 @@ def create_container_row_panels(container_name, y_position):
                 "unit": "none"
             }
         },
-        "gridPos": {"h": 4, "w": 3, "x": 6, "y": y_position + 5},
+        "gridPos": {"h": 4, "w": 3, "x": 3, "y": y_position + 5},
         "id": None,
         "options": {
             "graphMode": "none",
