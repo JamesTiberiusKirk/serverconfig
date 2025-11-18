@@ -9,5 +9,9 @@ tree:
 
 run_test: clean_test run-all-dry tree
 
-check_script: 
+check_script:
 	shellcheck --shell=sh ./run.sh
+
+generate:
+	cd stacks/monitoring/dashboards && python3 update_dashboard.py
+
