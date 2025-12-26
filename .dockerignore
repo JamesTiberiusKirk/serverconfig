@@ -1,0 +1,12 @@
+.git
+.cache
+.vols_hdd
+.vols_ssd
+**/.vols_hdd
+**/.vols_ssd
+**/.vols_hdd/**
+**/.vols_ssd/**
+deploy_api
+stackr
+.env
+misc/archive

@@ -4,7 +4,7 @@
 - Stacks: `stacks/<service>/docker-compose.yml` per service (e.g., `stacks/immich`, `stacks/jellyfin`).
 - Reverse proxy: `stacks/traefik/` (Traefik v2) with Docker provider and dynamic files in `stacks/traefik/dynamic/`.
 - Orchestration: `run.sh` computes env vars and orchestrates `docker compose` across stacks.
-- Config: `.env` (local, ignored) and `example.env` (template). Ensure `.env` defines `COMPOSE_DIRECTORY`, `STACK_HDD_STORAGE`, and `STACK_SSD_STORAGE` to match `run.sh`.
+- Config: `.env` (local, ignored) for secrets + `.stackr.yaml` (tracked) for stacks dir, cron profile, HTTP base domain, backup/media/pool paths, deploy overrides, and additional env vars. The CLI reads `.stackr.yaml` for values like `BACKUP_DIR`, pool paths, and optional deploy/env metadata.
 - Storage: `.vols_hdd/` and `.vols_ssd/` at the repo root; some stacks also have local `.vols_*` directories.
 - Archives: legacy NPM proxy moved to `misc/archive/proxy/`.
 
@@ -19,13 +19,7 @@
 ## Coding Style & Naming Conventions
 - Shell: POSIX `sh`; prefer simple, portable constructs. Use `make check_script` locally.
 - YAML: 2‑space indentation; lowercase service and directory names.
-- Env vars: UPPER_SNAKE_CASE. Required by `run.sh`: `COMPOSE_DIRECTORY`, `STACK_HDD_STORAGE`, `STACK_SSD_STORAGE`.
-- Example `.env`:
-  ```
-  COMPOSE_DIRECTORY=./stacks/
-  STACK_HDD_STORAGE=/mnt/hdd
-  STACK_SSD_STORAGE=/mnt/ssd
-  ```
+- Env vars: UPPER_SNAKE_CASE. Stackr CLI auto-derives compose/stacks and storage folders (`stacks/`, `.vols_hdd/`, `.vols_ssd/`) from the repo root unless explicitly overridden.
 
 ## Testing Guidelines
 - Dry‑run first: `./run.sh --dry-run <stack|all>` to verify env resolution and compose config.
@@ -36,5 +30,5 @@
 
 ## Security & Configuration Tips
 - Do not commit secrets; `.env` is ignored by `.gitignore`. Start from `example.env` and align keys with `run.sh`.
-- Use absolute storage paths in `.env` for `STACK_HDD_STORAGE` and `STACK_SSD_STORAGE`.
+- Storage defaults live at `.vols_hdd/` and `.vols_ssd/` in the repo root, and per-stack pool/custom paths now come from `.stackr.yaml`.
 - The script creates missing storage directories when safe; review paths on first run.

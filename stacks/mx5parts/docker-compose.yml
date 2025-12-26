@@ -1,0 +1,78 @@
+name: mx5parts
+
+services:
+  web:
+    image: ghcr.io/jamestiberiuskirk/mx5parts_store-web:${MX5PARTS_IMAGE_TAG}
+    container_name: mx5parts_web
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: production
+      SERVER_HOST: 0.0.0.0
+      SERVER_PORT: 8080
+      DATABASE_URL: postgres://${MX5PARTS_POSTGRES_USER}:${MX5PARTS_POSTGRES_PASSWORD}@mx5parts_postgres:5432/${MX5PARTS_POSTGRES_DB}?sslmode=disable
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - traefik
+      - default
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.mx5parts.rule=Host(`${MX5PARTS_DOMAIN}`)
+      - traefik.http.routers.mx5parts.entrypoints=websecure
+      - traefik.http.routers.mx5parts.tls.certresolver=le
+      - traefik.http.routers.mx5parts-http.rule=Host(`${MX5PARTS_DOMAIN}`)
+      - traefik.http.routers.mx5parts-http.entrypoints=web
+      - traefik.http.routers.mx5parts-http.middlewares=redirect-to-https
+      - traefik.http.services.mx5parts.loadbalancer.server.port=8080
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 3s
+      start_period: 10s
+      retries: 3
+
+  scraper:
+    image: ghcr.io/jamestiberiuskirk/mx5parts_store-scraper:${MX5PARTS_IMAGE_TAG}
+    container_name: mx5parts_scraper
+    restart: "no"
+    profiles:
+      - scraper
+    environment:
+      ENVIRONMENT: production
+      DATABASE_URL: postgres://${MX5PARTS_POSTGRES_USER}:${MX5PARTS_POSTGRES_PASSWORD}@mx5parts_postgres:5432/${MX5PARTS_POSTGRES_DB}?sslmode=disable
+      SCRAPER_ARCHIVE_PATH: /data/archive
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ${STACK_STORAGE_HDD}/scraper-archive:/data/archive
+    networks:
+      - default
+    labels:
+      - stackr.cron.schedule=0 1,13 * * *
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: mx5parts_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${MX5PARTS_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${MX5PARTS_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${MX5PARTS_POSTGRES_DB}
+    volumes:
+      - ${STACK_STORAGE_SSD}/postgres:/var/lib/postgresql/data
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${MX5PARTS_POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  traefik:
+    external: true
+  default:
+    name: mx5parts_internal

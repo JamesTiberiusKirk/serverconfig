@@ -2,3 +2,4 @@ test_playground/
 .env
 *volume*
 server.sh
+.cache/

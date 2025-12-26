@@ -1,0 +1,38 @@
+name: stackr
+
+services:
+  stackr:
+    container_name: stackr
+    build:
+      context: ../..
+      dockerfile: stacks/stackr/Dockerfile
+    restart: unless-stopped
+    environment:
+      STACKR_HOST: ${STACKR_HOST}
+      STACKR_PORT: ${STACKR_PORT}
+      STACKR_TOKEN: ${STACKR_TOKEN}
+    volumes:
+      - ../../:/srv/serverconfig
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - traefik
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9000/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.stackr.rule=Host(`${STACKR_DOMAIN}`)
+      - traefik.http.routers.stackr.entrypoints=websecure
+      - traefik.http.routers.stackr.tls.certresolver=le
+      - traefik.http.routers.stackr-http.rule=Host(`${STACKR_DOMAIN}`)
+      - traefik.http.routers.stackr-http.entrypoints=web
+      - traefik.http.routers.stackr-http.middlewares=redirect-to-https
+      - traefik.http.services.stackr.loadbalancer.server.port=9000
+
+networks:
+  traefik:
+    external: true

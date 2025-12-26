@@ -1,5 +1,25 @@
 #!/bin/sh
 
+################################################################################
+# DEPRECATION NOTICE
+#
+# This script (run.sh) is deprecated and maintained only for backward
+# compatibility. Please use the Go CLI instead:
+#
+#   go run ./stackr/cmd/stackr [options] [stacks...]
+#
+# Or build a binary:
+#   go build -o stackr ./stackr/cmd/stackr
+#   ./stackr [options] [stacks...]
+#
+# See docs/stackr.md for more information.
+################################################################################
+
+# Print deprecation warning to stderr
+echo "WARNING: run.sh is deprecated. Please use 'go run ./stackr/cmd/stackr' instead." >&2
+echo "See docs/stackr.md for migration details." >&2
+echo "" >&2
+
 HELP_MSG=$(cat << EOF
 This is a basic bash script meant to manage env variables for each and every docker-compose stack.
 Refer to the example.env file to see env variables which are needed for the script to work correctly and runs a specified stack.
