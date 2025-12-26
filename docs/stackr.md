@@ -19,14 +19,15 @@ Add the following block to `.env` (or export them before launching Stackr):
 
 ```
 ############### stackr VARS
-STACKR_HOST=0.0.0.0             # Bind interface
-STACKR_PORT=9000                # Listen port
-STACKR_TOKEN=supersecret        # Shared Bearer token used by callers
-STACKR_ENV_FILE=.env            # Optional path override
-STACKR_CONFIG_FILE=.stackr.yaml       # Optional path override
+STACKR_HOST=0.0.0.0                            # Bind interface
+STACKR_PORT=9000                               # Listen port
+STACKR_TOKEN=supersecret                       # Shared Bearer token used by callers
+STACKR_ENV_FILE=.env                           # Optional path override
+STACKR_CONFIG_FILE=.stackr.yaml                # Optional path override
 STACKR_DOMAIN=stackr.example.com
-# STACKR_REPO_ROOT=/srv/serverconfig   # Optional override when containerized
-# STACKR_STACKS_DIR=stacks             # Relative to repo root unless absolute
+STACKR_HOST_REPO_ROOT=/home/darthvader/serverconfig  # Host path when using Docker socket
+# STACKR_REPO_ROOT=/srv/stackr_repo            # Optional override when containerized
+# STACKR_STACKS_DIR=stacks                     # Relative to repo root unless absolute
 ###############################
 ```
 
@@ -79,9 +80,13 @@ env:
 
 Set `STACKR_REPO_ROOT` when the binary cannot infer the repository path from its
 build location (e.g., when running inside Docker). Leave it empty for
-host/systemd usage. `STACKR_STACKS_DIR` points to the directory that contains the
-stack folders (`docker-compose.yml` lives under `STACKR_STACKS_DIR/<stack>/`). It
-defaults to `stacks` inside the repo.
+host/systemd usage. When running stackr in a container that uses the Docker
+socket to control the host Docker daemon, set `STACKR_HOST_REPO_ROOT` to the
+repository path on the host (this is needed because docker compose file paths
+must be valid from the host's perspective when using the socket).
+`STACKR_STACKS_DIR` points to the directory that contains the stack folders
+(`docker-compose.yml` lives under `STACKR_STACKS_DIR/<stack>/`). It defaults to
+`stacks` inside the repo.
 
 ### Running the service
 

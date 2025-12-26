@@ -18,6 +18,7 @@ Usage:
 
 Examples:
   stackr all update
+  stackr mx5parts update --tag v1.0.3
   stackr mx5parts vars-only -- env | grep STACK_STORAGE
   stackr monitoring get-vars
 
@@ -25,6 +26,7 @@ Flags:
   -h, --help         Show this help message
   -D, --debug        Print debug messages
       --dry-run      Do not execute write actions; print docker compose config
+      --tag <tag>    Update .env with image tag before deployment (requires update command)
 
 Commands (can be combined):
   all          Run on all stacks
@@ -79,6 +81,12 @@ func parseArgs(args []string) (stackcmd.Options, bool, error) {
 			opts.Debug = true
 		case "--dry-run":
 			opts.DryRun = true
+		case "--tag":
+			if i+1 >= len(args) {
+				return opts, false, fmt.Errorf("--tag requires a value")
+			}
+			i++
+			opts.Tag = args[i]
 		case "all":
 			opts.All = true
 		case "tear-down":

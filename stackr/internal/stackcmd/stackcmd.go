@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -17,6 +18,7 @@ import (
 	"github.com/joho/godotenv"
 
 	"serverconfig/stackr/internal/config"
+	"serverconfig/stackr/internal/envfile"
 )
 
 const (
@@ -41,6 +43,7 @@ type Options struct {
 	GetVars     bool
 	Stacks      []string
 	VarsCommand []string
+	Tag         string
 }
 
 type Manager struct {
@@ -196,6 +199,29 @@ func (m *Manager) runStack(ctx context.Context, stack string, opts Options) erro
 		return fmt.Errorf("stack %s: %w", stack, err)
 	}
 
+	// Build host-side compose path for docker commands (when using socket)
+	hostStacksDir := strings.Replace(m.targetDir, m.cfg.RepoRoot, m.cfg.HostRepoRoot, 1)
+	hostStackDir := filepath.Join(hostStacksDir, stack)
+	hostComposePath := filepath.Join(hostStackDir, "docker-compose.yml")
+
+	// Update .env with new tag if specified
+	if opts.Tag != "" && opts.Update {
+		stackCfg := m.cfg.StackDeployment(stack)
+		previous, err := envfile.Update(m.cfg.EnvFile, stackCfg.TagEnv, opts.Tag)
+		if err != nil {
+			return fmt.Errorf("failed to update %s: %w", stackCfg.TagEnv, err)
+		}
+		log.Printf("updated %s to %s (previous: %s)", stackCfg.TagEnv, opts.Tag, previous)
+
+		// Reload env values after update
+		envValues, envContent, err := readEnvFile(m.cfg.EnvFile)
+		if err != nil {
+			return fmt.Errorf("failed to reload env file: %w", err)
+		}
+		m.envValues = envValues
+		m.envContent = envContent
+	}
+
 	if opts.Backup {
 		debugf(opts.Debug, "%s: starting backup", stack)
 		return m.backupStack(stack, stackDir, opts)
@@ -212,7 +238,7 @@ func (m *Manager) runStack(ctx context.Context, stack string, opts Options) erro
 	}
 
 	debugf(opts.Debug, "%s: running compose operations", stack)
-	return m.runCompose(ctx, stack, composePath, vars, opts)
+	return m.runCompose(ctx, stack, hostComposePath, vars, opts)
 }
 
 func (m *Manager) loadAllStacks() ([]string, error) {

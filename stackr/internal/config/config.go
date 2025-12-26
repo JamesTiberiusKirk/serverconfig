@@ -17,13 +17,14 @@ type StackConfig struct {
 }
 
 type Config struct {
-	Token     string
-	EnvFile   string
-	Host      string
-	Port      string
-	RepoRoot  string
-	StacksDir string
-	Global    GlobalConfig
+	Token         string
+	EnvFile       string
+	Host          string
+	Port          string
+	RepoRoot      string
+	HostRepoRoot  string
+	StacksDir     string
+	Global        GlobalConfig
 }
 
 type GlobalConfig struct {
@@ -143,14 +144,20 @@ func loadConfig(repoRoot string, requireToken bool) (Config, error) {
 		return Config{}, fmt.Errorf("%s is not a directory", stacksDir)
 	}
 
+	hostRepoRoot := strings.TrimSpace(os.Getenv("STACKR_HOST_REPO_ROOT"))
+	if hostRepoRoot == "" {
+		hostRepoRoot = repoRoot
+	}
+
 	return Config{
-		Token:     token,
-		EnvFile:   envFile,
-		Host:      host,
-		Port:      port,
-		RepoRoot:  repoRoot,
-		StacksDir: stacksDir,
-		Global:    globalCfg,
+		Token:        token,
+		EnvFile:      envFile,
+		Host:         host,
+		Port:         port,
+		RepoRoot:     repoRoot,
+		HostRepoRoot: hostRepoRoot,
+		StacksDir:    stacksDir,
+		Global:       globalCfg,
 	}, nil
 }
 
