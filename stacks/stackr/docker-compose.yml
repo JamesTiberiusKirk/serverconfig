@@ -11,6 +11,7 @@ services:
       STACKR_HOST: ${STACKR_HOST}
       STACKR_PORT: ${STACKR_PORT}
       STACKR_TOKEN: ${STACKR_TOKEN}
+      STACKR_REPO_ROOT: /srv/stackr_repo
     volumes:
       - ../../:/srv/stackr_repo
       - /var/run/docker.sock:/var/run/docker.sock
