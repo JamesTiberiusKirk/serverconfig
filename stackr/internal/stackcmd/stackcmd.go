@@ -195,11 +195,6 @@ func (m *Manager) runStack(ctx context.Context, stack string, opts Options) erro
 		return fmt.Errorf("stack %s: %w", stack, err)
 	}
 
-	// Build host-side compose path for docker commands (when using socket)
-	hostStacksDir := strings.Replace(m.targetDir, m.cfg.RepoRoot, m.cfg.HostRepoRoot, 1)
-	hostStackDir := filepath.Join(hostStacksDir, stack)
-	hostComposePath := filepath.Join(hostStackDir, "docker-compose.yml")
-
 	// Update .env with new tag if specified
 	if opts.Tag != "" && opts.Update {
 		stackCfg := m.cfg.StackDeployment(stack)
@@ -234,7 +229,7 @@ func (m *Manager) runStack(ctx context.Context, stack string, opts Options) erro
 	}
 
 	debugf(opts.Debug, "%s: running compose operations", stack)
-	return m.runCompose(ctx, stack, hostComposePath, vars, opts)
+	return m.runCompose(ctx, stack, composePath, vars, opts)
 }
 
 func (m *Manager) loadAllStacks() ([]string, error) {
