@@ -16,6 +16,7 @@ services:
     volumes:
       - ${STACKR_HOST_REPO_ROOT}:/srv/stackr_repo
       - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.docker/config.json:/root/.docker/config.json:ro
     networks:
       - traefik
     healthcheck:
