@@ -68,6 +68,9 @@ func (r *Runner) Deploy(ctx context.Context, stack string, stackCfg config.Stack
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
+	log.Printf("starting deployment: stack=%s tag=%s tagEnv=%s args=%v", stack, tag, stackCfg.TagEnv, stackCfg.Args)
+	log.Printf("config: RepoRoot=%s HostRepoRoot=%s StacksDir=%s", r.cfg.RepoRoot, r.cfg.HostRepoRoot, r.cfg.StacksDir)
+
 	snap, err := envfile.SnapshotFile(r.cfg.EnvFile)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read env file: %w", err)
@@ -97,6 +100,11 @@ func (r *Runner) Deploy(ctx context.Context, stack string, stackCfg config.Stack
 	opts.Stacks = []string{stack}
 
 	if err := manager.Run(ctx, opts); err != nil {
+		// Log the full error details
+		log.Printf("deployment failed for stack=%s: %v", stack, err)
+		log.Printf("deployment stdout:\n%s", stdout.String())
+		log.Printf("deployment stderr:\n%s", stderr.String())
+
 		if rollbackErr := envfile.Restore(r.cfg.EnvFile, snap); rollbackErr != nil {
 			log.Printf("failed to roll back %s after deploy error: %v", stackCfg.TagEnv, rollbackErr)
 		} else {

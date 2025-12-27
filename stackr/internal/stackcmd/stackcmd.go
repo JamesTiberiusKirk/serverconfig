@@ -66,9 +66,10 @@ func NewManager(cfg config.Config) (*Manager, error) {
 }
 
 func NewManagerWithWriters(cfg config.Config, stdout, stderr io.Writer) (*Manager, error) {
+	log.Printf("NewManager: EnvFile=%s RepoRoot=%s HostRepoRoot=%s", cfg.EnvFile, cfg.RepoRoot, cfg.HostRepoRoot)
 	envValues, envContent, err := readEnvFile(cfg.EnvFile)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read env file: %w", err)
+		return nil, fmt.Errorf("failed to read env file %s: %w", cfg.EnvFile, err)
 	}
 
 	targetDir := cfg.StacksDir
