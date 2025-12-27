@@ -41,6 +41,7 @@ type Options struct {
 	Backup      bool
 	VarsOnly    bool
 	GetVars     bool
+	Compose     bool
 	Stacks      []string
 	VarsCommand []string
 	Tag         string
@@ -82,9 +83,6 @@ func NewManagerWithWriters(cfg config.Config, stdout, stderr io.Writer) (*Manage
 	envValues["STACK_SSD_STORAGE"] = baseSSD
 
 	backupDir := absolutePath(cfg.RepoRoot, cfg.Global.Paths.BackupDir)
-	if err := ensureDir(backupDir); err != nil {
-		return nil, fmt.Errorf("failed to ensure backup dir %s: %w", backupDir, err)
-	}
 	envValues["BACKUP_DIR"] = backupDir
 
 	for key, rel := range cfg.Global.Paths.Custom {
@@ -93,9 +91,6 @@ func NewManagerWithWriters(cfg config.Config, stdout, stderr io.Writer) (*Manage
 			return nil, fmt.Errorf("paths.custom contains empty key")
 		}
 		path := absolutePath(cfg.RepoRoot, rel)
-		if err := ensureDir(path); err != nil {
-			return nil, fmt.Errorf("failed to ensure custom path %s: %w", path, err)
-		}
 		envValues[envKey] = path
 	}
 
@@ -110,9 +105,6 @@ func NewManagerWithWriters(cfg config.Config, stdout, stderr io.Writer) (*Manage
 			return nil, fmt.Errorf("paths.pools contains empty key")
 		}
 		p := absolutePath(cfg.RepoRoot, rel)
-		if err := ensureDir(p); err != nil {
-			return nil, fmt.Errorf("failed to ensure pool %s: %w", key, err)
-		}
 		poolBases[key] = p
 	}
 
@@ -139,8 +131,11 @@ func NewManagerWithWriters(cfg config.Config, stdout, stderr io.Writer) (*Manage
 }
 
 func (m *Manager) Run(ctx context.Context, opts Options) error {
-	if opts.VarsOnly && len(opts.VarsCommand) == 0 {
+	if opts.VarsOnly && len(opts.VarsCommand) == 0 && !opts.Compose {
 		return errors.New("vars-only requires a command after --")
+	}
+	if opts.Compose && len(opts.VarsCommand) == 0 {
+		return errors.New("compose requires arguments (e.g. 'up -d', 'logs', 'ps')")
 	}
 
 	stacks := opts.Stacks
@@ -394,8 +389,13 @@ func (m *Manager) runCompose(ctx context.Context, stack, composePath string, var
 	}
 
 	if opts.VarsOnly {
-		debugf(opts.Debug, "%s: executing vars-only command %s", stack, strings.Join(opts.VarsCommand, " "))
-		cmd := exec.CommandContext(ctx, opts.VarsCommand[0], opts.VarsCommand[1:]...)
+		varsCmd := opts.VarsCommand
+		// If using 'compose' shorthand, prepend docker compose command
+		if opts.Compose {
+			varsCmd = append([]string{"docker", "compose", "-f", composePath}, opts.VarsCommand...)
+		}
+		debugf(opts.Debug, "%s: executing vars-only command %s", stack, strings.Join(varsCmd, " "))
+		cmd := exec.CommandContext(ctx, varsCmd[0], varsCmd[1:]...)
 		cmd.Dir = m.cfg.RepoRoot
 		cmd.Env = envSlice
 		cmd.Stdout = m.stdout
@@ -436,7 +436,7 @@ func (m *Manager) runCompose(ctx context.Context, stack, composePath string, var
 }
 
 func (m *Manager) runComposeCmd(ctx context.Context, env []string, composePath string, args ...string) error {
-	fullArgs := append([]string{"compose", "--file", composePath}, args...)
+	fullArgs := append([]string{"compose", "-f", composePath}, args...)
 	cmd := exec.CommandContext(ctx, "docker", fullArgs...)
 	cmd.Dir = m.cfg.RepoRoot
 	cmd.Env = env
@@ -446,7 +446,7 @@ func (m *Manager) runComposeCmd(ctx context.Context, env []string, composePath s
 }
 
 func (m *Manager) composeOutput(ctx context.Context, env []string, composePath string, args ...string) (string, error) {
-	fullArgs := append([]string{"compose", "--file", composePath}, args...)
+	fullArgs := append([]string{"compose", "-f", composePath}, args...)
 	cmd := exec.CommandContext(ctx, "docker", fullArgs...)
 	cmd.Dir = m.cfg.RepoRoot
 	cmd.Env = env

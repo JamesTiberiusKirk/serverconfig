@@ -49,7 +49,7 @@ services:
 	logData, err := os.ReadFile(logPath)
 	require.NoError(t, err)
 	got := strings.TrimSpace(string(logData))
-	require.Contains(t, got, "compose --file")
+	require.Contains(t, got, "compose -f")
 	require.True(t, strings.HasSuffix(got, "config"), "expected compose config call, got %q", got)
 }
 

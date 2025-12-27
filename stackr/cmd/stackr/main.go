@@ -19,6 +19,7 @@ Usage:
 Examples:
   stackr all update
   stackr mx5parts update --tag v1.0.3
+  stackr stackr compose up --build
   stackr mx5parts vars-only -- env | grep STACK_STORAGE
   stackr monitoring get-vars
 
@@ -33,6 +34,7 @@ Commands (can be combined):
   tear-down    Run "docker compose down" for the stack(s)
   update       Pull latest images and restart stack(s)
   backup       Back up config/volumes to BACKUP_DIR
+  compose      Shorthand for "vars-only -- docker compose -f $DCFP <args...>"
   vars-only    Load env vars for the stack(s) and execute the command after --
   get-vars     Scan compose files for env vars and append missing entries to .env
 `
@@ -95,6 +97,13 @@ func parseArgs(args []string) (stackcmd.Options, bool, error) {
 			opts.Update = true
 		case "backup":
 			opts.Backup = true
+		case "compose":
+			opts.Compose = true
+			opts.VarsOnly = true
+			if i+1 < len(args) {
+				opts.VarsCommand = append([]string{}, args[i+1:]...)
+			}
+			i = len(args)
 		case "vars-only":
 			opts.VarsOnly = true
 		case "get-vars":
