@@ -4,11 +4,10 @@ Homelab stacks and automation orchestrated through Docker Compose. This repo
 contains:
 
 - Compose stacks under `stacks/<name>/`
-- A Go CLI (`stackr/cmd/stackr`) that replaces `run.sh`
-- The Stackr API service (`stackr/cmd/stackrd`) used by CI/CD and cron jobs
 - Global configuration (`.stackr.yaml`) plus local overrides in `.env`
+- Stack orchestration via [Stackr](https://github.com/jamestiberiuskirk/stackr) (external project)
 
-See `docs/stackr.md` for the full architecture overview.
+Stackr has been extracted to a standalone repository and is deployed as a containerized service.
 
 ---
 
@@ -56,69 +55,67 @@ non-secret variables globally or scoped to a specific stack.
 
 ---
 
-## 2. Stackr CLI (`stackr/cmd/stackr`)
+## 2. Stackr CLI
 
-Run from the repo root:
+The Stackr CLI is available from the [Stackr repository](https://github.com/jamestiberiuskirk/stackr). Install it or run from that repository:
 
 ```bash
-go run ./stackr/cmd/stackr --help
-go run ./stackr/cmd/stackr all update         # update every stack
-go run ./stackr/cmd/stackr monitoring get-vars
-go run ./stackr/cmd/stackr mx5parts vars-only -- env | grep STACK_STORAGE
+# From the stackr repository
+stackr --help
+stackr all update         # update every stack
+stackr monitoring get-vars
+stackr mx5parts vars-only -- env | grep STACK_STORAGE
 ```
 
 Features:
 
-- Commands: `all`, `tear-down`, `update`, `backup`, `vars-only`, `get-vars`
-- Flags: `--dry-run` (show compose config), `-D/--debug` (verbose logging)
-- `vars-only -- <cmd>` exports the computed env vars and runs `<cmd>` without
-  invoking Docker Compose
-- Automatically loads `.env`, `.stackr.yaml`, and per-stack compose files to
-  recreate `STACK_STORAGE_*`, `DCF`, etc.
+- Commands: `all`, `tear-down`, `update`, `backup`, `vars-only`, `get-vars`, `compose`
+- Flags: `--dry-run` (show compose config), `-D/--debug` (verbose logging), `--tag` (override image tag)
+- `vars-only -- <cmd>` exports the computed env vars and runs `<cmd>` without invoking Docker Compose
+- `compose` shorthand runs `docker compose -f` with the stack's compose file
+- Automatically loads `.env`, `.stackr.yaml`, and per-stack compose files
 
-**Note:** `run.sh` is deprecated. All internal operations (API deployments, cron jobs) now use the Go CLI directly. Use `stackr` for all stack management.
+**Note:** `run.sh` is deprecated. All internal operations (API deployments, cron jobs) use the Stackr service. Use the `stackr` CLI for all stack management.
 
 ---
 
-## 3. Stackr API service (`stackr/cmd/stackrd`)
+## 3. Stackr API service
 
-Stackr exposes a tiny HTTP API (`/deploy`, `/healthz`) and executes cron-style
-jobs defined via `stackr.cron.*` labels. Run it directly:
+Stackr runs as a containerized service (from `ghcr.io/jamestiberiuskirk/stackr`) that exposes an HTTP API (`/deploy`, `/healthz`) and executes cron-style jobs defined via `stackr.cron.*` labels.
+
+Deploy the stackr service:
 
 ```bash
-STACKR_TOKEN=changeme go run ./stackr/cmd/stackrd
+stackr stackr update
 ```
 
-Or through the dedicated stack (`./run.sh stackr update`) which mounts the repo
-at `/srv/serverconfig` and shares `/var/run/docker.sock`. The service:
+The service:
 
 - Watches all files under `stacks/` and `.stackr.yaml` via fsnotify
 - Reloads cron jobs automatically on change
-- Schedules services annotated with `stackr.cron.schedule` (and optional
-  profiles/run-on-deploy)
-- Handles deploy webhooks by invoking the CLI equivalent of `update`
+- Schedules services annotated with `stackr.cron.schedule` (and optional profiles/run-on-deploy)
+- Handles deploy webhooks by invoking stack updates
+- Mounts the repository and shares `/var/run/docker.sock` for orchestration
 
-See `docs/stackr.md` for token/env requirements.
+See the [Stackr repository](https://github.com/jamestiberiuskirk/stackr) for API documentation and configuration details.
 
 ---
 
-## 4. Linting & tests
+## 4. Validation
+
+The repository contains stack configurations and YAML files. Validation of stack configurations can be done through the Stackr CLI:
 
 ```bash
-make lint                # golangci-lint (errcheck, govet, staticcheck, etc.)
-GOCACHE=$(mktemp -d) go test ./stackr/...
+stackr <stack> --dry-run    # Validate compose configuration
 ```
-
-CI should run both commands to keep the codebase healthy.
 
 ---
 
 ## 5. Useful references
 
-- `docs/stackr.md` – runtime details, cron labels, API examples
-- `docs/adrs/0001-stackr-cli-migration.md` – ADR tracking the run.sh → Go CLI journey
+- [Stackr repository](https://github.com/jamestiberiuskirk/stackr) – runtime details, cron labels, API examples
+- `docs/adrs/0001-stackr-cli-migration.md` – ADR tracking the run.sh → Go CLI journey and stackr extraction
 - `stacks/<name>/README.md` – stack-specific instructions (e.g., `stacks/mx5parts/`)
 
-For questions or future changes (secret handling, StackCatalog migration, etc.),
-discuss in issues/ADRs before editing `run.sh` or legacy scripts. The goal is to
-centralize behavior in Go so both automation and operators share one path.
+For questions about stack orchestration and deployment, see the Stackr repository.
+For questions about stack configurations in this repository, discuss in issues/ADRs.

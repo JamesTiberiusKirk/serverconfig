@@ -3,9 +3,7 @@ name: stackr
 services:
   stackr:
     container_name: stackr
-    build:
-      context: ../..
-      dockerfile: stacks/stackr/Dockerfile
+    image: ghcr.io/jamestiberiuskirk/stackr:latest
     restart: unless-stopped
     environment:
       STACKR_HOST: 0.0.0.0

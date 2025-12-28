@@ -1,9 +1,11 @@
 # Stackr stack
 
-This stack builds and runs Stackr (the deployment + cron API) inside Docker so
-it can be managed like every other homelab service. The container keeps the
-repository mounted at `/srv/serverconfig`, watches `/srv/serverconfig/.env`, and
+This stack runs Stackr (the deployment + cron API) inside Docker using the
+published image from ghcr.io/jamestiberiuskirk/stackr. The container keeps the
+repository mounted at `/srv/stackr_repo`, watches `/srv/stackr_repo/.env`, and
 shares the Docker socket to execute `stackr` commands on behalf of callers.
+
+For more information about Stackr itself, see https://github.com/jamestiberiuskirk/stackr
 
 ## Usage
 
