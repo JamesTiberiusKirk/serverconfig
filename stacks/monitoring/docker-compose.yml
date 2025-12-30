@@ -8,9 +8,9 @@ services:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
       - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource,grafana-piechart-panel
-      - GF_SERVER_ROOT_URL=https://grafana.dumitruvulpe.com
+      - GF_SERVER_ROOT_URL=https://grafana.${BASE_DOMAIN}
     volumes:
-      - ${STACK_STORAGE_SSD}/grafana:/var/lib/grafana
+      - ${STACKR_PROV_POOL_SSD}/grafana:/var/lib/grafana
       - ./config/grafana/provisioning:/etc/grafana/provisioning
       - ./dashboards:/etc/grafana/dashboards
     networks:
@@ -20,11 +20,11 @@ services:
       - traefik.enable=true
       - traefik.docker.network=traefik
       # HTTPS router
-      - traefik.http.routers.grafana.rule=Host(`grafana.dumitruvulpe.com`)
+      - traefik.http.routers.grafana.rule=Host(`grafana.${BASE_DOMAIN}`)
       - traefik.http.routers.grafana.entrypoints=websecure
       - traefik.http.routers.grafana.tls.certresolver=le
       # HTTP router (redirect to HTTPS)
-      - traefik.http.routers.grafana-http.rule=Host(`grafana.dumitruvulpe.com`)
+      - traefik.http.routers.grafana-http.rule=Host(`grafana.${BASE_DOMAIN}`)
       - traefik.http.routers.grafana-http.entrypoints=web
       - traefik.http.routers.grafana-http.middlewares=redirect-to-https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
@@ -39,7 +39,7 @@ services:
     command: -config.file=/etc/loki/config.yml
     volumes:
       - ./config/loki/config.yml:/etc/loki/config.yml
-      - ${STACK_STORAGE_HDD}/loki:/loki
+      - ${STACKR_PROV_POOL_HDD}/loki:/loki
     networks:
       default:
         aliases:
@@ -69,7 +69,7 @@ services:
       - '--storage.tsdb.retention.time=30d'
     volumes:
       - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ${STACK_STORAGE_SSD}/prometheus:/prometheus
+      - ${STACKR_PROV_POOL_SSD}/prometheus:/prometheus
     networks:
       default:
         aliases:
@@ -125,7 +125,7 @@ services:
       - DOZZLE_AUTH_PROVIDER=simple
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${STACK_STORAGE_SSD}/dozzle:/data
+      - ${STACKR_PROV_POOL_SSD}/dozzle:/data
     networks:
       - traefik
       - default
@@ -133,11 +133,11 @@ services:
       - traefik.enable=true
       - traefik.docker.network=traefik
       # HTTPS router
-      - traefik.http.routers.dozzle.rule=Host(`logs.dumitruvulpe.com`)
+      - traefik.http.routers.dozzle.rule=Host(`logs.${BASE_DOMAIN}`)
       - traefik.http.routers.dozzle.entrypoints=websecure
       - traefik.http.routers.dozzle.tls.certresolver=le
       # HTTP router (redirect to HTTPS)
-      - traefik.http.routers.dozzle-http.rule=Host(`logs.dumitruvulpe.com`)
+      - traefik.http.routers.dozzle-http.rule=Host(`logs.${BASE_DOMAIN}`)
       - traefik.http.routers.dozzle-http.entrypoints=web
       - traefik.http.routers.dozzle-http.middlewares=redirect-to-https
       - traefik.http.services.dozzle.loadbalancer.server.port=8080

@@ -47,7 +47,7 @@ services:
       postgres:
         condition: service_healthy
     volumes:
-      - ${STACK_STORAGE_HDD}/scraper-archive:/data/archive
+      - ${STACKR_PROV_POOL_HDD}/scraper-archive:/data/archive
     networks:
       - default
     labels:
@@ -62,7 +62,7 @@ services:
       POSTGRES_PASSWORD: ${MX5PARTS_POSTGRES_PASSWORD}
       POSTGRES_DB: ${MX5PARTS_POSTGRES_DB}
     volumes:
-      - ${STACK_STORAGE_SSD}/postgres:/var/lib/postgresql/data
+      - ${STACKR_PROV_POOL_SSD}/postgres:/var/lib/postgresql/data
     networks:
       - default
     healthcheck:

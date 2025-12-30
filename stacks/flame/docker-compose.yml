@@ -3,7 +3,7 @@ services:
     image: pawelmalak/flame:latest
     container_name: flame
     volumes:
-      - ${STACK_STORAGE_SSD}/data:/app/data
+      - ${STACKR_PROV_POOL_SSD}/data:/app/data
       - /var/run/docker.sock:/var/run/docker.sock # optional but required for Docker integration feature
     environment:
       - PASSWORD=${FLAME_PASSWORD}
@@ -12,7 +12,7 @@ services:
       - traefik
     labels:
       - traefik.enable=true
-      - traefik.http.routers.flame.rule=Host(`home.dumitruvulpe.com`)
+      - traefik.http.routers.flame.rule=Host(`home.${STACKR_PROV_DOMAIN}`)
       - traefik.http.routers.flame.entrypoints=websecure
       - traefik.http.routers.flame.tls.certresolver=le
       - traefik.http.services.flame.loadbalancer.server.port=5005

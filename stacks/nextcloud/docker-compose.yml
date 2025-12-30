@@ -18,7 +18,7 @@ services:
       - OVERWRITEHOST=${NEXTCLOUD_DOMAIN}
       - TRUSTED_PROXIES=172.16.0.0/12
     volumes:
-      - ${STACK_STORAGE_HDD}/data:/var/www/html
+      - ${STACKR_PROV_POOL_HDD}/data:/var/www/html
     networks:
       - traefik
       - default
@@ -53,7 +53,7 @@ services:
       - POSTGRES_USER=${NEXTCLOUD_DB_USER}
       - POSTGRES_PASSWORD=${NEXTCLOUD_DB_PASSWORD}
     volumes:
-      - ${STACK_STORAGE_SSD}/db:/var/lib/postgresql/data
+      - ${STACKR_PROV_POOL_SSD}/db:/var/lib/postgresql/data
     networks:
       - default
 
@@ -63,7 +63,7 @@ services:
     restart: unless-stopped
     command: redis-server --requirepass ${NEXTCLOUD_REDIS_PASSWORD}
     volumes:
-      - ${STACK_STORAGE_SSD}/redis:/data
+      - ${STACKR_PROV_POOL_SSD}/redis:/data
     networks:
       - default
 

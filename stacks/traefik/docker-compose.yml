@@ -28,8 +28,8 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${STACK_STORAGE_SSD}/letsencrypt:/letsencrypt
-      - ${STACK_STORAGE_SSD}/logs:/var/log/traefik
+      - ${STACKR_PROV_POOL_SSD}/letsencrypt:/letsencrypt
+      - ${STACKR_PROV_POOL_SSD}/logs:/var/log/traefik
       - ./dynamic:/etc/traefik/dynamic
     networks:
       - traefik

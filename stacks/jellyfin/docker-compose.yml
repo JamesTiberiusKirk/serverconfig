@@ -5,19 +5,19 @@ services:
     # user: uid:gid
     # network_mode: 'host'
     volumes:
-      - ${STACK_STORAGE_SSD}/config:/config
-      - ${STACK_STORAGE_SSD}/cache:/cache
+      - ${STACKR_PROV_POOL_SSD}/config:/config
+      - ${STACKR_PROV_POOL_SSD}/cache:/cache
       - type: bind
         source: ${MEDIA_STORAGE}
         target: /media
     restart: 'unless-stopped'
     environment:
-      - JELLYFIN_PublishedServerUrl=https://jf.dumitruvulpe.com
+      - JELLYFIN_PublishedServerUrl=https://jf.${BASE_DOMAIN}
     networks:
       - traefik
     labels:
       - traefik.enable=true
-      - traefik.http.routers.jellyfin.rule=Host(`jt.dumitruvulpe.com`)
+      - traefik.http.routers.jellyfin.rule=Host(`jf.${BASE_DOMAIN}`)
       - traefik.http.routers.jellyfin.entrypoints=websecure
       - traefik.http.routers.jellyfin.tls.certresolver=le
       - traefik.http.services.jellyfin.loadbalancer.server.port=8096

@@ -2,7 +2,6 @@ name: stackr
 
 services:
   stackr:
-    container_name: stackr
     image: ghcr.io/jamestiberiuskirk/stackrd:latest
     restart: unless-stopped
     environment:

@@ -1,0 +1,41 @@
+stacks_dir: stacks
+
+cron:
+  profile: cron
+  enable_file_logs: true
+  logs_dir: logs/cron
+  docker_container_retention: 5
+
+http:
+  base_domain: dumitruvulpe.com
+
+paths:
+  backup_dir: /mnt/16tb/stack_volumes_backup
+  pools:
+    SSD: /mnt/ssd/stack_volumes
+    HDD: /mnt/16tb/stack_volumes
+  custom:
+    BASE_DOMAIN: dumitruvulpe.com
+    MEDIA_STORAGE: /mnt/16tb/Media
+    MEDIA_STORAGE_ANIME: /mnt/16tb/Media/Anime
+    MEDIA_STORAGE_ANIME_SHOWS: /mnt/16tb/Media/Anime_Shows
+    MEDIA_STORAGE_TV: /mnt/16tb/Media/tv_shows
+    MEDIA_STORAGE_MOVIES: /mnt/16tb/Media/Movies
+    MEDIA_STORAGE_MUSIC: /mnt/16tb/Media/Music
+    MEDIA_STORAGE_CARTOONS: /mnt/16tb/Media/Cartoons
+
+# Deployment configuration per stack
+deploy:
+  mx5parts:
+    tag_env: MX5PARTS_IMAGE_TAG
+    args: ["mx5parts", "update"]
+  stackr:
+    tag_env: STACKR_IMAGE_TAG
+    args: ["stackr", "update"]
+
+# Global environment variables
+env:
+  global:
+    # Add any global env vars here
+  stacks:
+    # Stack-specific env vars if needed

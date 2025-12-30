@@ -3,13 +3,13 @@ services:
     image: portainer/portainer-ce:latest
     restart: unless-stopped
     volumes:
-      - ${STACK_STORAGE_SSD}/data:/data
+      - ${STACKR_PROV_POOL_SSD}/data:/data
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - traefik
     labels:
       - traefik.enable=true
-      - traefik.http.routers.portainer.rule=Host(`apps.dumitruvulpe.com`)
+      - traefik.http.routers.portainer.rule=Host(`apps.${BASE_DOMAIN}`)
       - traefik.http.routers.portainer.entrypoints=websecure
       - traefik.http.routers.portainer.tls.certresolver=le
       - traefik.http.services.portainer.loadbalancer.server.port=9000

@@ -15,8 +15,8 @@ services:
     environment:
       - TZ=Europe/London
       - PLEX_CLAIM=${PLEX_CLAIM}
-      - ADVERTISE_IP=http://plex.dumitruvulpe.com
+      - ADVERTISE_IP=http://plex.${BASE_DOMAIN}
     volumes:
-      - ${STACK_STORAGE_SSD}/config:/config
-      - ${STACK_STORAGE_HDD}/transcode:/transcode
+      - ${STACKR_PROV_POOL_SSD}/config:/config
+      - ${STACKR_PROV_POOL_HDD}/transcode:/transcode
       - ${MEDIA_STORAGE}:/data

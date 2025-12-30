@@ -18,7 +18,7 @@ services:
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
     volumes:
       # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file
-      - ${STACK_STORAGE_HDD}/immich-photos:/usr/src/app/upload
+      - ${STACKR_PROV_POOL_HDD}/immich-photos:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     environment:
       UPLOAD_LOCATION: ${IMMICH_UPLOAD_LOCATION}
@@ -30,7 +30,7 @@ services:
       # - DB_HOSTNAME:database
     labels:
       - traefik.enable=true
-      - traefik.http.routers.immich.rule=Host(`pics.dumitruvulpe.com`)
+      - traefik.http.routers.immich.rule=Host(`pics.${STACKR_PROV_DOMAIN}`)
       - traefik.http.routers.immich.entrypoints=websecure
       - traefik.http.routers.immich.tls.certresolver=le
       - traefik.http.services.immich.loadbalancer.server.port=2283
@@ -53,7 +53,7 @@ services:
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference - use the `-wsl` version for WSL2 where applicable
     volumes:
-      - ${STACK_STORAGE_SSD}/model:/cache
+      - ${STACKR_PROV_POOL_SSD}/model:/cache
     environment:
       UPLOAD_LOCATION: ${IMMICH_UPLOAD_LOCATION}
       DB_DATA_LOCATION: ${IMMICH_DB_DATA_LOCATION}
@@ -86,7 +86,7 @@ services:
       POSTGRES_INITDB_ARGS: '--data-checksums'
     volumes:
       # Do not edit the next line. If you want to change the database storage location on your system, edit the value of DB_DATA_LOCATION in the .env file
-      - ${STACK_STORAGE_HDD}:/var/lib/postgresql/data
+      - ${STACKR_PROV_POOL_HDD}:/var/lib/postgresql/data
     networks:
       - default
     healthcheck:
