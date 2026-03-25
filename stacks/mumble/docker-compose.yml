@@ -1,0 +1,12 @@
+services:
+  mumble:
+    image: mumblevoip/mumble-server:latest
+    container_name: mumble
+    restart: unless-stopped
+    ports:
+      - 64738:64738/tcp
+      - 64738:64738/udp
+    environment:
+      - MUMBLE_SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
+    volumes:
+      - ${STACKR_PROV_POOL_SSD}/data:/data
