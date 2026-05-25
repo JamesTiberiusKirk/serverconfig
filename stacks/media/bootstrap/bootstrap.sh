@@ -10,11 +10,11 @@ BAZARR_URL="http://bazarr:6767"
 : "${RADARR_API_KEY:?missing}"
 : "${PROWLARR_API_KEY:?missing}"
 : "${BAZARR_API_KEY:?missing}"
+: "${RDT_USER:?missing}"
+: "${RDT_PASS:?missing}"
 
 RDT_HOST="rdt-client"
 RDT_PORT=6500
-RDT_USER="admin"
-RDT_PASS="admin"
 
 log() { printf '[bootstrap] %s\n' "$*"; }
 
@@ -34,11 +34,20 @@ wait_for() {
 
 api() {
   local method=$1 url=$2 key=$3 body=${4:-}
+  local resp http_code resp_body
   if [ -n "$body" ]; then
-    curl -fsS -X "$method" -H "X-Api-Key: $key" -H "Content-Type: application/json" -d "$body" "$url"
+    resp=$(curl -sS -w '\n%{http_code}' -X "$method" -H "X-Api-Key: $key" -H "Content-Type: application/json" -d "$body" "$url")
   else
-    curl -fsS -X "$method" -H "X-Api-Key: $key" "$url"
+    resp=$(curl -sS -w '\n%{http_code}' -X "$method" -H "X-Api-Key: $key" "$url")
   fi
+  http_code=$(printf '%s' "$resp" | tail -n1)
+  resp_body=$(printf '%s' "$resp" | sed '$d')
+  if [ "$http_code" -ge 400 ]; then
+    log "HTTP $http_code from $method $url"
+    log "Response: $resp_body"
+    return 1
+  fi
+  printf '%s' "$resp_body"
 }
 
 # --- Sonarr / Radarr download client (RDT-Client as qBittorrent) ---
@@ -54,7 +63,8 @@ add_qbit_client() {
   payload=$(jq -n \
     --arg host "$RDT_HOST" --argjson port "$RDT_PORT" \
     --arg user "$RDT_USER" --arg pass "$RDT_PASS" \
-    --arg cat_field "$cat_field" --arg cat_value "$cat_value" '{
+    --arg cat_field "$cat_field" --arg cat_value "$cat_value" \
+    '{
       enable: true, protocol: "torrent", priority: 1, removeCompletedDownloads: true,
       removeFailedDownloads: true, name: "rdt-client",
       implementation: "QBittorrent", configContract: "QBittorrentSettings",
