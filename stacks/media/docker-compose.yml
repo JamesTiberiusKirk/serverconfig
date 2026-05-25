@@ -131,14 +131,27 @@ services:
       - traefik.http.routers.rdt.tls.certresolver=le
       - traefik.http.services.rdt.loadbalancer.server.port=6500
 
+  configarr-init:
+    image: alpine:3.20
+    container_name: configarr-init
+    restart: "no"
+    environment:
+      - SONARR_API_KEY=${SONARR_API_KEY}
+      - RADARR_API_KEY=${RADARR_API_KEY}
+    volumes:
+      - ./configarr:/app/config
+    command:
+      - sh
+      - -c
+      - |
+        printf 'SONARR_API_KEY: %s\nRADARR_API_KEY: %s\n' "$$SONARR_API_KEY" "$$RADARR_API_KEY" > /app/config/secrets.yml
+
   configarr:
     image: ghcr.io/raydak-labs/configarr:latest
     container_name: configarr
     restart: "no"
     environment:
       - TZ=${TZ}
-      - SONARR_API_KEY=${SONARR_API_KEY}
-      - RADARR_API_KEY=${RADARR_API_KEY}
     volumes:
       - ./configarr:/app/config
       - ${STACKR_PROV_POOL_SSD}/configarr/repos:/app/repos
@@ -146,8 +159,12 @@ services:
     networks:
       - traefik
     depends_on:
-      - sonarr
-      - radarr
+      configarr-init:
+        condition: service_completed_successfully
+      sonarr:
+        condition: service_started
+      radarr:
+        condition: service_started
 
   media-bootstrap:
     build: ./bootstrap
