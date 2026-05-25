@@ -5,6 +5,8 @@ services:
     image: ghcr.io/jamestiberiuskirk/mx5parts_store-web:${MX5PARTS_IMAGE_TAG}
     container_name: mx5parts_web
     restart: unless-stopped
+    profiles:
+      - disabled
     environment:
       ENVIRONMENT: production
       SERVER_HOST: 0.0.0.0
@@ -50,13 +52,17 @@ services:
       - ${STACKR_PROV_POOL_HDD}/scraper-archive:/data/archive
     networks:
       - default
-    labels:
-      - stackr.cron.schedule=0 1,13 * * *
+    # cron disabled; restore the label below to re-enable
+    # labels:
+    #   - stackr.cron.schedule=0 1,13 * * *
+    labels: []
 
   postgres:
     image: postgres:16-alpine
     container_name: mx5parts_postgres
     restart: unless-stopped
+    profiles:
+      - disabled
     environment:
       POSTGRES_USER: ${MX5PARTS_POSTGRES_USER}
       POSTGRES_PASSWORD: ${MX5PARTS_POSTGRES_PASSWORD}

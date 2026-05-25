@@ -23,6 +23,7 @@ paths:
     MEDIA_STORAGE_MOVIES: /mnt/16tb/Media/Movies
     MEDIA_STORAGE_MUSIC: /mnt/16tb/Media/Music
     MEDIA_STORAGE_CARTOONS: /mnt/16tb/Media/Cartoons
+    MEDIA_REALDEBRID_DOWNLOADS: /mnt/16tb/realdebrid_downloads
 
 # Deployment configuration per stack
 deploy:

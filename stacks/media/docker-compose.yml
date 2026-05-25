@@ -1,0 +1,173 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    restart: unless-stopped
+    volumes:
+      - ${STACKR_PROV_POOL_SSD}/jellyfin/config:/config
+      - ${STACKR_PROV_POOL_SSD}/jellyfin/cache:/cache
+      - type: bind
+        source: ${MEDIA_STORAGE}
+        target: /media
+    environment:
+      - JELLYFIN_PublishedServerUrl=https://jf.${BASE_DOMAIN}
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.jellyfin.rule=Host(`jf.${BASE_DOMAIN}`)
+      - traefik.http.routers.jellyfin.entrypoints=websecure
+      - traefik.http.routers.jellyfin.tls.certresolver=le
+      - traefik.http.services.jellyfin.loadbalancer.server.port=8096
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${STACKR_PROV_POOL_SSD}/prowlarr/config:/config
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.prowlarr.rule=Host(`prowlarr.${BASE_DOMAIN}`)
+      - traefik.http.routers.prowlarr.entrypoints=websecure
+      - traefik.http.routers.prowlarr.tls.certresolver=le
+      - traefik.http.services.prowlarr.loadbalancer.server.port=9696
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${STACKR_PROV_POOL_SSD}/sonarr/config:/config
+      - ${MEDIA_STORAGE}:/media
+      - ${MEDIA_REALDEBRID_DOWNLOADS}:/downloads
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.sonarr.rule=Host(`sonarr.${BASE_DOMAIN}`)
+      - traefik.http.routers.sonarr.entrypoints=websecure
+      - traefik.http.routers.sonarr.tls.certresolver=le
+      - traefik.http.services.sonarr.loadbalancer.server.port=8989
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${STACKR_PROV_POOL_SSD}/radarr/config:/config
+      - ${MEDIA_STORAGE}:/media
+      - ${MEDIA_REALDEBRID_DOWNLOADS}:/downloads
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.radarr.rule=Host(`radarr.${BASE_DOMAIN}`)
+      - traefik.http.routers.radarr.entrypoints=websecure
+      - traefik.http.routers.radarr.tls.certresolver=le
+      - traefik.http.services.radarr.loadbalancer.server.port=7878
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${STACKR_PROV_POOL_SSD}/bazarr/config:/config
+      - ${MEDIA_STORAGE}:/media
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.bazarr.rule=Host(`bazarr.${BASE_DOMAIN}`)
+      - traefik.http.routers.bazarr.entrypoints=websecure
+      - traefik.http.routers.bazarr.tls.certresolver=le
+      - traefik.http.services.bazarr.loadbalancer.server.port=6767
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    restart: unless-stopped
+    environment:
+      - LOG_LEVEL=info
+      - TZ=${TZ}
+    networks:
+      - traefik
+
+  rdt-client:
+    image: rogerfar/rdtclient:latest
+    container_name: rdt-client
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${STACKR_PROV_POOL_SSD}/rdt-client/data/db:/data/db
+      - ${MEDIA_REALDEBRID_DOWNLOADS}:/data/downloads
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.rdt.rule=Host(`rdt.${BASE_DOMAIN}`)
+      - traefik.http.routers.rdt.entrypoints=websecure
+      - traefik.http.routers.rdt.tls.certresolver=le
+      - traefik.http.services.rdt.loadbalancer.server.port=6500
+
+  configarr:
+    image: ghcr.io/raydak-labs/configarr:latest
+    container_name: configarr
+    restart: "no"
+    environment:
+      - TZ=${TZ}
+      - SONARR_API_KEY=${SONARR_API_KEY}
+      - RADARR_API_KEY=${RADARR_API_KEY}
+    volumes:
+      - ./configarr:/app/config
+      - ${STACKR_PROV_POOL_SSD}/configarr/repos:/app/repos
+      - ${STACKR_PROV_POOL_SSD}/configarr/cfs:/app/cfs
+    networks:
+      - traefik
+    depends_on:
+      - sonarr
+      - radarr
+
+  media-bootstrap:
+    build: ./bootstrap
+    container_name: media-bootstrap
+    restart: "no"
+    profiles: ["bootstrap"]
+    environment:
+      - SONARR_API_KEY=${SONARR_API_KEY}
+      - RADARR_API_KEY=${RADARR_API_KEY}
+      - PROWLARR_API_KEY=${PROWLARR_API_KEY}
+      - BAZARR_API_KEY=${BAZARR_API_KEY}
+    networks:
+      - traefik
+    depends_on:
+      - sonarr
+      - radarr
+      - prowlarr
+      - bazarr
+      - rdt-client
+
+networks:
+  traefik:
+    external: true
