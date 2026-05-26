@@ -1,0 +1,40 @@
+services:
+  authelia:
+    image: authelia/authelia:4.38
+    container_name: authelia
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-Europe/London}
+      X_AUTHELIA_CONFIG_FILTERS: template
+      BASE_DOMAIN: ${BASE_DOMAIN}
+      AUTHELIA_DOMAIN: ${AUTHELIA_DOMAIN}
+      AUTHELIA_SESSION_SECRET: ${AUTHELIA_SESSION_SECRET}
+      AUTHELIA_STORAGE_ENCRYPTION_KEY: ${AUTHELIA_STORAGE_ENCRYPTION_KEY}
+      AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET: ${AUTHELIA_JWT_SECRET}
+    volumes:
+      - ./config:/config:ro
+      - ${STACKR_PROV_POOL_SSD}/data:/data
+    networks:
+      - traefik
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9091/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.authelia.rule=Host(`${AUTHELIA_DOMAIN}`)
+      - traefik.http.routers.authelia.entrypoints=websecure
+      - traefik.http.routers.authelia.tls.certresolver=le
+      - traefik.http.routers.authelia-http.rule=Host(`${AUTHELIA_DOMAIN}`)
+      - traefik.http.routers.authelia-http.entrypoints=web
+      - traefik.http.routers.authelia-http.middlewares=redirect-to-https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+      - traefik.http.services.authelia.loadbalancer.server.port=9091
+
+networks:
+  traefik:
+    external: true
