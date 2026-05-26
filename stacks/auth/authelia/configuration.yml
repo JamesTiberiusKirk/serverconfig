@@ -40,6 +40,7 @@ session:
   cookies:
     - domain: '{{ env "BASE_DOMAIN" }}'
       authelia_url: 'https://auth.{{ env "BASE_DOMAIN" }}'
+      default_redirection_url: 'https://auth.{{ env "BASE_DOMAIN" }}'
 
 regulation:
   max_retries: 3
