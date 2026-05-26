@@ -131,27 +131,44 @@ services:
       - traefik.http.routers.rdt.tls.certresolver=le
       - traefik.http.services.rdt.loadbalancer.server.port=6500
 
-  comet:
-    image: ghcr.io/g0ldyy/comet:latest
-    container_name: comet
+  zilean-postgres:
+    image: postgres:17-alpine
+    container_name: zilean-postgres
     restart: unless-stopped
     environment:
-      - FASTAPI_HOST=0.0.0.0
-      - FASTAPI_PORT=8000
-      - DEBRID_DEFAULT_SERVICE=realdebrid
-      - DEBRID_DEFAULT_API_KEY=${REALDEBRID_API_TOKEN}
-      - DASHBOARD_ADMIN_PASSWORD=${COMET_DASHBOARD_PASSWORD}
-      - DATABASE_PATH=/data/comet.db
+      POSTGRES_USER: zilean
+      POSTGRES_PASSWORD: ${ZILEAN_POSTGRES_PASSWORD}
+      POSTGRES_DB: zilean
     volumes:
-      - ${STACKR_PROV_POOL_SSD}/comet/data:/data
+      - ${STACKR_PROV_POOL_SSD}/zilean/postgres:/var/lib/postgresql/data
     networks:
       - traefik
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zilean"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  zilean:
+    image: ipromknight/zilean:latest
+    container_name: zilean
+    restart: unless-stopped
+    environment:
+      Zilean__Database__ConnectionString: "Host=zilean-postgres;Port=5432;Database=zilean;Username=zilean;Password=${ZILEAN_POSTGRES_PASSWORD};Timeout=30;CommandTimeout=3600;"
+      Zilean__Imdb__EnableImportMatching: "true"
+    volumes:
+      - ${STACKR_PROV_POOL_SSD}/zilean/data:/app/data
+    networks:
+      - traefik
+    depends_on:
+      zilean-postgres:
+        condition: service_healthy
     labels:
       - traefik.enable=true
-      - traefik.http.routers.comet.rule=Host(`comet.${BASE_DOMAIN}`)
-      - traefik.http.routers.comet.entrypoints=websecure
-      - traefik.http.routers.comet.tls.certresolver=le
-      - traefik.http.services.comet.loadbalancer.server.port=8000
+      - traefik.http.routers.zilean.rule=Host(`zilean.${BASE_DOMAIN}`)
+      - traefik.http.routers.zilean.entrypoints=websecure
+      - traefik.http.routers.zilean.tls.certresolver=le
+      - traefik.http.services.zilean.loadbalancer.server.port=8181
 
   configarr-init:
     image: alpine:3.20
