@@ -163,12 +163,6 @@ services:
     depends_on:
       zilean-postgres:
         condition: service_healthy
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.zilean.rule=Host(`zilean.${BASE_DOMAIN}`)
-      - traefik.http.routers.zilean.entrypoints=websecure
-      - traefik.http.routers.zilean.tls.certresolver=le
-      - traefik.http.services.zilean.loadbalancer.server.port=8181
 
   configarr-init:
     image: alpine:3.20
