@@ -54,3 +54,27 @@ storage:
 notifier:
   filesystem:
     filename: /data/notifications.txt
+
+identity_providers:
+  oidc:
+    # hmac_secret comes from AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET env var
+    jwks:
+      - key_id: 'default'
+        algorithm: 'RS256'
+        use: 'sig'
+        key_file: '/data/oidc-private.pem'
+    clients:
+      - client_id: owncloud
+        client_name: OwnCloud
+        # client_secret comes from AUTHELIA_IDENTITY_PROVIDERS_OIDC_CLIENTS_0_CLIENT_SECRET env var (pbkdf2 hash)
+        public: false
+        authorization_policy: one_factor
+        redirect_uris:
+          - 'https://oc.{{ env "BASE_DOMAIN" }}/index.php/apps/openidconnect/redirect'
+        scopes:
+          - openid
+          - profile
+          - email
+          - groups
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_basic
