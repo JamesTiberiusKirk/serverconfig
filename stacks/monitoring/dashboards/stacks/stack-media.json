@@ -1,136 +1,19 @@
 {
-  "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": {
-          "type": "grafana",
-          "uid": "-- Grafana --"
-        },
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "type": "dashboard"
-      }
-    ]
-  },
-  "description": "Overview of all service stacks with status, uptime, resource usage, and error tracking",
-  "editable": true,
-  "fiscalYearStartMonth": 0,
-  "graphTooltip": 1,
-  "id": null,
-  "links": [
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": false,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Nextcloud",
-      "tooltip": "Open Nextcloud",
-      "type": "link",
-      "url": "https://nc.dumitruvulpe.com"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": false,
-      "tags": [],
-      "targetBlank": true,
-      "title": "OwnCloud",
-      "tooltip": "Open OwnCloud",
-      "type": "link",
-      "url": "https://oc.dumitruvulpe.com"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": false,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Jellyfin",
-      "tooltip": "Open Jellyfin",
-      "type": "link",
-      "url": "https://jf.dumitruvulpe.com"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": false,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Immich",
-      "tooltip": "Open Immich",
-      "type": "link",
-      "url": "https://pics.dumitruvulpe.com"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": false,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Plex",
-      "tooltip": "Open Plex",
-      "type": "link",
-      "url": "https://plex.dumitruvulpe.com"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": false,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Portainer",
-      "tooltip": "Open Portainer",
-      "type": "link",
-      "url": "https://apps.dumitruvulpe.com"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": false,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Flame",
-      "tooltip": "Open Flame Dashboard",
-      "type": "link",
-      "url": "https://home.dumitruvulpe.com"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": false,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Dozzle",
-      "tooltip": "Open Dozzle Log Viewer",
-      "type": "link",
-      "url": "https://logs.dumitruvulpe.com"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": false,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Vikunja",
-      "tooltip": "Open Vikunja",
-      "type": "link",
-      "url": "https://boards.dumitruvulpe.com"
-    }
-  ],
+  "uid": "stackr-media",
+  "title": "Stackr: Media",
   "panels": [
+    {
+      "type": "row",
+      "title": "jellyfin",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "collapsed": false
+    },
     {
       "datasource": {
         "type": "prometheus",
@@ -159,43 +42,23 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 0
+        "y": 1
       },
-      "id": 1,
+      "id": 2,
       "options": {
         "graphMode": "none",
-        "textMode": "value_and_name",
+        "textMode": "value",
         "colorMode": "background",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
+        "justifyMode": "center"
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"(lldap|authelia)\"}[1m])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Running"
-        },
-        {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"(lldap|authelia)\"})) or vector(0)",
-          "refId": "B",
-          "legendFormat": "Total"
+          "expr": "count(container_start_time_seconds{name=\"jellyfin\"}) or vector(0)",
+          "refId": "A"
         }
       ],
-      "title": "Auth Status",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Auth",
-          "url": "/d/stackr-auth",
-          "targetBlank": false
-        }
-      ]
+      "title": "jellyfin Status",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -226,77 +89,10 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 3,
-        "y": 0
-      },
-      "id": 2,
-      "options": {
-        "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(lldap|authelia)\"}[5m]) * 100)",
-          "refId": "A",
-          "legendFormat": "CPU",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "title": "Auth CPU",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Auth",
-          "url": "/d/stackr-auth",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "bytes",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10,
-            "lineWidth": 1,
-            "spanNulls": false,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 7,
-        "y": 0
+        "h": 8,
+        "w": 5,
+        "x": 6,
+        "y": 1
       },
       "id": 3,
       "options": {
@@ -312,7 +108,67 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=~\"(lldap|authelia)\"})",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"jellyfin\"}[5m])) * 100",
+          "refId": "A",
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "title": "CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 11,
+        "y": 1
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(container_memory_usage_bytes{name=\"jellyfin\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -321,15 +177,8 @@
           }
         }
       ],
-      "title": "Auth Memory",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Auth",
-          "url": "/d/stackr-auth",
-          "targetBlank": false
-        }
-      ]
+      "title": "Memory",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -349,65 +198,10 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 11,
-        "y": 0
-      },
-      "id": 4,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"(lldap|authelia)\"}[5m]))",
-          "refId": "A",
-          "legendFormat": "RX"
-        },
-        {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"(lldap|authelia)\"}[5m]))",
-          "refId": "B",
-          "legendFormat": "TX"
-        }
-      ],
-      "title": "Auth Network I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Auth",
-          "url": "/d/stackr-auth",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Bps",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
+        "h": 8,
+        "w": 4,
         "x": 16,
-        "y": 0
+        "y": 1
       },
       "id": 5,
       "options": {
@@ -421,78 +215,66 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"(lldap|authelia)\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"jellyfin\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "RX"
+        },
+        {
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"jellyfin\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "TX"
+        }
+      ],
+      "title": "Network I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 1
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"jellyfin\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"(lldap|authelia)\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"jellyfin\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
       ],
-      "title": "Auth Disk I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Auth",
-          "url": "/d/stackr-auth",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "loki"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 21,
-        "y": 0
-      },
-      "id": 6,
-      "options": {
-        "graphMode": "none",
-        "textMode": "value",
-        "colorMode": "background",
-        "justifyMode": "center"
-      },
-      "targets": [
-        {
-          "expr": "sum(count_over_time({container=~\"(lldap|authelia)\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A"
-        }
-      ],
-      "title": "Auth Errors",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Auth",
-          "url": "/d/stackr-auth",
-          "targetBlank": false
-        }
-      ]
+      "title": "Disk I/O",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -506,59 +288,35 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
-              },
-              {
                 "color": "green",
-                "value": 1
+                "value": null
               }
             ]
           },
-          "unit": "none"
+          "unit": "s"
         }
       },
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 0,
-        "y": 4
+        "x": 3,
+        "y": 1
       },
       "id": 7,
       "options": {
         "graphMode": "none",
-        "textMode": "value_and_name",
-        "colorMode": "background",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
+        "textMode": "value",
+        "colorMode": "value",
+        "justifyMode": "center"
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"flame\"}[1m])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Running"
-        },
-        {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"flame\"})) or vector(0)",
-          "refId": "B",
-          "legendFormat": "Total"
+          "expr": "max(time() - container_start_time_seconds{name=\"jellyfin\"})",
+          "refId": "A"
         }
       ],
-      "title": "Flame Status",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Flame",
-          "url": "/d/stackr-flame",
-          "targetBlank": false
-        }
-      ]
+      "title": "Uptime",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -567,242 +325,48 @@
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "percent",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10,
-            "lineWidth": 1,
-            "spanNulls": false,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          }
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "none"
         }
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 3,
-        "y": 4
+        "w": 3,
+        "x": 0,
+        "y": 5
       },
       "id": 8,
       "options": {
-        "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"flame\"}[5m]) * 100)",
-          "refId": "A",
-          "legendFormat": "CPU",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
+          "expr": "max(changes(container_start_time_seconds{name=\"jellyfin\"}[$__range]))",
+          "refId": "A"
         }
       ],
-      "title": "Flame CPU",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Flame",
-          "url": "/d/stackr-flame",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "bytes",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10,
-            "lineWidth": 1,
-            "spanNulls": false,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 7,
-        "y": 4
-      },
-      "id": 9,
-      "options": {
-        "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(container_memory_usage_bytes{name=~\"flame\"})",
-          "refId": "A",
-          "legendFormat": "Memory",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "title": "Flame Memory",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Flame",
-          "url": "/d/stackr-flame",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Bps",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 11,
-        "y": 4
-      },
-      "id": 10,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"flame\"}[5m]))",
-          "refId": "A",
-          "legendFormat": "RX"
-        },
-        {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"flame\"}[5m]))",
-          "refId": "B",
-          "legendFormat": "TX"
-        }
-      ],
-      "title": "Flame Network I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Flame",
-          "url": "/d/stackr-flame",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Bps",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 16,
-        "y": 4
-      },
-      "id": 11,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"flame\"}[5m]))",
-          "refId": "A",
-          "legendFormat": "Read"
-        },
-        {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"flame\"}[5m]))",
-          "refId": "B",
-          "legendFormat": "Write"
-        }
-      ],
-      "title": "Flame Disk I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Flame",
-          "url": "/d/stackr-flame",
-          "targetBlank": false
-        }
-      ]
+      "title": "Restarts",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -831,10 +395,10 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 21,
-        "y": 4
+        "x": 3,
+        "y": 5
       },
-      "id": 12,
+      "id": 9,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -843,19 +407,24 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"flame\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=\"jellyfin\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "Flame Errors",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Flame",
-          "url": "/d/stackr-flame",
-          "targetBlank": false
-        }
-      ]
+      "title": "Errors",
+      "type": "stat"
+    },
+    {
+      "type": "row",
+      "title": "prowlarr",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 10,
+      "collapsed": false
     },
     {
       "datasource": {
@@ -885,43 +454,23 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 8
+        "y": 10
       },
-      "id": 13,
+      "id": 11,
       "options": {
         "graphMode": "none",
-        "textMode": "value_and_name",
+        "textMode": "value",
         "colorMode": "background",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
+        "justifyMode": "center"
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"}[1m])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Running"
-        },
-        {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"})) or vector(0)",
-          "refId": "B",
-          "legendFormat": "Total"
+          "expr": "count(container_start_time_seconds{name=\"prowlarr\"}) or vector(0)",
+          "refId": "A"
         }
       ],
-      "title": "Immich Status",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Immich",
-          "url": "/d/stackr-immich",
-          "targetBlank": false
-        }
-      ]
+      "title": "prowlarr Status",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -952,12 +501,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 3,
-        "y": 8
+        "h": 8,
+        "w": 5,
+        "x": 6,
+        "y": 10
       },
-      "id": 14,
+      "id": 12,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -971,7 +520,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"}[5m]) * 100)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"prowlarr\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -980,15 +529,8 @@
           }
         }
       ],
-      "title": "Immich CPU",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Immich",
-          "url": "/d/stackr-immich",
-          "targetBlank": false
-        }
-      ]
+      "title": "CPU",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1019,12 +561,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 7,
-        "y": 8
+        "h": 8,
+        "w": 5,
+        "x": 11,
+        "y": 10
       },
-      "id": 15,
+      "id": 13,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -1038,7 +580,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"})",
+          "expr": "sum(container_memory_usage_bytes{name=\"prowlarr\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -1047,15 +589,8 @@
           }
         }
       ],
-      "title": "Immich Memory",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Immich",
-          "url": "/d/stackr-immich",
-          "targetBlank": false
-        }
-      ]
+      "title": "Memory",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1075,12 +610,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 11,
-        "y": 8
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 10
       },
-      "id": 16,
+      "id": 14,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -1092,25 +627,18 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"prowlarr\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"}[5m]))",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"prowlarr\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
       ],
-      "title": "Immich Network I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Immich",
-          "url": "/d/stackr-immich",
-          "targetBlank": false
-        }
-      ]
+      "title": "Network I/O",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1130,12 +658,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 16,
-        "y": 8
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 10
       },
-      "id": 17,
+      "id": 15,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -1147,25 +675,110 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"}[5m]))",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"prowlarr\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"prowlarr\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
       ],
-      "title": "Immich Disk I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Immich",
-          "url": "/d/stackr-immich",
-          "targetBlank": false
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
         }
-      ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 10
+      },
+      "id": 16,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "value",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(time() - container_start_time_seconds{name=\"prowlarr\"})",
+          "refId": "A"
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 14
+      },
+      "id": 17,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(changes(container_start_time_seconds{name=\"prowlarr\"}[$__range]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Restarts",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -1194,8 +807,8 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 21,
-        "y": 8
+        "x": 3,
+        "y": 14
       },
       "id": 18,
       "options": {
@@ -1206,19 +819,24 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"(immich_server|immich_machine_learning|immich_redis|immich_postgres)\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=\"prowlarr\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "Immich Errors",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Immich",
-          "url": "/d/stackr-immich",
-          "targetBlank": false
-        }
-      ]
+      "title": "Errors",
+      "type": "stat"
+    },
+    {
+      "type": "row",
+      "title": "sonarr",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "id": 19,
+      "collapsed": false
     },
     {
       "datasource": {
@@ -1248,43 +866,23 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 12
+        "y": 19
       },
-      "id": 19,
+      "id": 20,
       "options": {
         "graphMode": "none",
-        "textMode": "value_and_name",
+        "textMode": "value",
         "colorMode": "background",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
+        "justifyMode": "center"
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"(jellyfin|prowlarr|sonarr|radarr|bazarr|flaresolverr|rdt-client|zilean-postgres|zilean|configarr-init|configarr|media-bootstrap)\"}[1m])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Running"
-        },
-        {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"(jellyfin|prowlarr|sonarr|radarr|bazarr|flaresolverr|rdt-client|zilean-postgres|zilean|configarr-init|configarr|media-bootstrap)\"})) or vector(0)",
-          "refId": "B",
-          "legendFormat": "Total"
+          "expr": "count(container_start_time_seconds{name=\"sonarr\"}) or vector(0)",
+          "refId": "A"
         }
       ],
-      "title": "Media Status",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Media",
-          "url": "/d/stackr-media",
-          "targetBlank": false
-        }
-      ]
+      "title": "sonarr Status",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -1315,77 +913,10 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 3,
-        "y": 12
-      },
-      "id": 20,
-      "options": {
-        "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(jellyfin|prowlarr|sonarr|radarr|bazarr|flaresolverr|rdt-client|zilean-postgres|zilean|configarr-init|configarr|media-bootstrap)\"}[5m]) * 100)",
-          "refId": "A",
-          "legendFormat": "CPU",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "title": "Media CPU",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Media",
-          "url": "/d/stackr-media",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "bytes",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10,
-            "lineWidth": 1,
-            "spanNulls": false,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 7,
-        "y": 12
+        "h": 8,
+        "w": 5,
+        "x": 6,
+        "y": 19
       },
       "id": 21,
       "options": {
@@ -1401,7 +932,67 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=~\"(jellyfin|prowlarr|sonarr|radarr|bazarr|flaresolverr|rdt-client|zilean-postgres|zilean|configarr-init|configarr|media-bootstrap)\"})",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"sonarr\"}[5m])) * 100",
+          "refId": "A",
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "title": "CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 11,
+        "y": 19
+      },
+      "id": 22,
+      "options": {
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(container_memory_usage_bytes{name=\"sonarr\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -1410,15 +1001,8 @@
           }
         }
       ],
-      "title": "Media Memory",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Media",
-          "url": "/d/stackr-media",
-          "targetBlank": false
-        }
-      ]
+      "title": "Memory",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1438,65 +1022,10 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 11,
-        "y": 12
-      },
-      "id": 22,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"(jellyfin|prowlarr|sonarr|radarr|bazarr|flaresolverr|rdt-client|zilean-postgres|zilean|configarr-init|configarr|media-bootstrap)\"}[5m]))",
-          "refId": "A",
-          "legendFormat": "RX"
-        },
-        {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"(jellyfin|prowlarr|sonarr|radarr|bazarr|flaresolverr|rdt-client|zilean-postgres|zilean|configarr-init|configarr|media-bootstrap)\"}[5m]))",
-          "refId": "B",
-          "legendFormat": "TX"
-        }
-      ],
-      "title": "Media Network I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Media",
-          "url": "/d/stackr-media",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Bps",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
+        "h": 8,
+        "w": 4,
         "x": 16,
-        "y": 12
+        "y": 19
       },
       "id": 23,
       "options": {
@@ -1510,78 +1039,66 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"(jellyfin|prowlarr|sonarr|radarr|bazarr|flaresolverr|rdt-client|zilean-postgres|zilean|configarr-init|configarr|media-bootstrap)\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"sonarr\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "RX"
+        },
+        {
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"sonarr\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "TX"
+        }
+      ],
+      "title": "Network I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 19
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"sonarr\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"(jellyfin|prowlarr|sonarr|radarr|bazarr|flaresolverr|rdt-client|zilean-postgres|zilean|configarr-init|configarr|media-bootstrap)\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"sonarr\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
       ],
-      "title": "Media Disk I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Media",
-          "url": "/d/stackr-media",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "loki"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 21,
-        "y": 12
-      },
-      "id": 24,
-      "options": {
-        "graphMode": "none",
-        "textMode": "value",
-        "colorMode": "background",
-        "justifyMode": "center"
-      },
-      "targets": [
-        {
-          "expr": "sum(count_over_time({container=~\"(jellyfin|prowlarr|sonarr|radarr|bazarr|flaresolverr|rdt-client|zilean-postgres|zilean|configarr-init|configarr|media-bootstrap)\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A"
-        }
-      ],
-      "title": "Media Errors",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Media",
-          "url": "/d/stackr-media",
-          "targetBlank": false
-        }
-      ]
+      "title": "Disk I/O",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1595,59 +1112,35 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
-              },
-              {
                 "color": "green",
-                "value": 1
+                "value": null
               }
             ]
           },
-          "unit": "none"
+          "unit": "s"
         }
       },
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 0,
-        "y": 16
+        "x": 3,
+        "y": 19
       },
       "id": 25,
       "options": {
         "graphMode": "none",
-        "textMode": "value_and_name",
-        "colorMode": "background",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
+        "textMode": "value",
+        "colorMode": "value",
+        "justifyMode": "center"
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"}[1m])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Running"
-        },
-        {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"})) or vector(0)",
-          "refId": "B",
-          "legendFormat": "Total"
+          "expr": "max(time() - container_start_time_seconds{name=\"sonarr\"})",
+          "refId": "A"
         }
       ],
-      "title": "Monitoring Status",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Monitoring",
-          "url": "/d/stackr-monitoring",
-          "targetBlank": false
-        }
-      ]
+      "title": "Uptime",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -1656,242 +1149,48 @@
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "percent",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10,
-            "lineWidth": 1,
-            "spanNulls": false,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          }
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "none"
         }
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 3,
-        "y": 16
+        "w": 3,
+        "x": 0,
+        "y": 23
       },
       "id": 26,
       "options": {
-        "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"}[5m]) * 100)",
-          "refId": "A",
-          "legendFormat": "CPU",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
+          "expr": "max(changes(container_start_time_seconds{name=\"sonarr\"}[$__range]))",
+          "refId": "A"
         }
       ],
-      "title": "Monitoring CPU",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Monitoring",
-          "url": "/d/stackr-monitoring",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "bytes",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10,
-            "lineWidth": 1,
-            "spanNulls": false,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 7,
-        "y": 16
-      },
-      "id": 27,
-      "options": {
-        "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(container_memory_usage_bytes{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"})",
-          "refId": "A",
-          "legendFormat": "Memory",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "title": "Monitoring Memory",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Monitoring",
-          "url": "/d/stackr-monitoring",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Bps",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 11,
-        "y": 16
-      },
-      "id": 28,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"}[5m]))",
-          "refId": "A",
-          "legendFormat": "RX"
-        },
-        {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"}[5m]))",
-          "refId": "B",
-          "legendFormat": "TX"
-        }
-      ],
-      "title": "Monitoring Network I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Monitoring",
-          "url": "/d/stackr-monitoring",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Bps",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 16,
-        "y": 16
-      },
-      "id": 29,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"}[5m]))",
-          "refId": "A",
-          "legendFormat": "Read"
-        },
-        {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\"}[5m]))",
-          "refId": "B",
-          "legendFormat": "Write"
-        }
-      ],
-      "title": "Monitoring Disk I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Monitoring",
-          "url": "/d/stackr-monitoring",
-          "targetBlank": false
-        }
-      ]
+      "title": "Restarts",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -1920,10 +1219,10 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 21,
-        "y": 16
+        "x": 3,
+        "y": 23
       },
-      "id": 30,
+      "id": 27,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -1932,19 +1231,24 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"(grafana|loki|promtail|prometheus|node-exporter|cadvisor|dozzle)\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=\"sonarr\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "Monitoring Errors",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Monitoring",
-          "url": "/d/stackr-monitoring",
-          "targetBlank": false
-        }
-      ]
+      "title": "Errors",
+      "type": "stat"
+    },
+    {
+      "type": "row",
+      "title": "radarr",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 28,
+      "collapsed": false
     },
     {
       "datasource": {
@@ -1974,43 +1278,23 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 20
+        "y": 28
       },
-      "id": 31,
+      "id": 29,
       "options": {
         "graphMode": "none",
-        "textMode": "value_and_name",
+        "textMode": "value",
         "colorMode": "background",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
+        "justifyMode": "center"
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"(mx5parts_web|mx5parts_scraper|mx5parts_postgres)\"}[1m])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Running"
-        },
-        {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"(mx5parts_web|mx5parts_scraper|mx5parts_postgres)\"})) or vector(0)",
-          "refId": "B",
-          "legendFormat": "Total"
+          "expr": "count(container_start_time_seconds{name=\"radarr\"}) or vector(0)",
+          "refId": "A"
         }
       ],
-      "title": "Mx5Parts Status",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Mx5Parts",
-          "url": "/d/stackr-mx5parts",
-          "targetBlank": false
-        }
-      ]
+      "title": "radarr Status",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -2041,12 +1325,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 3,
-        "y": 20
+        "h": 8,
+        "w": 5,
+        "x": 6,
+        "y": 28
       },
-      "id": 32,
+      "id": 30,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -2060,7 +1344,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(mx5parts_web|mx5parts_scraper|mx5parts_postgres)\"}[5m]) * 100)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"radarr\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -2069,15 +1353,8 @@
           }
         }
       ],
-      "title": "Mx5Parts CPU",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Mx5Parts",
-          "url": "/d/stackr-mx5parts",
-          "targetBlank": false
-        }
-      ]
+      "title": "CPU",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2108,12 +1385,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 7,
-        "y": 20
+        "h": 8,
+        "w": 5,
+        "x": 11,
+        "y": 28
       },
-      "id": 33,
+      "id": 31,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -2127,7 +1404,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=~\"(mx5parts_web|mx5parts_scraper|mx5parts_postgres)\"})",
+          "expr": "sum(container_memory_usage_bytes{name=\"radarr\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -2136,15 +1413,8 @@
           }
         }
       ],
-      "title": "Mx5Parts Memory",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Mx5Parts",
-          "url": "/d/stackr-mx5parts",
-          "targetBlank": false
-        }
-      ]
+      "title": "Memory",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2164,12 +1434,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 11,
-        "y": 20
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 28
       },
-      "id": 34,
+      "id": 32,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -2181,25 +1451,18 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"(mx5parts_web|mx5parts_scraper|mx5parts_postgres)\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"radarr\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"(mx5parts_web|mx5parts_scraper|mx5parts_postgres)\"}[5m]))",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"radarr\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
       ],
-      "title": "Mx5Parts Network I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Mx5Parts",
-          "url": "/d/stackr-mx5parts",
-          "targetBlank": false
-        }
-      ]
+      "title": "Network I/O",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2219,12 +1482,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 16,
-        "y": 20
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 28
       },
-      "id": 35,
+      "id": 33,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -2236,25 +1499,110 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"(mx5parts_web|mx5parts_scraper|mx5parts_postgres)\"}[5m]))",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"radarr\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"(mx5parts_web|mx5parts_scraper|mx5parts_postgres)\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"radarr\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
       ],
-      "title": "Mx5Parts Disk I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Mx5Parts",
-          "url": "/d/stackr-mx5parts",
-          "targetBlank": false
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
         }
-      ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 28
+      },
+      "id": 34,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "value",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(time() - container_start_time_seconds{name=\"radarr\"})",
+          "refId": "A"
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 32
+      },
+      "id": 35,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(changes(container_start_time_seconds{name=\"radarr\"}[$__range]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Restarts",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -2283,8 +1631,8 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 21,
-        "y": 20
+        "x": 3,
+        "y": 32
       },
       "id": 36,
       "options": {
@@ -2295,19 +1643,24 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"(mx5parts_web|mx5parts_scraper|mx5parts_postgres)\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=\"radarr\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "Mx5Parts Errors",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Mx5Parts",
-          "url": "/d/stackr-mx5parts",
-          "targetBlank": false
-        }
-      ]
+      "title": "Errors",
+      "type": "stat"
+    },
+    {
+      "type": "row",
+      "title": "bazarr",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 36
+      },
+      "id": 37,
+      "collapsed": false
     },
     {
       "datasource": {
@@ -2337,43 +1690,23 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 24
+        "y": 37
       },
-      "id": 37,
+      "id": 38,
       "options": {
         "graphMode": "none",
-        "textMode": "value_and_name",
+        "textMode": "value",
         "colorMode": "background",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
+        "justifyMode": "center"
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"}[1m])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Running"
-        },
-        {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"})) or vector(0)",
-          "refId": "B",
-          "legendFormat": "Total"
+          "expr": "count(container_start_time_seconds{name=\"bazarr\"}) or vector(0)",
+          "refId": "A"
         }
       ],
-      "title": "Owncloud Status",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Owncloud",
-          "url": "/d/stackr-owncloud",
-          "targetBlank": false
-        }
-      ]
+      "title": "bazarr Status",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -2404,77 +1737,10 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 3,
-        "y": 24
-      },
-      "id": 38,
-      "options": {
-        "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"}[5m]) * 100)",
-          "refId": "A",
-          "legendFormat": "CPU",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "title": "Owncloud CPU",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Owncloud",
-          "url": "/d/stackr-owncloud",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "bytes",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10,
-            "lineWidth": 1,
-            "spanNulls": false,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 7,
-        "y": 24
+        "h": 8,
+        "w": 5,
+        "x": 6,
+        "y": 37
       },
       "id": 39,
       "options": {
@@ -2490,7 +1756,67 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"})",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"bazarr\"}[5m])) * 100",
+          "refId": "A",
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "title": "CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 11,
+        "y": 37
+      },
+      "id": 40,
+      "options": {
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(container_memory_usage_bytes{name=\"bazarr\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -2499,15 +1825,8 @@
           }
         }
       ],
-      "title": "Owncloud Memory",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Owncloud",
-          "url": "/d/stackr-owncloud",
-          "targetBlank": false
-        }
-      ]
+      "title": "Memory",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2527,65 +1846,10 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 11,
-        "y": 24
-      },
-      "id": 40,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"}[5m]))",
-          "refId": "A",
-          "legendFormat": "RX"
-        },
-        {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"}[5m]))",
-          "refId": "B",
-          "legendFormat": "TX"
-        }
-      ],
-      "title": "Owncloud Network I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Owncloud",
-          "url": "/d/stackr-owncloud",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Bps",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
+        "h": 8,
+        "w": 4,
         "x": 16,
-        "y": 24
+        "y": 37
       },
       "id": 41,
       "options": {
@@ -2599,78 +1863,66 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"bazarr\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "RX"
+        },
+        {
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"bazarr\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "TX"
+        }
+      ],
+      "title": "Network I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 37
+      },
+      "id": 42,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"bazarr\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"bazarr\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
       ],
-      "title": "Owncloud Disk I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Owncloud",
-          "url": "/d/stackr-owncloud",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "loki"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 21,
-        "y": 24
-      },
-      "id": 42,
-      "options": {
-        "graphMode": "none",
-        "textMode": "value",
-        "colorMode": "background",
-        "justifyMode": "center"
-      },
-      "targets": [
-        {
-          "expr": "sum(count_over_time({container=~\"(owncloud_server|owncloud_mariadb|owncloud_redis)\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A"
-        }
-      ],
-      "title": "Owncloud Errors",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Owncloud",
-          "url": "/d/stackr-owncloud",
-          "targetBlank": false
-        }
-      ]
+      "title": "Disk I/O",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2684,59 +1936,35 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
-              },
-              {
                 "color": "green",
-                "value": 1
+                "value": null
               }
             ]
           },
-          "unit": "none"
+          "unit": "s"
         }
       },
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 0,
-        "y": 28
+        "x": 3,
+        "y": 37
       },
       "id": 43,
       "options": {
         "graphMode": "none",
-        "textMode": "value_and_name",
-        "colorMode": "background",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
+        "textMode": "value",
+        "colorMode": "value",
+        "justifyMode": "center"
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"plex\"}[1m])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Running"
-        },
-        {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"plex\"})) or vector(0)",
-          "refId": "B",
-          "legendFormat": "Total"
+          "expr": "max(time() - container_start_time_seconds{name=\"bazarr\"})",
+          "refId": "A"
         }
       ],
-      "title": "Plex Status",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Plex",
-          "url": "/d/stackr-plex",
-          "targetBlank": false
-        }
-      ]
+      "title": "Uptime",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -2745,242 +1973,48 @@
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "percent",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10,
-            "lineWidth": 1,
-            "spanNulls": false,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          }
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "none"
         }
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 3,
-        "y": 28
+        "w": 3,
+        "x": 0,
+        "y": 41
       },
       "id": 44,
       "options": {
-        "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"plex\"}[5m]) * 100)",
-          "refId": "A",
-          "legendFormat": "CPU",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
+          "expr": "max(changes(container_start_time_seconds{name=\"bazarr\"}[$__range]))",
+          "refId": "A"
         }
       ],
-      "title": "Plex CPU",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Plex",
-          "url": "/d/stackr-plex",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "bytes",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10,
-            "lineWidth": 1,
-            "spanNulls": false,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 7,
-        "y": 28
-      },
-      "id": 45,
-      "options": {
-        "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(container_memory_usage_bytes{name=~\"plex\"})",
-          "refId": "A",
-          "legendFormat": "Memory",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "title": "Plex Memory",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Plex",
-          "url": "/d/stackr-plex",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Bps",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 11,
-        "y": 28
-      },
-      "id": 46,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"plex\"}[5m]))",
-          "refId": "A",
-          "legendFormat": "RX"
-        },
-        {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"plex\"}[5m]))",
-          "refId": "B",
-          "legendFormat": "TX"
-        }
-      ],
-      "title": "Plex Network I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Plex",
-          "url": "/d/stackr-plex",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Bps",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 16,
-        "y": 28
-      },
-      "id": 47,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"plex\"}[5m]))",
-          "refId": "A",
-          "legendFormat": "Read"
-        },
-        {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"plex\"}[5m]))",
-          "refId": "B",
-          "legendFormat": "Write"
-        }
-      ],
-      "title": "Plex Disk I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Plex",
-          "url": "/d/stackr-plex",
-          "targetBlank": false
-        }
-      ]
+      "title": "Restarts",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -3009,10 +2043,10 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 21,
-        "y": 28
+        "x": 3,
+        "y": 41
       },
-      "id": 48,
+      "id": 45,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -3021,19 +2055,24 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"plex\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=\"bazarr\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "Plex Errors",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Plex",
-          "url": "/d/stackr-plex",
-          "targetBlank": false
-        }
-      ]
+      "title": "Errors",
+      "type": "stat"
+    },
+    {
+      "type": "row",
+      "title": "flaresolverr",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 45
+      },
+      "id": 46,
+      "collapsed": false
     },
     {
       "datasource": {
@@ -3063,43 +2102,23 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 32
+        "y": 46
       },
-      "id": 49,
+      "id": 47,
       "options": {
         "graphMode": "none",
-        "textMode": "value_and_name",
+        "textMode": "value",
         "colorMode": "background",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
+        "justifyMode": "center"
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"portainer.*\"}[1m])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Running"
-        },
-        {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"portainer.*\"})) or vector(0)",
-          "refId": "B",
-          "legendFormat": "Total"
+          "expr": "count(container_start_time_seconds{name=\"flaresolverr\"}) or vector(0)",
+          "refId": "A"
         }
       ],
-      "title": "Portainer Status",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Portainer",
-          "url": "/d/stackr-portainer",
-          "targetBlank": false
-        }
-      ]
+      "title": "flaresolverr Status",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -3130,12 +2149,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 3,
-        "y": 32
+        "h": 8,
+        "w": 5,
+        "x": 6,
+        "y": 46
       },
-      "id": 50,
+      "id": 48,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -3149,7 +2168,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"portainer.*\"}[5m]) * 100)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"flaresolverr\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -3158,15 +2177,8 @@
           }
         }
       ],
-      "title": "Portainer CPU",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Portainer",
-          "url": "/d/stackr-portainer",
-          "targetBlank": false
-        }
-      ]
+      "title": "CPU",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -3197,12 +2209,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 7,
-        "y": 32
+        "h": 8,
+        "w": 5,
+        "x": 11,
+        "y": 46
       },
-      "id": 51,
+      "id": 49,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -3216,7 +2228,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=~\"portainer.*\"})",
+          "expr": "sum(container_memory_usage_bytes{name=\"flaresolverr\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -3225,15 +2237,8 @@
           }
         }
       ],
-      "title": "Portainer Memory",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Portainer",
-          "url": "/d/stackr-portainer",
-          "targetBlank": false
-        }
-      ]
+      "title": "Memory",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -3253,12 +2258,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 11,
-        "y": 32
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 46
       },
-      "id": 52,
+      "id": 50,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -3270,25 +2275,18 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"portainer.*\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"flaresolverr\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"portainer.*\"}[5m]))",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"flaresolverr\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
       ],
-      "title": "Portainer Network I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Portainer",
-          "url": "/d/stackr-portainer",
-          "targetBlank": false
-        }
-      ]
+      "title": "Network I/O",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -3308,12 +2306,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 16,
-        "y": 32
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 46
       },
-      "id": 53,
+      "id": 51,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -3325,25 +2323,110 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"portainer.*\"}[5m]))",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"flaresolverr\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"portainer.*\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"flaresolverr\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
       ],
-      "title": "Portainer Disk I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Portainer",
-          "url": "/d/stackr-portainer",
-          "targetBlank": false
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
         }
-      ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 46
+      },
+      "id": 52,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "value",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(time() - container_start_time_seconds{name=\"flaresolverr\"})",
+          "refId": "A"
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 50
+      },
+      "id": 53,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(changes(container_start_time_seconds{name=\"flaresolverr\"}[$__range]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Restarts",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -3372,8 +2455,8 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 21,
-        "y": 32
+        "x": 3,
+        "y": 50
       },
       "id": 54,
       "options": {
@@ -3384,19 +2467,24 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"portainer.*\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=\"flaresolverr\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "Portainer Errors",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Portainer",
-          "url": "/d/stackr-portainer",
-          "targetBlank": false
-        }
-      ]
+      "title": "Errors",
+      "type": "stat"
+    },
+    {
+      "type": "row",
+      "title": "rdt-client",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 54
+      },
+      "id": 55,
+      "collapsed": false
     },
     {
       "datasource": {
@@ -3426,43 +2514,23 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 36
+        "y": 55
       },
-      "id": 55,
+      "id": 56,
       "options": {
         "graphMode": "none",
-        "textMode": "value_and_name",
+        "textMode": "value",
         "colorMode": "background",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
+        "justifyMode": "center"
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"stackr.*\"}[1m])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Running"
-        },
-        {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"stackr.*\"})) or vector(0)",
-          "refId": "B",
-          "legendFormat": "Total"
+          "expr": "count(container_start_time_seconds{name=\"rdt-client\"}) or vector(0)",
+          "refId": "A"
         }
       ],
-      "title": "Stackr Status",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Stackr",
-          "url": "/d/stackr-stackr",
-          "targetBlank": false
-        }
-      ]
+      "title": "rdt-client Status",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -3493,77 +2561,10 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 3,
-        "y": 36
-      },
-      "id": 56,
-      "options": {
-        "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"stackr.*\"}[5m]) * 100)",
-          "refId": "A",
-          "legendFormat": "CPU",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "title": "Stackr CPU",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Stackr",
-          "url": "/d/stackr-stackr",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "bytes",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10,
-            "lineWidth": 1,
-            "spanNulls": false,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 7,
-        "y": 36
+        "h": 8,
+        "w": 5,
+        "x": 6,
+        "y": 55
       },
       "id": 57,
       "options": {
@@ -3579,303 +2580,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=~\"stackr.*\"})",
-          "refId": "A",
-          "legendFormat": "Memory",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "title": "Stackr Memory",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Stackr",
-          "url": "/d/stackr-stackr",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Bps",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 11,
-        "y": 36
-      },
-      "id": 58,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"stackr.*\"}[5m]))",
-          "refId": "A",
-          "legendFormat": "RX"
-        },
-        {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"stackr.*\"}[5m]))",
-          "refId": "B",
-          "legendFormat": "TX"
-        }
-      ],
-      "title": "Stackr Network I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Stackr",
-          "url": "/d/stackr-stackr",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Bps",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 16,
-        "y": 36
-      },
-      "id": 59,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"stackr.*\"}[5m]))",
-          "refId": "A",
-          "legendFormat": "Read"
-        },
-        {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"stackr.*\"}[5m]))",
-          "refId": "B",
-          "legendFormat": "Write"
-        }
-      ],
-      "title": "Stackr Disk I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Stackr",
-          "url": "/d/stackr-stackr",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "loki"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 21,
-        "y": 36
-      },
-      "id": 60,
-      "options": {
-        "graphMode": "none",
-        "textMode": "value",
-        "colorMode": "background",
-        "justifyMode": "center"
-      },
-      "targets": [
-        {
-          "expr": "sum(count_over_time({container=~\"stackr.*\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A"
-        }
-      ],
-      "title": "Stackr Errors",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Stackr",
-          "url": "/d/stackr-stackr",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 0,
-        "y": 40
-      },
-      "id": 61,
-      "options": {
-        "graphMode": "none",
-        "textMode": "value_and_name",
-        "colorMode": "background",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
-      },
-      "targets": [
-        {
-          "expr": "count(count_over_time(container_last_seen{name=~\"traefik\"}[1m])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Running"
-        },
-        {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"traefik\"})) or vector(0)",
-          "refId": "B",
-          "legendFormat": "Total"
-        }
-      ],
-      "title": "Traefik Status",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Traefik",
-          "url": "/d/stackr-traefik",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10,
-            "lineWidth": 1,
-            "spanNulls": false,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 3,
-        "y": 40
-      },
-      "id": 62,
-      "options": {
-        "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"traefik\"}[5m]) * 100)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"rdt-client\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -3884,15 +2589,8 @@
           }
         }
       ],
-      "title": "Traefik CPU",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Traefik",
-          "url": "/d/stackr-traefik",
-          "targetBlank": false
-        }
-      ]
+      "title": "CPU",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -3923,12 +2621,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 7,
-        "y": 40
+        "h": 8,
+        "w": 5,
+        "x": 11,
+        "y": 55
       },
-      "id": 63,
+      "id": 58,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -3942,7 +2640,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=~\"traefik\"})",
+          "expr": "sum(container_memory_usage_bytes{name=\"rdt-client\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -3951,15 +2649,8 @@
           }
         }
       ],
-      "title": "Traefik Memory",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Traefik",
-          "url": "/d/stackr-traefik",
-          "targetBlank": false
-        }
-      ]
+      "title": "Memory",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -3979,12 +2670,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 11,
-        "y": 40
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 55
       },
-      "id": 64,
+      "id": 59,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -3996,25 +2687,18 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"traefik\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"rdt-client\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"traefik\"}[5m]))",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"rdt-client\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
       ],
-      "title": "Traefik Network I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Traefik",
-          "url": "/d/stackr-traefik",
-          "targetBlank": false
-        }
-      ]
+      "title": "Network I/O",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -4034,12 +2718,12 @@
         }
       },
       "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 16,
-        "y": 40
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 55
       },
-      "id": 65,
+      "id": 60,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -4051,25 +2735,110 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"traefik\"}[5m]))",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"rdt-client\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"traefik\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"rdt-client\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
       ],
-      "title": "Traefik Disk I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Traefik",
-          "url": "/d/stackr-traefik",
-          "targetBlank": false
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
         }
-      ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 55
+      },
+      "id": 61,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "value",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(time() - container_start_time_seconds{name=\"rdt-client\"})",
+          "refId": "A"
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 59
+      },
+      "id": 62,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(changes(container_start_time_seconds{name=\"rdt-client\"}[$__range]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Restarts",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -4098,10 +2867,10 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 21,
-        "y": 40
+        "x": 3,
+        "y": 59
       },
-      "id": 66,
+      "id": 63,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -4110,40 +2879,2091 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"traefik\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=\"rdt-client\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "Traefik Errors",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Traefik",
-          "url": "/d/stackr-traefik",
-          "targetBlank": false
+      "title": "Errors",
+      "type": "stat"
+    },
+    {
+      "type": "row",
+      "title": "zilean-postgres",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 63
+      },
+      "id": 64,
+      "collapsed": false
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
         }
-      ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 64
+      },
+      "id": 65,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "count(container_start_time_seconds{name=\"zilean-postgres\"}) or vector(0)",
+          "refId": "A"
+        }
+      ],
+      "title": "zilean-postgres Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 6,
+        "y": 64
+      },
+      "id": 66,
+      "options": {
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"zilean-postgres\"}[5m])) * 100",
+          "refId": "A",
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "title": "CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 11,
+        "y": 64
+      },
+      "id": 67,
+      "options": {
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(container_memory_usage_bytes{name=\"zilean-postgres\"})",
+          "refId": "A",
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "title": "Memory",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 64
+      },
+      "id": 68,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"zilean-postgres\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "RX"
+        },
+        {
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"zilean-postgres\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "TX"
+        }
+      ],
+      "title": "Network I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 64
+      },
+      "id": 69,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"zilean-postgres\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "Read"
+        },
+        {
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"zilean-postgres\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "Write"
+        }
+      ],
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 64
+      },
+      "id": 70,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "value",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(time() - container_start_time_seconds{name=\"zilean-postgres\"})",
+          "refId": "A"
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 68
+      },
+      "id": 71,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(changes(container_start_time_seconds{name=\"zilean-postgres\"}[$__range]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Restarts",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 68
+      },
+      "id": 72,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "sum(count_over_time({container=\"zilean-postgres\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A"
+        }
+      ],
+      "title": "Errors",
+      "type": "stat"
+    },
+    {
+      "type": "row",
+      "title": "zilean",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 72
+      },
+      "id": 73,
+      "collapsed": false
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 73
+      },
+      "id": 74,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "count(container_start_time_seconds{name=\"zilean\"}) or vector(0)",
+          "refId": "A"
+        }
+      ],
+      "title": "zilean Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 6,
+        "y": 73
+      },
+      "id": 75,
+      "options": {
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"zilean\"}[5m])) * 100",
+          "refId": "A",
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "title": "CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 11,
+        "y": 73
+      },
+      "id": 76,
+      "options": {
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(container_memory_usage_bytes{name=\"zilean\"})",
+          "refId": "A",
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "title": "Memory",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 73
+      },
+      "id": 77,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"zilean\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "RX"
+        },
+        {
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"zilean\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "TX"
+        }
+      ],
+      "title": "Network I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 73
+      },
+      "id": 78,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"zilean\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "Read"
+        },
+        {
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"zilean\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "Write"
+        }
+      ],
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 73
+      },
+      "id": 79,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "value",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(time() - container_start_time_seconds{name=\"zilean\"})",
+          "refId": "A"
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 77
+      },
+      "id": 80,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(changes(container_start_time_seconds{name=\"zilean\"}[$__range]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Restarts",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 77
+      },
+      "id": 81,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "sum(count_over_time({container=\"zilean\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A"
+        }
+      ],
+      "title": "Errors",
+      "type": "stat"
+    },
+    {
+      "type": "row",
+      "title": "configarr-init",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 81
+      },
+      "id": 82,
+      "collapsed": false
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 82
+      },
+      "id": 83,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "count(container_start_time_seconds{name=\"configarr-init\"}) or vector(0)",
+          "refId": "A"
+        }
+      ],
+      "title": "configarr-init Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 6,
+        "y": 82
+      },
+      "id": 84,
+      "options": {
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"configarr-init\"}[5m])) * 100",
+          "refId": "A",
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "title": "CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 11,
+        "y": 82
+      },
+      "id": 85,
+      "options": {
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(container_memory_usage_bytes{name=\"configarr-init\"})",
+          "refId": "A",
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "title": "Memory",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 82
+      },
+      "id": 86,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"configarr-init\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "RX"
+        },
+        {
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"configarr-init\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "TX"
+        }
+      ],
+      "title": "Network I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 82
+      },
+      "id": 87,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"configarr-init\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "Read"
+        },
+        {
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"configarr-init\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "Write"
+        }
+      ],
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 82
+      },
+      "id": 88,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "value",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(time() - container_start_time_seconds{name=\"configarr-init\"})",
+          "refId": "A"
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 86
+      },
+      "id": 89,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(changes(container_start_time_seconds{name=\"configarr-init\"}[$__range]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Restarts",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 86
+      },
+      "id": 90,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "sum(count_over_time({container=\"configarr-init\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A"
+        }
+      ],
+      "title": "Errors",
+      "type": "stat"
+    },
+    {
+      "type": "row",
+      "title": "configarr",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 90
+      },
+      "id": 91,
+      "collapsed": false
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 91
+      },
+      "id": 92,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "count(container_start_time_seconds{name=\"configarr\"}) or vector(0)",
+          "refId": "A"
+        }
+      ],
+      "title": "configarr Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 6,
+        "y": 91
+      },
+      "id": 93,
+      "options": {
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"configarr\"}[5m])) * 100",
+          "refId": "A",
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "title": "CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 11,
+        "y": 91
+      },
+      "id": 94,
+      "options": {
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(container_memory_usage_bytes{name=\"configarr\"})",
+          "refId": "A",
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "title": "Memory",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 91
+      },
+      "id": 95,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"configarr\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "RX"
+        },
+        {
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"configarr\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "TX"
+        }
+      ],
+      "title": "Network I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 91
+      },
+      "id": 96,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"configarr\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "Read"
+        },
+        {
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"configarr\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "Write"
+        }
+      ],
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 91
+      },
+      "id": 97,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "value",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(time() - container_start_time_seconds{name=\"configarr\"})",
+          "refId": "A"
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 95
+      },
+      "id": 98,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(changes(container_start_time_seconds{name=\"configarr\"}[$__range]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Restarts",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 95
+      },
+      "id": 99,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "sum(count_over_time({container=\"configarr\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A"
+        }
+      ],
+      "title": "Errors",
+      "type": "stat"
+    },
+    {
+      "type": "row",
+      "title": "media-bootstrap",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 99
+      },
+      "id": 100,
+      "collapsed": false
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 100
+      },
+      "id": 101,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "count(container_start_time_seconds{name=\"media-bootstrap\"}) or vector(0)",
+          "refId": "A"
+        }
+      ],
+      "title": "media-bootstrap Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 6,
+        "y": 100
+      },
+      "id": 102,
+      "options": {
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"media-bootstrap\"}[5m])) * 100",
+          "refId": "A",
+          "legendFormat": "CPU",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "title": "CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": false,
+            "stacking": {
+              "mode": "none",
+              "group": "A"
+            },
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 11,
+        "y": 100
+      },
+      "id": 103,
+      "options": {
+        "legend": {
+          "displayMode": "hidden",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(container_memory_usage_bytes{name=\"media-bootstrap\"})",
+          "refId": "A",
+          "legendFormat": "Memory",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
+        }
+      ],
+      "title": "Memory",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 16,
+        "y": 100
+      },
+      "id": 104,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"media-bootstrap\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "RX"
+        },
+        {
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"media-bootstrap\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "TX"
+        }
+      ],
+      "title": "Network I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "showPoints": "never",
+            "fillOpacity": 10
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 100
+      },
+      "id": 105,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"media-bootstrap\"}[5m]))",
+          "refId": "A",
+          "legendFormat": "Read"
+        },
+        {
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"media-bootstrap\"}[5m]))",
+          "refId": "B",
+          "legendFormat": "Write"
+        }
+      ],
+      "title": "Disk I/O",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 100
+      },
+      "id": 106,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "value",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(time() - container_start_time_seconds{name=\"media-bootstrap\"})",
+          "refId": "A"
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 104
+      },
+      "id": 107,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "max(changes(container_start_time_seconds{name=\"media-bootstrap\"}[$__range]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Restarts",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 104
+      },
+      "id": 108,
+      "options": {
+        "graphMode": "none",
+        "textMode": "value",
+        "colorMode": "background",
+        "justifyMode": "center"
+      },
+      "targets": [
+        {
+          "expr": "sum(count_over_time({container=\"media-bootstrap\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "refId": "A"
+        }
+      ],
+      "title": "Errors",
+      "type": "stat"
     }
   ],
-  "refresh": "30s",
-  "schemaVersion": 38,
-  "style": "dark",
-  "tags": [
-    "overview",
-    "services",
-    "stacks"
-  ],
-  "templating": {
-    "list": []
-  },
-  "time": {
-    "from": "now-1h",
-    "to": "now"
-  },
-  "timepicker": {},
-  "timezone": "",
-  "title": "Stackr Overview",
-  "uid": "stackr-overview",
+  "schemaVersion": 36,
   "version": 1,
-  "weekStart": ""
+  "refresh": "30s",
+  "editable": true,
+  "links": [
+    {
+      "title": "Back to Stackr Overview",
+      "url": "/d/stackr-overview",
+      "type": "link",
+      "icon": "dashboard"
+    },
+    {
+      "title": "View Media Logs",
+      "url": "https://logs.dumitruvulpe.com?filter=%28jellyfin%7Cprowlarr%7Csonarr%7Cradarr%7Cbazarr%7Cflaresolverr%7Crdt-client%7Czilean-postgres%7Czilean%7Cconfigarr-init%7Cconfigarr%7Cmedia-bootstrap%29",
+      "type": "link",
+      "icon": "external link",
+      "targetBlank": true
+    }
+  ]
 }

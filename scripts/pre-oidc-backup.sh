@@ -14,6 +14,7 @@ Stacks:
   jellyfin   stop -> tar config dir -> start
   grafana    stop -> tar data dir -> start
   portainer  stop -> tar data dir -> start
+  auth       stop -> tar lldap+authelia data dirs -> start
   all        runs all of the above with a shared timestamp
 
 Overrides via env:
@@ -46,7 +47,7 @@ SSD_POOL="${SSD_POOL:-/mnt/ssd/stack_volumes}"
 HDD_POOL="${HDD_POOL:-/mnt/16tb/stack_volumes}"
 
 TS="$(date -u +%Y-%m-%d_%H%M%SZ)"
-ALL_STACKS=(owncloud immich jellyfin grafana portainer)
+ALL_STACKS=(owncloud immich jellyfin grafana portainer auth)
 
 log() { echo "[$(date -u +%H:%M:%SZ)] $*"; }
 
@@ -123,6 +124,21 @@ backup_stack() {
       cid="$(container_for portainer portainer)"
       [ -n "$cid" ] || { echo "portainer container not found" >&2; return 1; }
       with_stopped "$cid" snapshot_dir "$SSD_POOL/portainer/data" "$dest" portainer-data
+      ;;
+
+    auth)
+      # Stop authelia first so it doesn't query lldap mid-shutdown.
+      log "docker stop authelia"
+      docker stop authelia >/dev/null
+      log "docker stop lldap"
+      docker stop lldap >/dev/null
+      trap "restart_container lldap; restart_container authelia" EXIT
+      snapshot_dir "$SSD_POOL/auth" "$dest" auth-data
+      log "docker start lldap"
+      docker start lldap >/dev/null
+      log "docker start authelia"
+      docker start authelia >/dev/null
+      trap - EXIT
       ;;
 
     *)

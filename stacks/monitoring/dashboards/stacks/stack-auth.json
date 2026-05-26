@@ -1,10 +1,10 @@
 {
-  "uid": "stackr-vikunja",
-  "title": "Stackr: Vikunja",
+  "uid": "stackr-auth",
+  "title": "Stackr: Auth",
   "panels": [
     {
       "type": "row",
-      "title": "vikunja",
+      "title": "lldap",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -53,11 +53,11 @@
       },
       "targets": [
         {
-          "expr": "count(container_start_time_seconds{name=\"vikunja\"}) or vector(0)",
+          "expr": "count(container_start_time_seconds{name=\"lldap\"}) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "vikunja Status",
+      "title": "lldap Status",
       "type": "stat"
     },
     {
@@ -108,7 +108,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"vikunja\"}[5m])) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"lldap\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -168,7 +168,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=\"vikunja\"})",
+          "expr": "sum(container_memory_usage_bytes{name=\"lldap\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -215,12 +215,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=\"vikunja\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"lldap\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"vikunja\"}[5m]))",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"lldap\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -263,12 +263,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"vikunja\"}[5m]))",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"lldap\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"vikunja\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"lldap\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
@@ -311,7 +311,7 @@
       },
       "targets": [
         {
-          "expr": "max(time() - container_start_time_seconds{name=\"vikunja\"})",
+          "expr": "max(time() - container_start_time_seconds{name=\"lldap\"})",
           "refId": "A"
         }
       ],
@@ -361,7 +361,7 @@
       },
       "targets": [
         {
-          "expr": "max(changes(container_start_time_seconds{name=\"vikunja\"}[$__range]))",
+          "expr": "max(changes(container_start_time_seconds{name=\"lldap\"}[$__range]))",
           "refId": "A"
         }
       ],
@@ -407,7 +407,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=\"vikunja\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=\"lldap\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
@@ -416,7 +416,7 @@
     },
     {
       "type": "row",
-      "title": "vikunja_db",
+      "title": "authelia",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -465,11 +465,11 @@
       },
       "targets": [
         {
-          "expr": "count(container_start_time_seconds{name=\"vikunja_db\"}) or vector(0)",
+          "expr": "count(container_start_time_seconds{name=\"authelia\"}) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "vikunja_db Status",
+      "title": "authelia Status",
       "type": "stat"
     },
     {
@@ -520,7 +520,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"vikunja_db\"}[5m])) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"authelia\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -580,7 +580,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=\"vikunja_db\"})",
+          "expr": "sum(container_memory_usage_bytes{name=\"authelia\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -627,12 +627,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=\"vikunja_db\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"authelia\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"vikunja_db\"}[5m]))",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"authelia\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -675,12 +675,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"vikunja_db\"}[5m]))",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"authelia\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"vikunja_db\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"authelia\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
@@ -723,7 +723,7 @@
       },
       "targets": [
         {
-          "expr": "max(time() - container_start_time_seconds{name=\"vikunja_db\"})",
+          "expr": "max(time() - container_start_time_seconds{name=\"authelia\"})",
           "refId": "A"
         }
       ],
@@ -773,7 +773,7 @@
       },
       "targets": [
         {
-          "expr": "max(changes(container_start_time_seconds{name=\"vikunja_db\"}[$__range]))",
+          "expr": "max(changes(container_start_time_seconds{name=\"authelia\"}[$__range]))",
           "refId": "A"
         }
       ],
@@ -819,7 +819,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=\"vikunja_db\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=\"authelia\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
@@ -839,8 +839,8 @@
       "icon": "dashboard"
     },
     {
-      "title": "View Vikunja Logs",
-      "url": "https://logs.dumitruvulpe.com?filter=%28vikunja%7Cvikunja_db%29",
+      "title": "View Auth Logs",
+      "url": "https://logs.dumitruvulpe.com?filter=%28lldap%7Cauthelia%29",
       "type": "link",
       "icon": "external link",
       "targetBlank": true

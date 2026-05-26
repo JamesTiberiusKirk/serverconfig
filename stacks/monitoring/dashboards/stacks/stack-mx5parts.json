@@ -1,10 +1,10 @@
 {
-  "uid": "stackr-nextcloud",
-  "title": "Stackr: Nextcloud",
+  "uid": "stackr-mx5parts",
+  "title": "Stackr: Mx5Parts",
   "panels": [
     {
       "type": "row",
-      "title": "nextcloud",
+      "title": "mx5parts_web",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -53,11 +53,11 @@
       },
       "targets": [
         {
-          "expr": "count(container_start_time_seconds{name=\"nextcloud\"}) or vector(0)",
+          "expr": "count(container_start_time_seconds{name=\"mx5parts_web\"}) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "nextcloud Status",
+      "title": "mx5parts_web Status",
       "type": "stat"
     },
     {
@@ -108,7 +108,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"nextcloud\"}[5m])) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"mx5parts_web\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -168,7 +168,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=\"nextcloud\"})",
+          "expr": "sum(container_memory_usage_bytes{name=\"mx5parts_web\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -215,12 +215,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=\"nextcloud\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"mx5parts_web\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"nextcloud\"}[5m]))",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"mx5parts_web\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -263,12 +263,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"nextcloud\"}[5m]))",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"mx5parts_web\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"nextcloud\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"mx5parts_web\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
@@ -311,7 +311,7 @@
       },
       "targets": [
         {
-          "expr": "max(time() - container_start_time_seconds{name=\"nextcloud\"})",
+          "expr": "max(time() - container_start_time_seconds{name=\"mx5parts_web\"})",
           "refId": "A"
         }
       ],
@@ -361,7 +361,7 @@
       },
       "targets": [
         {
-          "expr": "max(changes(container_start_time_seconds{name=\"nextcloud\"}[$__range]))",
+          "expr": "max(changes(container_start_time_seconds{name=\"mx5parts_web\"}[$__range]))",
           "refId": "A"
         }
       ],
@@ -407,7 +407,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=\"nextcloud\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=\"mx5parts_web\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
@@ -416,7 +416,7 @@
     },
     {
       "type": "row",
-      "title": "nextcloud_db",
+      "title": "mx5parts_scraper",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -465,11 +465,11 @@
       },
       "targets": [
         {
-          "expr": "count(container_start_time_seconds{name=\"nextcloud_db\"}) or vector(0)",
+          "expr": "count(container_start_time_seconds{name=\"mx5parts_scraper\"}) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "nextcloud_db Status",
+      "title": "mx5parts_scraper Status",
       "type": "stat"
     },
     {
@@ -520,7 +520,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"nextcloud_db\"}[5m])) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"mx5parts_scraper\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -580,7 +580,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=\"nextcloud_db\"})",
+          "expr": "sum(container_memory_usage_bytes{name=\"mx5parts_scraper\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -627,12 +627,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=\"nextcloud_db\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"mx5parts_scraper\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"nextcloud_db\"}[5m]))",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"mx5parts_scraper\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -675,12 +675,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"nextcloud_db\"}[5m]))",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"mx5parts_scraper\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"nextcloud_db\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"mx5parts_scraper\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
@@ -723,7 +723,7 @@
       },
       "targets": [
         {
-          "expr": "max(time() - container_start_time_seconds{name=\"nextcloud_db\"})",
+          "expr": "max(time() - container_start_time_seconds{name=\"mx5parts_scraper\"})",
           "refId": "A"
         }
       ],
@@ -773,7 +773,7 @@
       },
       "targets": [
         {
-          "expr": "max(changes(container_start_time_seconds{name=\"nextcloud_db\"}[$__range]))",
+          "expr": "max(changes(container_start_time_seconds{name=\"mx5parts_scraper\"}[$__range]))",
           "refId": "A"
         }
       ],
@@ -819,7 +819,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=\"nextcloud_db\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=\"mx5parts_scraper\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
@@ -828,7 +828,7 @@
     },
     {
       "type": "row",
-      "title": "nextcloud_redis",
+      "title": "mx5parts_postgres",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -877,11 +877,11 @@
       },
       "targets": [
         {
-          "expr": "count(container_start_time_seconds{name=\"nextcloud_redis\"}) or vector(0)",
+          "expr": "count(container_start_time_seconds{name=\"mx5parts_postgres\"}) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "nextcloud_redis Status",
+      "title": "mx5parts_postgres Status",
       "type": "stat"
     },
     {
@@ -932,7 +932,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"nextcloud_redis\"}[5m])) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"mx5parts_postgres\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -992,7 +992,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=\"nextcloud_redis\"})",
+          "expr": "sum(container_memory_usage_bytes{name=\"mx5parts_postgres\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -1039,12 +1039,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=\"nextcloud_redis\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"mx5parts_postgres\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"nextcloud_redis\"}[5m]))",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"mx5parts_postgres\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -1087,12 +1087,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"nextcloud_redis\"}[5m]))",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"mx5parts_postgres\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"nextcloud_redis\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"mx5parts_postgres\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
@@ -1135,7 +1135,7 @@
       },
       "targets": [
         {
-          "expr": "max(time() - container_start_time_seconds{name=\"nextcloud_redis\"})",
+          "expr": "max(time() - container_start_time_seconds{name=\"mx5parts_postgres\"})",
           "refId": "A"
         }
       ],
@@ -1185,7 +1185,7 @@
       },
       "targets": [
         {
-          "expr": "max(changes(container_start_time_seconds{name=\"nextcloud_redis\"}[$__range]))",
+          "expr": "max(changes(container_start_time_seconds{name=\"mx5parts_postgres\"}[$__range]))",
           "refId": "A"
         }
       ],
@@ -1231,7 +1231,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=\"nextcloud_redis\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=\"mx5parts_postgres\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
@@ -1251,8 +1251,8 @@
       "icon": "dashboard"
     },
     {
-      "title": "View Nextcloud Logs",
-      "url": "https://logs.dumitruvulpe.com?filter=%28nextcloud%7Cnextcloud_db%7Cnextcloud_redis%29",
+      "title": "View Mx5Parts Logs",
+      "url": "https://logs.dumitruvulpe.com?filter=%28mx5parts_web%7Cmx5parts_scraper%7Cmx5parts_postgres%29",
       "type": "link",
       "icon": "external link",
       "targetBlank": true
