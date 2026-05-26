@@ -29,7 +29,17 @@ STACK="$1"
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 [ -f "$REPO_ROOT/.env" ] || { echo "missing $REPO_ROOT/.env" >&2; exit 1; }
-set -a; . "$REPO_ROOT/.env"; set +a
+# Parse .env literally — sourcing would expand $foo / backticks inside values.
+while IFS= read -r line || [ -n "$line" ]; do
+  case "$line" in ''|'#'*) continue ;; esac
+  key="${line%%=*}"
+  val="${line#*=}"
+  case "$val" in
+    \"*\") val="${val#\"}"; val="${val%\"}" ;;
+    \'*\') val="${val#\'}"; val="${val%\'}" ;;
+  esac
+  export "$key=$val"
+done < "$REPO_ROOT/.env"
 
 BACKUP_ROOT="${BACKUP_ROOT:-/mnt/16tb/stack_volumes_backup}"
 SSD_POOL="${SSD_POOL:-/mnt/ssd/stack_volumes}"
