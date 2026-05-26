@@ -131,6 +131,28 @@ services:
       - traefik.http.routers.rdt.tls.certresolver=le
       - traefik.http.services.rdt.loadbalancer.server.port=6500
 
+  comet:
+    image: g0ldy/comet:latest
+    container_name: comet
+    restart: unless-stopped
+    environment:
+      - FASTAPI_HOST=0.0.0.0
+      - FASTAPI_PORT=8000
+      - DEBRID_DEFAULT_SERVICE=realdebrid
+      - DEBRID_DEFAULT_API_KEY=${REALDEBRID_API_TOKEN}
+      - DASHBOARD_ADMIN_PASSWORD=${COMET_DASHBOARD_PASSWORD}
+      - DATABASE_PATH=/data/comet.db
+    volumes:
+      - ${STACKR_PROV_POOL_SSD}/comet/data:/data
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.comet.rule=Host(`comet.${BASE_DOMAIN}`)
+      - traefik.http.routers.comet.entrypoints=websecure
+      - traefik.http.routers.comet.tls.certresolver=le
+      - traefik.http.services.comet.loadbalancer.server.port=8000
+
   configarr-init:
     image: alpine:3.20
     container_name: configarr-init
