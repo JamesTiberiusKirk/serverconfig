@@ -40,14 +40,6 @@ ALL_STACKS=(owncloud immich jellyfin grafana portainer)
 
 log() { echo "[$(date -u +%H:%M:%SZ)] $*"; }
 
-STOPPED=()
-cleanup() {
-  for c in "${STOPPED[@]:-}"; do
-    docker start "$c" >/dev/null 2>&1 || true
-  done
-}
-trap cleanup EXIT
-
 container_for() {
   docker ps -aq \
     --filter "label=com.docker.compose.project=$1" \
@@ -65,14 +57,18 @@ snapshot_dir() {
   tar -C "$(dirname "$src")" -czf "$dest/$name.tar.gz" "$(basename "$src")"
 }
 
+restart_container() { docker start "$1" >/dev/null 2>&1 || true; }
+
 with_stopped() {
   local container="$1"; shift
   log "docker stop $container"
   docker stop "$container" >/dev/null
-  STOPPED+=("$container")
+  # Restart only if we abort mid-work (SIGINT, tar failure, etc.)
+  trap "restart_container '$container'" EXIT
   "$@"
   log "docker start $container"
   docker start "$container" >/dev/null
+  trap - EXIT
 }
 
 backup_stack() {
@@ -82,13 +78,12 @@ backup_stack() {
 
   case "$stack" in
     owncloud)
-      : "${OWNCLOUD_DB_USERNAME:?missing in .env}"
-      : "${OWNCLOUD_DB_PASSWORD:?missing in .env}"
+      : "${OWNCLOUD_DB_ROOT_PASSWORD:?missing in .env}"
       : "${OWNCLOUD_DB_NAME:?missing in .env}"
-      log "mariadb-dump $OWNCLOUD_DB_NAME"
+      log "mariadb-dump $OWNCLOUD_DB_NAME (as root)"
       docker exec owncloud_mariadb \
         mariadb-dump --single-transaction --routines --triggers \
-        -u"$OWNCLOUD_DB_USERNAME" -p"$OWNCLOUD_DB_PASSWORD" \
+        -u root -p"$OWNCLOUD_DB_ROOT_PASSWORD" \
         "$OWNCLOUD_DB_NAME" \
         | gzip > "$dest/owncloud.sql.gz"
       snapshot_dir "$HDD_POOL/owncloud/data" "$dest" data
