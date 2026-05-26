@@ -132,7 +132,7 @@ services:
       - traefik.http.services.rdt.loadbalancer.server.port=6500
 
   comet:
-    image: g0ldy/comet:latest
+    image: ghcr.io/g0ldyy/comet:latest
     container_name: comet
     restart: unless-stopped
     environment:
