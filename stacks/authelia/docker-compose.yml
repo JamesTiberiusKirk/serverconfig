@@ -7,7 +7,6 @@ services:
       TZ: ${TZ:-Europe/London}
       X_AUTHELIA_CONFIG_FILTERS: template
       BASE_DOMAIN: ${BASE_DOMAIN}
-      AUTHELIA_DOMAIN: ${AUTHELIA_DOMAIN}
       AUTHELIA_SESSION_SECRET: ${AUTHELIA_SESSION_SECRET}
       AUTHELIA_STORAGE_ENCRYPTION_KEY: ${AUTHELIA_STORAGE_ENCRYPTION_KEY}
       AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET: ${AUTHELIA_JWT_SECRET}
@@ -25,10 +24,10 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik
-      - traefik.http.routers.authelia.rule=Host(`${AUTHELIA_DOMAIN}`)
+      - traefik.http.routers.authelia.rule=Host(`auth.${BASE_DOMAIN}`)
       - traefik.http.routers.authelia.entrypoints=websecure
       - traefik.http.routers.authelia.tls.certresolver=le
-      - traefik.http.routers.authelia-http.rule=Host(`${AUTHELIA_DOMAIN}`)
+      - traefik.http.routers.authelia-http.rule=Host(`auth.${BASE_DOMAIN}`)
       - traefik.http.routers.authelia-http.entrypoints=web
       - traefik.http.routers.authelia-http.middlewares=redirect-to-https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
