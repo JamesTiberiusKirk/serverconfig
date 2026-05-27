@@ -94,3 +94,18 @@ identity_providers:
           - groups
         userinfo_signed_response_alg: none
         token_endpoint_auth_method: client_secret_basic
+
+      - client_id: portainer
+        client_name: Portainer
+        client_secret: '{{ env "PORTAINER_OIDC_CLIENT_SECRET_HASH" }}'
+        public: false
+        authorization_policy: one_factor
+        redirect_uris:
+          - 'https://apps.{{ env "BASE_DOMAIN" }}'
+        scopes:
+          - openid
+          - profile
+          - email
+          - groups
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_basic
