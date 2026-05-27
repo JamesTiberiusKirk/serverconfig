@@ -57,6 +57,7 @@ services:
       # Per-client secrets injected via template substitution in configuration.yml,
       # not env-var override (Authelia's array-index env path doesn't work for client_secret in v4.38).
       OWNCLOUD_OIDC_CLIENT_SECRET_HASH: ${OWNCLOUD_OIDC_CLIENT_SECRET_HASH}
+      GRAFANA_OIDC_CLIENT_SECRET_HASH: ${GRAFANA_OIDC_CLIENT_SECRET_HASH}
     volumes:
       - ./authelia:/config
       - ${STACKR_PROV_POOL_SSD}/authelia/data:/data
