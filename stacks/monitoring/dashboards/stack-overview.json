@@ -76,18 +76,6 @@
       "keepTime": false,
       "tags": [],
       "targetBlank": true,
-      "title": "Plex",
-      "tooltip": "Open Plex",
-      "type": "link",
-      "url": "https://plex.vulpe.dev"
-    },
-    {
-      "asDropdown": false,
-      "icon": "external link",
-      "includeVars": false,
-      "keepTime": false,
-      "tags": [],
-      "targetBlank": true,
       "title": "Portainer",
       "tooltip": "Open Portainer",
       "type": "link",
@@ -2718,369 +2706,6 @@
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"plex\"}[1m])) or vector(0)",
-          "refId": "A",
-          "legendFormat": "Running"
-        },
-        {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"plex\"})) or vector(0)",
-          "refId": "B",
-          "legendFormat": "Total"
-        }
-      ],
-      "title": "Plex Status",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Plex",
-          "url": "/d/stackr-plex",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10,
-            "lineWidth": 1,
-            "spanNulls": false,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 3,
-        "y": 28
-      },
-      "id": 44,
-      "options": {
-        "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"plex\"}[5m]) * 100)",
-          "refId": "A",
-          "legendFormat": "CPU",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "title": "Plex CPU",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Plex",
-          "url": "/d/stackr-plex",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "bytes",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10,
-            "lineWidth": 1,
-            "spanNulls": false,
-            "stacking": {
-              "mode": "none",
-              "group": "A"
-            },
-            "hideFrom": {
-              "tooltip": false,
-              "viz": false,
-              "legend": false
-            }
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 7,
-        "y": 28
-      },
-      "id": 45,
-      "options": {
-        "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(container_memory_usage_bytes{name=~\"plex\"})",
-          "refId": "A",
-          "legendFormat": "Memory",
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          }
-        }
-      ],
-      "title": "Plex Memory",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Plex",
-          "url": "/d/stackr-plex",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Bps",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 11,
-        "y": 28
-      },
-      "id": 46,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"plex\"}[5m]))",
-          "refId": "A",
-          "legendFormat": "RX"
-        },
-        {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"plex\"}[5m]))",
-          "refId": "B",
-          "legendFormat": "TX"
-        }
-      ],
-      "title": "Plex Network I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Plex",
-          "url": "/d/stackr-plex",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "Bps",
-          "decimals": 1,
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "smooth",
-            "showPoints": "never",
-            "fillOpacity": 10
-          }
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 16,
-        "y": 28
-      },
-      "id": 47,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"plex\"}[5m]))",
-          "refId": "A",
-          "legendFormat": "Read"
-        },
-        {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"plex\"}[5m]))",
-          "refId": "B",
-          "legendFormat": "Write"
-        }
-      ],
-      "title": "Plex Disk I/O",
-      "type": "timeseries",
-      "links": [
-        {
-          "title": "Stackr: Plex",
-          "url": "/d/stackr-plex",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "loki"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 21,
-        "y": 28
-      },
-      "id": 48,
-      "options": {
-        "graphMode": "none",
-        "textMode": "value",
-        "colorMode": "background",
-        "justifyMode": "center"
-      },
-      "targets": [
-        {
-          "expr": "sum(count_over_time({container=~\"plex\",detected_level=\"error\"} [$__range])) or vector(0)",
-          "refId": "A"
-        }
-      ],
-      "title": "Plex Errors",
-      "type": "stat",
-      "links": [
-        {
-          "title": "Stackr: Plex",
-          "url": "/d/stackr-plex",
-          "targetBlank": false
-        }
-      ]
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        }
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 0,
-        "y": 32
-      },
-      "id": 49,
-      "options": {
-        "graphMode": "none",
-        "textMode": "value_and_name",
-        "colorMode": "background",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ]
-        }
-      },
-      "targets": [
-        {
           "expr": "count(count_over_time(container_last_seen{name=~\"portainer.*\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
@@ -3133,9 +2758,9 @@
         "h": 4,
         "w": 4,
         "x": 3,
-        "y": 32
+        "y": 28
       },
-      "id": 50,
+      "id": 44,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -3200,9 +2825,9 @@
         "h": 4,
         "w": 4,
         "x": 7,
-        "y": 32
+        "y": 28
       },
-      "id": 51,
+      "id": 45,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -3256,9 +2881,9 @@
         "h": 4,
         "w": 5,
         "x": 11,
-        "y": 32
+        "y": 28
       },
-      "id": 52,
+      "id": 46,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -3311,9 +2936,9 @@
         "h": 4,
         "w": 5,
         "x": 16,
-        "y": 32
+        "y": 28
       },
-      "id": 53,
+      "id": 47,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -3373,9 +2998,9 @@
         "h": 4,
         "w": 3,
         "x": 21,
-        "y": 32
+        "y": 28
       },
-      "id": 54,
+      "id": 48,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -3426,9 +3051,9 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 36
+        "y": 32
       },
-      "id": 55,
+      "id": 49,
       "options": {
         "graphMode": "none",
         "textMode": "value_and_name",
@@ -3496,9 +3121,9 @@
         "h": 4,
         "w": 4,
         "x": 3,
-        "y": 36
+        "y": 32
       },
-      "id": 56,
+      "id": 50,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -3563,9 +3188,9 @@
         "h": 4,
         "w": 4,
         "x": 7,
-        "y": 36
+        "y": 32
       },
-      "id": 57,
+      "id": 51,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -3619,9 +3244,9 @@
         "h": 4,
         "w": 5,
         "x": 11,
-        "y": 36
+        "y": 32
       },
-      "id": 58,
+      "id": 52,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -3674,9 +3299,9 @@
         "h": 4,
         "w": 5,
         "x": 16,
-        "y": 36
+        "y": 32
       },
-      "id": 59,
+      "id": 53,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -3736,9 +3361,9 @@
         "h": 4,
         "w": 3,
         "x": 21,
-        "y": 36
+        "y": 32
       },
-      "id": 60,
+      "id": 54,
       "options": {
         "graphMode": "none",
         "textMode": "value",
@@ -3789,9 +3414,9 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 40
+        "y": 36
       },
-      "id": 61,
+      "id": 55,
       "options": {
         "graphMode": "none",
         "textMode": "value_and_name",
@@ -3859,9 +3484,9 @@
         "h": 4,
         "w": 4,
         "x": 3,
-        "y": 40
+        "y": 36
       },
-      "id": 62,
+      "id": 56,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -3926,9 +3551,9 @@
         "h": 4,
         "w": 4,
         "x": 7,
-        "y": 40
+        "y": 36
       },
-      "id": 63,
+      "id": 57,
       "options": {
         "legend": {
           "displayMode": "hidden",
@@ -3982,9 +3607,9 @@
         "h": 4,
         "w": 5,
         "x": 11,
-        "y": 40
+        "y": 36
       },
-      "id": 64,
+      "id": 58,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -4037,9 +3662,9 @@
         "h": 4,
         "w": 5,
         "x": 16,
-        "y": 40
+        "y": 36
       },
-      "id": 65,
+      "id": 59,
       "options": {
         "legend": {
           "displayMode": "list",
@@ -4099,9 +3724,9 @@
         "h": 4,
         "w": 3,
         "x": 21,
-        "y": 40
+        "y": 36
       },
-      "id": 66,
+      "id": 60,
       "options": {
         "graphMode": "none",
         "textMode": "value",
