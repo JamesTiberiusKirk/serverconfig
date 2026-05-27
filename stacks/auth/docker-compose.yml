@@ -53,7 +53,9 @@ services:
       AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET: ${AUTHELIA_JWT_SECRET}
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD: ${LLDAP_ADMIN_PASSWORD}
       AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET: ${AUTHELIA_OIDC_HMAC_SECRET}
-      AUTHELIA_IDENTITY_PROVIDERS_OIDC_CLIENTS_0_CLIENT_SECRET: ${OWNCLOUD_OIDC_CLIENT_SECRET_HASH}
+      # Per-client secrets injected via template substitution in configuration.yml,
+      # not env-var override (Authelia's array-index env path doesn't work for client_secret in v4.38).
+      OWNCLOUD_OIDC_CLIENT_SECRET_HASH: ${OWNCLOUD_OIDC_CLIENT_SECRET_HASH}
     volumes:
       - ./authelia:/config
       - ${STACKR_PROV_POOL_SSD}/authelia/data:/data

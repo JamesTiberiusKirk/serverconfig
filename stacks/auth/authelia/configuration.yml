@@ -40,7 +40,7 @@ session:
   cookies:
     - domain: '{{ env "BASE_DOMAIN" }}'
       authelia_url: 'https://auth.{{ env "BASE_DOMAIN" }}'
-      default_redirection_url: 'https://auth.{{ env "BASE_DOMAIN" }}'
+      default_redirection_url: 'https://flame.{{ env "BASE_DOMAIN" }}'
 
 regulation:
   max_retries: 3
@@ -59,14 +59,14 @@ identity_providers:
   oidc:
     # hmac_secret comes from AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET env var
     jwks:
-      - key_id: 'default'
-        algorithm: 'RS256'
+      - algorithm: 'RS256'
         use: 'sig'
-        key_file: '/data/oidc-private.pem'
+        key: |
+          {{- secret "/data/oidc-private.pem" | nindent 10 }}
     clients:
       - client_id: owncloud
         client_name: OwnCloud
-        # client_secret comes from AUTHELIA_IDENTITY_PROVIDERS_OIDC_CLIENTS_0_CLIENT_SECRET env var (pbkdf2 hash)
+        client_secret: '{{ env "OWNCLOUD_OIDC_CLIENT_SECRET_HASH" }}'
         public: false
         authorization_policy: one_factor
         redirect_uris:
