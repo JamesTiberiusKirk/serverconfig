@@ -30,6 +30,7 @@ services:
       # - DB_HOSTNAME:database
     labels:
       - traefik.enable=true
+      - traefik.docker.network=traefik
       - traefik.http.routers.immich.rule=Host(`pics.${BASE_DOMAIN}`)
       - traefik.http.routers.immich.entrypoints=websecure
       - traefik.http.routers.immich.tls.certresolver=le
