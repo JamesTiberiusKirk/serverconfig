@@ -23,6 +23,7 @@ services:
       - GF_AUTH_GENERIC_OAUTH_GROUPS_ATTRIBUTE_PATH=groups
       - GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH=contains(groups[*], 'admin') && 'GrafanaAdmin' || 'Viewer'
       - GF_AUTH_GENERIC_OAUTH_ALLOW_ASSIGN_GRAFANA_ADMIN=true
+      - GF_AUTH_GENERIC_OAUTH_CLIENT_AUTHENTICATION=client_secret_basic
     volumes:
       - ${STACKR_PROV_POOL_SSD}/grafana:/var/lib/grafana
       - ./config/grafana/provisioning:/etc/grafana/provisioning
