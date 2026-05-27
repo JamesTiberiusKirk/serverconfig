@@ -63,12 +63,20 @@ identity_providers:
         use: 'sig'
         key: |
           {{- secret "/data/oidc-private.pem" | nindent 10 }}
+    claims_policies:
+      default:
+        id_token:
+          - email
+          - email_verified
+          - preferred_username
+          - groups
     clients:
       - client_id: owncloud
         client_name: OwnCloud
         client_secret: '{{ env "OWNCLOUD_OIDC_CLIENT_SECRET_HASH" }}'
         public: false
         authorization_policy: one_factor
+        claims_policy: default
         redirect_uris:
           - 'https://oc.{{ env "BASE_DOMAIN" }}/index.php/apps/openidconnect/redirect'
           - 'https://oc.{{ env "BASE_DOMAIN" }}/apps/openidconnect/redirect'
@@ -85,6 +93,7 @@ identity_providers:
         client_secret: '{{ env "GRAFANA_OIDC_CLIENT_SECRET_HASH" }}'
         public: false
         authorization_policy: one_factor
+        claims_policy: default
         redirect_uris:
           - 'https://grafana.{{ env "BASE_DOMAIN" }}/login/generic_oauth'
         scopes:
