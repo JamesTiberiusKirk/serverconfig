@@ -30,7 +30,7 @@ services:
       # - DB_HOSTNAME:database
     labels:
       - traefik.enable=true
-      - traefik.http.routers.immich.rule=Host(`pics.${STACKR_PROV_DOMAIN}`)
+      - traefik.http.routers.immich.rule=Host(`pics.${BASE_DOMAIN}`)
       - traefik.http.routers.immich.entrypoints=websecure
       - traefik.http.routers.immich.tls.certresolver=le
       - traefik.http.services.immich.loadbalancer.server.port=2283
