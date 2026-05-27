@@ -71,6 +71,7 @@ identity_providers:
         authorization_policy: one_factor
         redirect_uris:
           - 'https://oc.{{ env "BASE_DOMAIN" }}/index.php/apps/openidconnect/redirect'
+          - 'https://oc.{{ env "BASE_DOMAIN" }}/apps/openidconnect/redirect'
         scopes:
           - openid
           - profile
