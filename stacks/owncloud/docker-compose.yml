@@ -32,10 +32,15 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik
+      # Rewrite OwnCloud's broken .well-known/(card|cal)dav redirect
+      - traefik.http.middlewares.owncloud-dav-redirect.redirectregex.permanent=true
+      - traefik.http.middlewares.owncloud-dav-redirect.redirectregex.regex=https?://([^/]+)/.well-known/(card|cal)dav
+      - traefik.http.middlewares.owncloud-dav-redirect.redirectregex.replacement=https://$$1/remote.php/dav/
       # HTTPS router
       - traefik.http.routers.owncloud.rule=Host(`oc.${BASE_DOMAIN}`)
       - traefik.http.routers.owncloud.entrypoints=websecure
       - traefik.http.routers.owncloud.tls.certresolver=le
+      - traefik.http.routers.owncloud.middlewares=owncloud-dav-redirect
       # HTTP router (redirect to HTTPS, allows ACME challenges)
       - traefik.http.routers.owncloud-http.rule=Host(`oc.${BASE_DOMAIN}`)
       - traefik.http.routers.owncloud-http.entrypoints=web
