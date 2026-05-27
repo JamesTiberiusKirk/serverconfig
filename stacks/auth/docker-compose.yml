@@ -40,6 +40,7 @@ services:
     image: authelia/authelia:4.38
     container_name: authelia
     restart: unless-stopped
+    user: "1000:1000"
     depends_on:
       lldap:
         condition: service_healthy
