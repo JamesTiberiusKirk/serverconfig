@@ -428,7 +428,7 @@
     },
     {
       "title": "View Portainer Logs",
-      "url": "https://logs.dumitruvulpe.com?filter=portainer.%2A",
+      "url": "https://logs.vulpe.dev?filter=portainer.%2A",
       "type": "link",
       "icon": "external link",
       "targetBlank": true

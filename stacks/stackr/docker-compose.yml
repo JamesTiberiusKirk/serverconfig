@@ -25,9 +25,17 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik
+      # API/webhook router — no Authelia (token-protected by stackr); higher priority for /deploy + /healthz
+      - traefik.http.routers.stackr-api.rule=Host(`${STACKR_DOMAIN}`) && (PathPrefix(`/deploy`) || PathPrefix(`/healthz`))
+      - traefik.http.routers.stackr-api.entrypoints=websecure
+      - traefik.http.routers.stackr-api.tls.certresolver=le
+      - traefik.http.routers.stackr-api.priority=10
+      - traefik.http.routers.stackr-api.service=stackr
+      # UI router — Authelia gated
       - traefik.http.routers.stackr.rule=Host(`${STACKR_DOMAIN}`)
       - traefik.http.routers.stackr.entrypoints=websecure
       - traefik.http.routers.stackr.tls.certresolver=le
+      - traefik.http.routers.stackr.middlewares=authelia@file
       - traefik.http.routers.stackr-http.rule=Host(`${STACKR_DOMAIN}`)
       - traefik.http.routers.stackr-http.entrypoints=web
       - traefik.http.routers.stackr-http.middlewares=redirect-to-https

@@ -428,7 +428,7 @@
     },
     {
       "title": "View Flame Logs",
-      "url": "https://logs.dumitruvulpe.com?filter=flame",
+      "url": "https://logs.vulpe.dev?filter=flame",
       "type": "link",
       "icon": "external link",
       "targetBlank": true

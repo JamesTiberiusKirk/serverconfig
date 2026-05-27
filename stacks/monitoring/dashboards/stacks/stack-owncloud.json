@@ -1252,7 +1252,7 @@
     },
     {
       "title": "View Owncloud Logs",
-      "url": "https://logs.dumitruvulpe.com?filter=%28owncloud_server%7Cowncloud_mariadb%7Cowncloud_redis%29",
+      "url": "https://logs.vulpe.dev?filter=%28owncloud_server%7Cowncloud_mariadb%7Cowncloud_redis%29",
       "type": "link",
       "icon": "external link",
       "targetBlank": true

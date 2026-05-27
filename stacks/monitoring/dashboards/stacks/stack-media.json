@@ -4960,7 +4960,7 @@
     },
     {
       "title": "View Media Logs",
-      "url": "https://logs.dumitruvulpe.com?filter=%28jellyfin%7Cprowlarr%7Csonarr%7Cradarr%7Cbazarr%7Cflaresolverr%7Crdt-client%7Czilean-postgres%7Czilean%7Cconfigarr-init%7Cconfigarr%7Cmedia-bootstrap%29",
+      "url": "https://logs.vulpe.dev?filter=%28jellyfin%7Cprowlarr%7Csonarr%7Cradarr%7Cbazarr%7Cflaresolverr%7Crdt-client%7Czilean-postgres%7Czilean%7Cconfigarr-init%7Cconfigarr%7Cmedia-bootstrap%29",
       "type": "link",
       "icon": "external link",
       "targetBlank": true

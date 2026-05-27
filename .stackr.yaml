@@ -7,7 +7,7 @@ cron:
   docker_container_retention: 5
 
 http:
-  base_domain: dumitruvulpe.com
+  base_domain: vulpe.dev
 
 paths:
   backup_dir: /mnt/16tb/stack_volumes_backup
@@ -15,7 +15,7 @@ paths:
     SSD: /mnt/ssd/stack_volumes
     HDD: /mnt/16tb/stack_volumes
   custom:
-    BASE_DOMAIN: dumitruvulpe.com
+    BASE_DOMAIN: vulpe.dev
     MEDIA_STORAGE: /mnt/16tb/Media
     MEDIA_STORAGE_ANIME: /mnt/16tb/Media/Anime
     MEDIA_STORAGE_ANIME_SHOWS: /mnt/16tb/Media/Anime_Shows

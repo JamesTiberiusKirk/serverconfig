@@ -1,7 +1,7 @@
 http:
   routers:
     pihole:
-      rule: "Host(`pihole.dumitruvulpe.com`)"
+      rule: "Host(`pihole.vulpe.dev`)"
       entryPoints:
         - websecure
       service: pihole
@@ -9,7 +9,7 @@ http:
         certResolver: le
 
     pihole-http:
-      rule: "Host(`pihole.dumitruvulpe.com`)"
+      rule: "Host(`pihole.vulpe.dev`)"
       entryPoints:
         - web
       middlewares:

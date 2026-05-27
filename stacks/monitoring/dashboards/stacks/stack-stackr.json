@@ -428,7 +428,7 @@
     },
     {
       "title": "View Stackr Logs",
-      "url": "https://logs.dumitruvulpe.com?filter=stackr.%2A",
+      "url": "https://logs.vulpe.dev?filter=stackr.%2A",
       "type": "link",
       "icon": "external link",
       "targetBlank": true

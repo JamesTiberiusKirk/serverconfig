@@ -1664,7 +1664,7 @@
     },
     {
       "title": "View Immich Logs",
-      "url": "https://logs.dumitruvulpe.com?filter=%28immich_server%7Cimmich_machine_learning%7Cimmich_redis%7Cimmich_postgres%29",
+      "url": "https://logs.vulpe.dev?filter=%28immich_server%7Cimmich_machine_learning%7Cimmich_redis%7Cimmich_postgres%29",
       "type": "link",
       "icon": "external link",
       "targetBlank": true

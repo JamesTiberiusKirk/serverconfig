@@ -31,7 +31,7 @@
       "title": "Nextcloud",
       "tooltip": "Open Nextcloud",
       "type": "link",
-      "url": "https://nc.dumitruvulpe.com"
+      "url": "https://nc.vulpe.dev"
     },
     {
       "asDropdown": false,
@@ -43,7 +43,7 @@
       "title": "OwnCloud",
       "tooltip": "Open OwnCloud",
       "type": "link",
-      "url": "https://oc.dumitruvulpe.com"
+      "url": "https://oc.vulpe.dev"
     },
     {
       "asDropdown": false,
@@ -55,7 +55,7 @@
       "title": "Jellyfin",
       "tooltip": "Open Jellyfin",
       "type": "link",
-      "url": "https://jf.dumitruvulpe.com"
+      "url": "https://jf.vulpe.dev"
     },
     {
       "asDropdown": false,
@@ -67,7 +67,7 @@
       "title": "Immich",
       "tooltip": "Open Immich",
       "type": "link",
-      "url": "https://pics.dumitruvulpe.com"
+      "url": "https://pics.vulpe.dev"
     },
     {
       "asDropdown": false,
@@ -79,7 +79,7 @@
       "title": "Plex",
       "tooltip": "Open Plex",
       "type": "link",
-      "url": "https://plex.dumitruvulpe.com"
+      "url": "https://plex.vulpe.dev"
     },
     {
       "asDropdown": false,
@@ -91,7 +91,7 @@
       "title": "Portainer",
       "tooltip": "Open Portainer",
       "type": "link",
-      "url": "https://apps.dumitruvulpe.com"
+      "url": "https://apps.vulpe.dev"
     },
     {
       "asDropdown": false,
@@ -103,7 +103,7 @@
       "title": "Flame",
       "tooltip": "Open Flame Dashboard",
       "type": "link",
-      "url": "https://home.dumitruvulpe.com"
+      "url": "https://home.vulpe.dev"
     },
     {
       "asDropdown": false,
@@ -115,7 +115,7 @@
       "title": "Dozzle",
       "tooltip": "Open Dozzle Log Viewer",
       "type": "link",
-      "url": "https://logs.dumitruvulpe.com"
+      "url": "https://logs.vulpe.dev"
     },
     {
       "asDropdown": false,
@@ -127,7 +127,7 @@
       "title": "Vikunja",
       "tooltip": "Open Vikunja",
       "type": "link",
-      "url": "https://boards.dumitruvulpe.com"
+      "url": "https://boards.vulpe.dev"
     }
   ],
   "panels": [

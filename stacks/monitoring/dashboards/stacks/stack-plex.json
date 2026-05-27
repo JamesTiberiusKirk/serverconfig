@@ -428,7 +428,7 @@
     },
     {
       "title": "View Plex Logs",
-      "url": "https://logs.dumitruvulpe.com?filter=plex",
+      "url": "https://logs.vulpe.dev?filter=plex",
       "type": "link",
       "icon": "external link",
       "targetBlank": true

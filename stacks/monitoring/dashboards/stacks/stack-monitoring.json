@@ -2900,7 +2900,7 @@
     },
     {
       "title": "View Monitoring Logs",
-      "url": "https://logs.dumitruvulpe.com?filter=%28grafana%7Cloki%7Cpromtail%7Cprometheus%7Cnode-exporter%7Ccadvisor%7Cdozzle%29",
+      "url": "https://logs.vulpe.dev?filter=%28grafana%7Cloki%7Cpromtail%7Cprometheus%7Cnode-exporter%7Ccadvisor%7Cdozzle%29",
       "type": "link",
       "icon": "external link",
       "targetBlank": true

@@ -6,7 +6,7 @@ from pathlib import Path
 import urllib.parse
 
 # Configuration
-DOZZLE_URL = "https://logs.dumitruvulpe.com"
+DOZZLE_URL = "https://logs.vulpe.dev"
 DASHBOARD_OUTPUT_DIR = "./stacks/monitoring/dashboards"
 
 def discover_stacks(stacks_dir="./stacks"):

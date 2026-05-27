@@ -1,7 +1,7 @@
 http:
   routers:
     proxmox:
-      rule: "Host(`vms.dumitruvulpe.com`)"
+      rule: "Host(`vms.vulpe.dev`)"
       entryPoints:
         - websecure
       service: proxmox
@@ -9,7 +9,7 @@ http:
         certResolver: le
 
     proxmox-http:
-      rule: "Host(`vms.dumitruvulpe.com`)"
+      rule: "Host(`vms.vulpe.dev`)"
       entryPoints:
         - web
       middlewares:

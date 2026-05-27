@@ -428,7 +428,7 @@
     },
     {
       "title": "View Traefik Logs",
-      "url": "https://logs.dumitruvulpe.com?filter=traefik",
+      "url": "https://logs.vulpe.dev?filter=traefik",
       "type": "link",
       "icon": "external link",
       "targetBlank": true

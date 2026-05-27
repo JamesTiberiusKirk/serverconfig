@@ -1252,7 +1252,7 @@
     },
     {
       "title": "View Mx5Parts Logs",
-      "url": "https://logs.dumitruvulpe.com?filter=%28mx5parts_web%7Cmx5parts_scraper%7Cmx5parts_postgres%29",
+      "url": "https://logs.vulpe.dev?filter=%28mx5parts_web%7Cmx5parts_scraper%7Cmx5parts_postgres%29",
       "type": "link",
       "icon": "external link",
       "targetBlank": true

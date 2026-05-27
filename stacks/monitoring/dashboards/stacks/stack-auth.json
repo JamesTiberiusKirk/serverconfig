@@ -840,7 +840,7 @@
     },
     {
       "title": "View Auth Logs",
-      "url": "https://logs.dumitruvulpe.com?filter=%28lldap%7Cauthelia%29",
+      "url": "https://logs.vulpe.dev?filter=%28lldap%7Cauthelia%29",
       "type": "link",
       "icon": "external link",
       "targetBlank": true
