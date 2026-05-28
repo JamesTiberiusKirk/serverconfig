@@ -12,7 +12,7 @@ services:
       - traefik
     labels:
       - traefik.enable=true
-      - traefik.http.routers.flame.rule=Host(`home.${STACKR_PROV_DOMAIN}`)
+      - traefik.http.routers.flame.rule=Host(`${STACKR_PROV_DOMAIN}`)
       - traefik.http.routers.flame.entrypoints=websecure
       - traefik.http.routers.flame.tls.certresolver=le
       - traefik.http.routers.flame.middlewares=authelia@file

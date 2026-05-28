@@ -35,6 +35,10 @@ services:
       - traefik.http.routers.immich.entrypoints=websecure
       - traefik.http.routers.immich.tls.certresolver=le
       - traefik.http.services.immich.loadbalancer.server.port=2283
+      - flame.type=application
+      - flame.name=Immich
+      - flame.url=https://pics.${BASE_DOMAIN}
+      - flame.icon=image-multiple
     networks:
       - traefik
       - default

@@ -35,6 +35,10 @@ services:
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
       - traefik.http.services.lldap.loadbalancer.server.port=17170
+      - flame.type=application
+      - flame.name=LLDAP
+      - flame.url=https://lldap.${BASE_DOMAIN}
+      - flame.icon=account-group
 
   authelia:
     image: authelia/authelia:4.38
@@ -78,6 +82,10 @@ services:
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
       - traefik.http.services.authelia.loadbalancer.server.port=9091
+      - flame.type=application
+      - flame.name=Authelia
+      - flame.url=https://auth.${BASE_DOMAIN}
+      - flame.icon=shield-key
 
 networks:
   traefik:

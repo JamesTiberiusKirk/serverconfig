@@ -13,6 +13,10 @@ services:
       - traefik.http.routers.portainer.entrypoints=websecure
       - traefik.http.routers.portainer.tls.certresolver=le
       - traefik.http.services.portainer.loadbalancer.server.port=9000
+      - flame.type=application
+      - flame.name=Portainer
+      - flame.url=https://apps.${BASE_DOMAIN}
+      - flame.icon=docker
 
 networks:
   traefik:

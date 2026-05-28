@@ -37,6 +37,10 @@ services:
       - traefik.http.routers.grafana.rule=Host(`grafana.${BASE_DOMAIN}`)
       - traefik.http.routers.grafana.entrypoints=websecure
       - traefik.http.routers.grafana.tls.certresolver=le
+      - flame.type=application
+      - flame.name=Grafana
+      - flame.url=https://grafana.${BASE_DOMAIN}
+      - flame.icon=chart-areaspline
       # HTTP router (redirect to HTTPS)
       - traefik.http.routers.grafana-http.rule=Host(`grafana.${BASE_DOMAIN}`)
       - traefik.http.routers.grafana-http.entrypoints=web
@@ -151,6 +155,10 @@ services:
       - traefik.http.routers.dozzle.entrypoints=websecure
       - traefik.http.routers.dozzle.tls.certresolver=le
       - traefik.http.routers.dozzle.middlewares=authelia@file
+      - flame.type=application
+      - flame.name=Dozzle
+      - flame.url=https://logs.${BASE_DOMAIN}
+      - flame.icon=text-box
       # HTTP router (redirect to HTTPS)
       - traefik.http.routers.dozzle-http.rule=Host(`logs.${BASE_DOMAIN}`)
       - traefik.http.routers.dozzle-http.entrypoints=web
