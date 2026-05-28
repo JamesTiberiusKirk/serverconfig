@@ -138,7 +138,7 @@
               "type": "date_histogram"
             }
           ],
-          "expr": "count(container_last_seen{image!=\"\"})",
+          "expr": "count(container_last_seen{image!=\"\",name!=\"\"} > (time() - 60))",
           "format": "time_series",
           "intervalFactor": 1,
           "metrics": [
@@ -148,7 +148,7 @@
               "type": "count"
             }
           ],
-          "query": "count(container_last_seen{image!=\"\"})",
+          "query": "count(container_last_seen{image!=\"\",name!=\"\"} > (time() - 60))",
           "refId": "A",
           "timeField": "@timestamp"
         }
