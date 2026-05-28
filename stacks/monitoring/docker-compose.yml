@@ -136,7 +136,7 @@ services:
       - DOZZLE_NO_ANALYTICS=true
       - DOZZLE_FILTER=
       - DOZZLE_TAILSIZE=300
-      - DOZZLE_AUTH_PROVIDER=simple
+      - DOZZLE_AUTH_PROVIDER=forward-proxy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${STACKR_PROV_POOL_SSD}/dozzle:/data
@@ -150,6 +150,7 @@ services:
       - traefik.http.routers.dozzle.rule=Host(`logs.${BASE_DOMAIN}`)
       - traefik.http.routers.dozzle.entrypoints=websecure
       - traefik.http.routers.dozzle.tls.certresolver=le
+      - traefik.http.routers.dozzle.middlewares=authelia@file
       # HTTP router (redirect to HTTPS)
       - traefik.http.routers.dozzle-http.rule=Host(`logs.${BASE_DOMAIN}`)
       - traefik.http.routers.dozzle-http.entrypoints=web
