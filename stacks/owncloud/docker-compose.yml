@@ -36,6 +36,14 @@ services:
       - traefik.http.middlewares.owncloud-dav-redirect.redirectregex.permanent=true
       - traefik.http.middlewares.owncloud-dav-redirect.redirectregex.regex=https?://([^/]+)/.well-known/(card|cal)dav
       - traefik.http.middlewares.owncloud-dav-redirect.redirectregex.replacement=https://$$1/remote.php/dav/
+      # OIDC discovery for desktop/mobile clients must be a rewrite, not a redirect
+      - traefik.http.middlewares.owncloud-oidc-discovery.replacepath.path=/index.php/apps/openidconnect/config
+      - traefik.http.routers.owncloud-oidc-discovery.rule=Host(`oc.${BASE_DOMAIN}`) && Path(`/.well-known/openid-configuration`)
+      - traefik.http.routers.owncloud-oidc-discovery.entrypoints=websecure
+      - traefik.http.routers.owncloud-oidc-discovery.tls.certresolver=le
+      - traefik.http.routers.owncloud-oidc-discovery.priority=100
+      - traefik.http.routers.owncloud-oidc-discovery.middlewares=owncloud-oidc-discovery
+      - traefik.http.routers.owncloud-oidc-discovery.service=owncloud
       # HTTPS router
       - traefik.http.routers.owncloud.rule=Host(`oc.${BASE_DOMAIN}`)
       - traefik.http.routers.owncloud.entrypoints=websecure
