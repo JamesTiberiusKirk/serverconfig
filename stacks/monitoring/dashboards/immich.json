@@ -207,7 +207,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container_name=\"immich_server\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"immich_server\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -786,7 +786,7 @@
       },
       "targets": [
         {
-          "expr": "{container_name=\"immich_server\"}",
+          "expr": "{container=\"immich_server\"}",
           "refId": "A"
         }
       ],
@@ -817,7 +817,7 @@
       },
       "targets": [
         {
-          "expr": "{container_name=~\"immich.*\"} |~ \"(?i)(error|fatal|critical|exception|warning)\"",
+          "expr": "{container=~\"immich.*\"} |~ \"(?i)(error|fatal|critical|exception|warning)\"",
           "refId": "A"
         }
       ],

@@ -1,10 +1,10 @@
 {
-  "uid": "stackr-flame",
-  "title": "Stackr: Flame",
+  "uid": "stackr-dashy",
+  "title": "Stackr: Dashy",
   "panels": [
     {
       "type": "row",
-      "title": "flame",
+      "title": "dashy",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -53,11 +53,11 @@
       },
       "targets": [
         {
-          "expr": "count(container_start_time_seconds{name=\"flame\"}) or vector(0)",
+          "expr": "count(container_start_time_seconds{name=\"dashy\"}) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "flame Status",
+      "title": "dashy Status",
       "type": "stat"
     },
     {
@@ -108,7 +108,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"flame\"}[5m])) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"dashy\"}[5m])) * 100",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -168,7 +168,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=\"flame\"})",
+          "expr": "sum(container_memory_usage_bytes{name=\"dashy\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -215,12 +215,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=\"flame\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"dashy\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"flame\"}[5m]))",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"dashy\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -263,12 +263,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"flame\"}[5m]))",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"dashy\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"flame\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"dashy\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
@@ -311,7 +311,7 @@
       },
       "targets": [
         {
-          "expr": "max(time() - container_start_time_seconds{name=\"flame\"})",
+          "expr": "max(time() - container_start_time_seconds{name=\"dashy\"})",
           "refId": "A"
         }
       ],
@@ -361,7 +361,7 @@
       },
       "targets": [
         {
-          "expr": "max(changes(container_start_time_seconds{name=\"flame\"}[$__range]))",
+          "expr": "max(changes(container_start_time_seconds{name=\"dashy\"}[$__range]))",
           "refId": "A"
         }
       ],
@@ -407,7 +407,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=\"flame\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=\"dashy\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
@@ -427,8 +427,8 @@
       "icon": "dashboard"
     },
     {
-      "title": "View Flame Logs",
-      "url": "https://logs.vulpe.dev?filter=flame",
+      "title": "View Dashy Logs",
+      "url": "https://logs.vulpe.dev?filter=dashy",
       "type": "link",
       "icon": "external link",
       "targetBlank": true

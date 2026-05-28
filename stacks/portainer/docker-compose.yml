@@ -1,6 +1,7 @@
 services:
   portainer:
     image: portainer/portainer-ce:latest
+    container_name: portainer
     restart: unless-stopped
     volumes:
       - ${STACKR_PROV_POOL_SSD}/data:/data
@@ -13,10 +14,6 @@ services:
       - traefik.http.routers.portainer.entrypoints=websecure
       - traefik.http.routers.portainer.tls.certresolver=le
       - traefik.http.services.portainer.loadbalancer.server.port=9000
-      - flame.type=application
-      - flame.name=Portainer
-      - flame.url=https://apps.${BASE_DOMAIN}
-      - flame.icon=docker
 
 networks:
   traefik:

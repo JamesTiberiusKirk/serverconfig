@@ -3,6 +3,7 @@ name: stackr
 services:
   stackr:
     image: ghcr.io/jamestiberiuskirk/stackrd:latest
+    container_name: stackr
     restart: unless-stopped
     environment:
       STACKR_HOST: 0.0.0.0
@@ -40,10 +41,6 @@ services:
       - traefik.http.routers.stackr-http.entrypoints=web
       - traefik.http.routers.stackr-http.middlewares=redirect-to-https
       - traefik.http.services.stackr.loadbalancer.server.port=9000
-      - flame.type=application
-      - flame.name=stackr
-      - flame.url=https://${STACKR_DOMAIN}
-      - flame.icon=server
 
 networks:
   traefik:

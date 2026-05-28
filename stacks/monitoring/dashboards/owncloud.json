@@ -207,7 +207,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container_name=\"owncloud\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"owncloud_server\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -776,7 +776,7 @@
       },
       "targets": [
         {
-          "expr": "{container_name=\"owncloud\"}",
+          "expr": "{container=\"owncloud_server\"}",
           "refId": "A"
         }
       ],
@@ -807,7 +807,7 @@
       },
       "targets": [
         {
-          "expr": "{container_name=\"owncloud\"} |~ \"(?i)(error|fatal|critical|exception|warning)\"",
+          "expr": "{container=\"owncloud_server\"} |~ \"(?i)(error|fatal|critical|exception|warning)\"",
           "refId": "A"
         }
       ],

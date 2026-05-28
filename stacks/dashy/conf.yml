@@ -1,0 +1,177 @@
+# NOTE: dashy does NOT expand env vars in this file, so the domain (vulpe.dev) is
+# hardcoded below. If you ever do a domain sweep, update the URLs + oidc endpoint here too.
+pageInfo:
+  title: vulpe.dev
+  description: ""
+
+appConfig:
+  theme: Dark
+  layout: auto
+  iconSize: medium
+  statusCheck: false
+  # OIDC against Authelia. adminGroup maps the lldap `admin` group -> dashy admin role.
+  # Admin-only sections below are gated with showForKeycloakUsers.groups: [admin].
+  auth:
+    enableOidc: true
+    oidc:
+      clientId: dashy
+      endpoint: https://auth.vulpe.dev
+      scope: openid profile email groups
+      adminGroup: admin
+  customCss: |
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    :root {
+      --primary: #bf5af2;
+      --background: #0a0a0a;
+      --background-darker: #000000;
+      --curve-factor: 2px;
+      --curve-factor-navbar: 2px;
+      --outline-color: #1f1f26;
+      --item-group-background: #16161b;
+      --item-group-heading-text-color: #f4f4f5;
+      --item-background: #16161b;
+      --item-background-hover: #16161b;
+      --item-text-color: #d6d6d9;
+      --item-shadow: none;
+      --item-hover-shadow: 0 0 12px rgba(191, 90, 242, 0.35);
+      --heading-text-color: #f4f4f5;
+      --scroll-bar-color: #2a2a32;
+      --search-container-background: #111114;
+      --search-field-background: #111114;
+      --settings-background: #0a0a0a;
+      --settings-text-color: #d6d6d9;
+      --nav-link-text-color: #d6d6d9;
+    }
+
+    /* monospace everywhere */
+    html, body, .dashboard, * {
+      font-family: "JetBrains Mono", "Fira Code", "IBM Plex Mono", ui-monospace, monospace !important;
+    }
+
+    /* two faint magenta blobs over near-black */
+    body, .dashboard {
+      background-color: #0a0a0a !important;
+      background-image:
+        radial-gradient(1200px 600px at 100% -10%, rgba(191, 90, 242, 0.06), transparent 60%),
+        radial-gradient(800px 400px at -10% 110%, rgba(191, 90, 242, 0.04), transparent 60%) !important;
+      color: #d6d6d9;
+    }
+
+    /* flat bordered panels, 2px radius, no shadow */
+    .item-group-container, .collapsable, section.item-group {
+      background: #16161b !important;
+      border: 1px solid #1f1f26 !important;
+      border-radius: 2px !important;
+      box-shadow: none !important;
+    }
+
+    /* section headings: uppercase, tracked, accent prompt */
+    .item-group-heading, .header h1, h2.section-title {
+      text-transform: uppercase !important;
+      letter-spacing: 0.1em !important;
+      color: #f4f4f5 !important;
+    }
+    .item-group-heading::before { content: "\25B8  "; color: #bf5af2; }
+
+    /* tiles: flat, bordered, magenta on hover (the one loud interaction) */
+    .item {
+      background: #16161b !important;
+      border: 1px solid #1f1f26 !important;
+      border-radius: 2px !important;
+      box-shadow: none !important;
+      color: #d6d6d9 !important;
+      transition: border-color .15s, color .15s, box-shadow .15s;
+    }
+    .item:hover {
+      border-color: #bf5af2 !important;
+      color: #bf5af2 !important;
+      box-shadow: 0 0 12px rgba(191, 90, 242, 0.35) !important;
+    }
+    .item .text, .item p { color: inherit !important; }
+
+    /* icons monochrome by default, full color on hover */
+    .item .item-icon img, .item .item-icon svg { filter: grayscale(1) brightness(1.35) !important; }
+    .item:hover .item-icon img, .item:hover .item-icon svg { filter: none !important; }
+
+    /* inputs: surface bg, accent glow on focus, no ring */
+    input, .search-input {
+      background: #111114 !important;
+      border: 1px solid #1f1f26 !important;
+      border-radius: 2px !important;
+      color: #d6d6d9 !important;
+    }
+    input:focus, .search-input:focus {
+      outline: none !important;
+      border-color: #bf5af2 !important;
+      box-shadow: 0 0 12px rgba(191, 90, 242, 0.35) !important;
+    }
+
+    /* thin scrollbars */
+    * { scrollbar-width: thin; scrollbar-color: #2a2a32 transparent; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #2a2a32; border-radius: 2px; }
+
+    ::selection { background: rgba(191, 90, 242, 0.35); color: #ffffff; }
+
+sections:
+  - name: apps
+    icon: mdi-apps
+    items:
+      - title: Jellyfin
+        url: https://jf.vulpe.dev
+        icon: hl-jellyfin
+      - title: Immich
+        url: https://pics.vulpe.dev
+        icon: hl-immich
+      - title: ownCloud
+        url: https://oc.vulpe.dev
+        icon: hl-owncloud
+
+  - name: media admin
+    icon: mdi-movie-cog
+    displayData:
+      showForKeycloakUsers:
+        groups: [admin]
+    items:
+      - title: Sonarr
+        url: https://sonarr.vulpe.dev
+        icon: hl-sonarr
+      - title: Radarr
+        url: https://radarr.vulpe.dev
+        icon: hl-radarr
+      - title: Prowlarr
+        url: https://prowlarr.vulpe.dev
+        icon: hl-prowlarr
+      - title: Bazarr
+        url: https://bazarr.vulpe.dev
+        icon: hl-bazarr
+      - title: rdt-client
+        url: https://rdt.vulpe.dev
+        icon: mdi-download
+
+  - name: infra
+    icon: mdi-server-network
+    displayData:
+      showForKeycloakUsers:
+        groups: [admin]
+    items:
+      - title: Portainer
+        url: https://apps.vulpe.dev
+        icon: hl-portainer
+      - title: Grafana
+        url: https://grafana.vulpe.dev
+        icon: hl-grafana
+      - title: Dozzle
+        url: https://logs.vulpe.dev
+        icon: hl-dozzle
+      - title: stackr
+        url: https://stackr.vulpe.dev
+        icon: mdi-server
+      - title: LLDAP
+        url: https://lldap.vulpe.dev
+        icon: mdi-account-group
+      - title: Authelia
+        url: https://auth.vulpe.dev
+        icon: hl-authelia

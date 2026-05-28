@@ -207,7 +207,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container_name=\"jellyfin\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
+          "expr": "sum(count_over_time({container=\"jellyfin\"} |~ \"(?i)(error|fatal|critical|exception)\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -654,7 +654,7 @@
       },
       "targets": [
         {
-          "expr": "{container_name=\"jellyfin\"}",
+          "expr": "{container=\"jellyfin\"}",
           "refId": "A"
         }
       ],
@@ -685,7 +685,7 @@
       },
       "targets": [
         {
-          "expr": "{container_name=\"jellyfin\"} |~ \"(?i)(error|fatal|critical|exception|warning)\"",
+          "expr": "{container=\"jellyfin\"} |~ \"(?i)(error|fatal|critical|exception|warning)\"",
           "refId": "A"
         }
       ],

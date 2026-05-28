@@ -1,0 +1,31 @@
+services:
+  dashy:
+    image: lissy93/dashy:latest
+    container_name: dashy
+    restart: unless-stopped
+    volumes:
+      # config-as-code: conf.yml lives in the repo. Domain is hardcoded inside it
+      # (dashy does NOT expand env vars in conf.yml) — update it during a domain sweep.
+      - ./conf.yml:/app/user-data/conf.yml:ro
+    environment:
+      - NODE_ENV=production
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      # No authelia@file middleware: dashy logs in via its own OIDC against Authelia,
+      # so it can read the `groups` claim and hide admin-only tiles. The Authelia
+      # session cookie is domain-wide, so this is still effectively single sign-on.
+      - traefik.http.routers.dashy.rule=Host(`${STACKR_PROV_DOMAIN}`)
+      - traefik.http.routers.dashy.entrypoints=websecure
+      - traefik.http.routers.dashy.tls.certresolver=le
+      - traefik.http.routers.dashy-http.rule=Host(`${STACKR_PROV_DOMAIN}`)
+      - traefik.http.routers.dashy-http.entrypoints=web
+      - traefik.http.routers.dashy-http.middlewares=redirect-to-https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+      - traefik.http.services.dashy.loadbalancer.server.port=8080
+
+networks:
+  traefik:
+    external: true

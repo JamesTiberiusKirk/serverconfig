@@ -528,22 +528,22 @@
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"flame\"}[1m])) or vector(0)",
+          "expr": "count(count_over_time(container_last_seen{name=~\"dashy\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
         },
         {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"flame\"})) or vector(0)",
+          "expr": "count(group by (name) (container_start_time_seconds{name=~\"dashy\"})) or vector(0)",
           "refId": "B",
           "legendFormat": "Total"
         }
       ],
-      "title": "Flame Status",
+      "title": "Dashy Status",
       "type": "stat",
       "links": [
         {
-          "title": "Stackr: Flame",
-          "url": "/d/stackr-flame",
+          "title": "Stackr: Dashy",
+          "url": "/d/stackr-dashy",
           "targetBlank": false
         }
       ]
@@ -596,7 +596,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"flame\"}[5m]) * 100)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"dashy\"}[5m]) * 100)",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -605,12 +605,12 @@
           }
         }
       ],
-      "title": "Flame CPU",
+      "title": "Dashy CPU",
       "type": "timeseries",
       "links": [
         {
-          "title": "Stackr: Flame",
-          "url": "/d/stackr-flame",
+          "title": "Stackr: Dashy",
+          "url": "/d/stackr-dashy",
           "targetBlank": false
         }
       ]
@@ -663,7 +663,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=~\"flame\"})",
+          "expr": "sum(container_memory_usage_bytes{name=~\"dashy\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -672,12 +672,12 @@
           }
         }
       ],
-      "title": "Flame Memory",
+      "title": "Dashy Memory",
       "type": "timeseries",
       "links": [
         {
-          "title": "Stackr: Flame",
-          "url": "/d/stackr-flame",
+          "title": "Stackr: Dashy",
+          "url": "/d/stackr-dashy",
           "targetBlank": false
         }
       ]
@@ -717,22 +717,22 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"flame\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"dashy\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"flame\"}[5m]))",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"dashy\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
       ],
-      "title": "Flame Network I/O",
+      "title": "Dashy Network I/O",
       "type": "timeseries",
       "links": [
         {
-          "title": "Stackr: Flame",
-          "url": "/d/stackr-flame",
+          "title": "Stackr: Dashy",
+          "url": "/d/stackr-dashy",
           "targetBlank": false
         }
       ]
@@ -772,22 +772,22 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"flame\"}[5m]))",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"dashy\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"flame\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"dashy\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
       ],
-      "title": "Flame Disk I/O",
+      "title": "Dashy Disk I/O",
       "type": "timeseries",
       "links": [
         {
-          "title": "Stackr: Flame",
-          "url": "/d/stackr-flame",
+          "title": "Stackr: Dashy",
+          "url": "/d/stackr-dashy",
           "targetBlank": false
         }
       ]
@@ -831,16 +831,16 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"flame\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=~\"dashy\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
-      "title": "Flame Errors",
+      "title": "Dashy Errors",
       "type": "stat",
       "links": [
         {
-          "title": "Stackr: Flame",
-          "url": "/d/stackr-flame",
+          "title": "Stackr: Dashy",
+          "url": "/d/stackr-dashy",
           "targetBlank": false
         }
       ]
@@ -2706,12 +2706,12 @@
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"portainer.*\"}[1m])) or vector(0)",
+          "expr": "count(count_over_time(container_last_seen{name=~\"portainer\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
         },
         {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"portainer.*\"})) or vector(0)",
+          "expr": "count(group by (name) (container_start_time_seconds{name=~\"portainer\"})) or vector(0)",
           "refId": "B",
           "legendFormat": "Total"
         }
@@ -2774,7 +2774,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"portainer.*\"}[5m]) * 100)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"portainer\"}[5m]) * 100)",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -2841,7 +2841,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=~\"portainer.*\"})",
+          "expr": "sum(container_memory_usage_bytes{name=~\"portainer\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -2895,12 +2895,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"portainer.*\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"portainer\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"portainer.*\"}[5m]))",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"portainer\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -2950,12 +2950,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"portainer.*\"}[5m]))",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"portainer\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"portainer.*\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"portainer\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
@@ -3009,7 +3009,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"portainer.*\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=~\"portainer\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
@@ -3069,12 +3069,12 @@
       },
       "targets": [
         {
-          "expr": "count(count_over_time(container_last_seen{name=~\"stackr.*\"}[1m])) or vector(0)",
+          "expr": "count(count_over_time(container_last_seen{name=~\"stackr\"}[1m])) or vector(0)",
           "refId": "A",
           "legendFormat": "Running"
         },
         {
-          "expr": "count(group by (name) (container_start_time_seconds{name=~\"stackr.*\"})) or vector(0)",
+          "expr": "count(group by (name) (container_start_time_seconds{name=~\"stackr\"})) or vector(0)",
           "refId": "B",
           "legendFormat": "Total"
         }
@@ -3137,7 +3137,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"stackr.*\"}[5m]) * 100)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"stackr\"}[5m]) * 100)",
           "refId": "A",
           "legendFormat": "CPU",
           "datasource": {
@@ -3204,7 +3204,7 @@
       },
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name=~\"stackr.*\"})",
+          "expr": "sum(container_memory_usage_bytes{name=~\"stackr\"})",
           "refId": "A",
           "legendFormat": "Memory",
           "datasource": {
@@ -3258,12 +3258,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"stackr.*\"}[5m]))",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"stackr\"}[5m]))",
           "refId": "A",
           "legendFormat": "RX"
         },
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"stackr.*\"}[5m]))",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"stackr\"}[5m]))",
           "refId": "B",
           "legendFormat": "TX"
         }
@@ -3313,12 +3313,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"stackr.*\"}[5m]))",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"stackr\"}[5m]))",
           "refId": "A",
           "legendFormat": "Read"
         },
         {
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"stackr.*\"}[5m]))",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"stackr\"}[5m]))",
           "refId": "B",
           "legendFormat": "Write"
         }
@@ -3372,7 +3372,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({container=~\"stackr.*\",detected_level=\"error\"} [$__range])) or vector(0)",
+          "expr": "sum(count_over_time({container=~\"stackr\",detected_level=\"error\"} [$__range])) or vector(0)",
           "refId": "A"
         }
       ],
