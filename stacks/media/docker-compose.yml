@@ -180,7 +180,7 @@ services:
     restart: unless-stopped
     environment:
       Zilean__Database__ConnectionString: "Host=zilean-postgres;Port=5432;Database=zilean;Username=zilean;Password=${ZILEAN_POSTGRES_PASSWORD};Timeout=30;CommandTimeout=3600;"
-      Zilean__Imdb__EnableImportMatching: "true"
+      Zilean__Imdb__EnableImportMatching: "false"
     volumes:
       - ${STACKR_PROV_POOL_SSD}/zilean/data:/app/data
     networks:
