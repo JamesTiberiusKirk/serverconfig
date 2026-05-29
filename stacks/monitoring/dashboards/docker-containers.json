@@ -350,7 +350,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_filesystem_avail_bytes{fstype=\"xfs\"}",
+          "expr": "node_filesystem_avail_bytes{fstype=\"ext4\"}",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -359,7 +359,7 @@
           "step": 4
         },
         {
-          "expr": "node_filesystem_size_bytes{fstype=\"xfs\"} - node_filesystem_avail_bytes{fstype=\"xfs\"}",
+          "expr": "node_filesystem_size_bytes{fstype=\"ext4\"} - node_filesystem_avail_bytes{fstype=\"ext4\"}",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -658,7 +658,7 @@
       "grid": {},
       "gridPos": {
         "h": 4,
-        "w": 2,
+        "w": 4,
         "x": 20,
         "y": 0
       },
@@ -752,7 +752,7 @@
     },
     {
       "aliasColors": {
-        "node_load15": "#CCA300"
+        "15m": "#CCA300"
       },
       "bars": false,
       "dashLength": 10,
@@ -767,7 +767,7 @@
       "grid": {},
       "gridPos": {
         "h": 8,
-        "w": 10,
+        "w": 12,
         "x": 12,
         "y": 4
       },
@@ -796,11 +796,27 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "{__name__=~\"^node_load.*\"}",
+          "expr": "node_load1",
           "intervalFactor": 2,
-          "legendFormat": "{{__name__}}",
+          "legendFormat": "1m",
           "metric": "node",
           "refId": "A",
+          "step": 2
+        },
+        {
+          "expr": "node_load5",
+          "intervalFactor": 2,
+          "legendFormat": "5m",
+          "metric": "node",
+          "refId": "B",
+          "step": 2
+        },
+        {
+          "expr": "node_load15",
+          "intervalFactor": 2,
+          "legendFormat": "15m",
+          "metric": "node",
+          "refId": "C",
           "step": 2
         }
       ],
