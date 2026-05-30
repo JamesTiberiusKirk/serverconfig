@@ -323,17 +323,18 @@
       "id": 20,
       "options": {
         "displayLabels": [
+          "name",
           "percent"
         ],
         "legend": {
           "displayMode": "list",
           "placement": "right",
-          "showLegend": true,
+          "showLegend": false,
           "values": [
             "value"
           ]
         },
-        "pieType": "pie",
+        "pieType": "donut",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -375,7 +376,7 @@
           "refId": "C"
         }
       ],
-      "title": "Memory Breakdown",
+      "title": "Memory Breakdown \u2014 Total: 24 GiB",
       "type": "piechart"
     },
     {
