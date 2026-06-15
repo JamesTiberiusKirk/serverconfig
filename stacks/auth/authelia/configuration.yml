@@ -71,6 +71,10 @@ identity_providers:
         - 'introspection'
         - 'userinfo'
       allowed_origins_from_client_redirect_uris: true
+    # refresh_token default is 90m; bump it so desktop/mobile clients survive
+    # long sleeps without forcing an interactive re-login on wake.
+    lifespans:
+      refresh_token: '90d'
     clients:
       - client_id: owncloud
         client_name: OwnCloud
@@ -106,6 +110,57 @@ identity_providers:
         redirect_uris:
           - 'http://127.0.0.1'
           - 'http://localhost'
+        scopes:
+          - openid
+          - offline_access
+          - profile
+          - email
+          - groups
+        response_types:
+          - code
+        grant_types:
+          - authorization_code
+          - refresh_token
+        access_token_signed_response_alg: none
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_basic
+
+      # ownCloud Android — fixed native-app client id/secret.
+      - client_id: e4rAsNUSIUs0lF4nbv9FmCeUkTlV9GdgTLDH1b5uie7syb90SzEVrbN7HIpmWJeD
+        client_name: OwnCloud Android
+        client_secret: dInFYGV33xKzhbRmpqQltYNdfLdJIfJ9L5ISoKhNoT9qZftpdWSP71VrpGR9pmoD
+        public: false
+        authorization_policy: one_factor
+        require_pkce: true
+        pkce_challenge_method: S256
+        redirect_uris:
+          - 'oc://android.owncloud.com'
+        scopes:
+          - openid
+          - offline_access
+          - profile
+          - email
+          - groups
+        response_types:
+          - code
+        grant_types:
+          - authorization_code
+          - refresh_token
+        access_token_signed_response_alg: none
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_basic
+
+      # ownCloud iOS — fixed native-app client id/secret.
+      - client_id: mxd5OQDk6es5LzOzRvidJNfXLUZS2oN3oUFeXPP8LpPrhx3UroJFduGEYIBOxkY1
+        client_name: OwnCloud iOS
+        client_secret: KFeFWWEZO9TkisIQzR3fo7hfiMXlOpaqP8CFuTbSHzV1TUuGECglPxpiVKJfOXIx
+        public: false
+        authorization_policy: one_factor
+        require_pkce: true
+        pkce_challenge_method: S256
+        redirect_uris:
+          - 'oc://ios.owncloud.com'
+          - 'oc.ios://ios.owncloud.com'
         scopes:
           - openid
           - offline_access
