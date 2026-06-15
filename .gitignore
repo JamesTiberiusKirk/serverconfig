@@ -3,3 +3,4 @@ test_playground/
 *volume*
 server.sh
 .cache/
+.playwright-mcp/
