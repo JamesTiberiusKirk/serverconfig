@@ -55,7 +55,7 @@ services:
       POSTGRES_PASSWORD: ${HUGINN_DB_PASSWORD}
       POSTGRES_DB: huginn
     volumes:
-      - ${STACKR_PROV_POOL_SSD}/huginn-postgres:/var/lib/postgresql/data
+      - ${STACKR_PROV_POOL_SSD}/huginn-postgres:/var/lib/postgresql
     networks:
       - default
     healthcheck:
