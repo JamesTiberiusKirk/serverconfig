@@ -1,0 +1,71 @@
+name: huginn
+
+# Huginn (calendar) + its Postgres. stackr's HTTP /deploy bumps HUGINN_IMAGE_TAG,
+# which pins the image below.
+
+services:
+  huginn:
+    image: ghcr.io/fyrmforge/huginn:${HUGINN_IMAGE_TAG}
+    container_name: huginn
+    restart: unless-stopped
+    environment:
+      BASE_URL: https://huginn.${BASE_DOMAIN}
+      DATABASE_URL: postgres://huginn:${HUGINN_DB_PASSWORD}@huginn_db:5432/huginn?sslmode=disable
+      STORAGE_PATH: /uploads
+      # Tune to the actual traefik docker network subnet so client IP / rate-limit
+      # keying works behind the proxy.
+      TRUSTED_PROXIES: 172.16.0.0/12
+      # OIDC via Authelia (no Authelia forwardAuth middleware — CalDAV needs Basic Auth).
+      OIDC_ISSUER: https://auth.${BASE_DOMAIN}
+      OIDC_CLIENT_ID: huginn
+      OIDC_CLIENT_SECRET: ${HUGINN_OIDC_CLIENT_SECRET}
+      OIDC_ADMIN_CLAIM: groups
+      OIDC_ADMIN_VALUE: admin
+    volumes:
+      - ${STACKR_PROV_POOL_HDD}/huginn-uploads:/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - traefik
+      - default
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.huginn.rule=Host(`${STACKR_PROV_DOMAIN}`)
+      - traefik.http.routers.huginn.entrypoints=websecure
+      - traefik.http.routers.huginn.tls.certresolver=le
+      - traefik.http.routers.huginn-http.rule=Host(`${STACKR_PROV_DOMAIN}`)
+      - traefik.http.routers.huginn-http.entrypoints=web
+      - traefik.http.routers.huginn-http.middlewares=redirect-to-https
+      - traefik.http.services.huginn.loadbalancer.server.port=8080
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 3s
+      start_period: 10s
+      retries: 3
+
+  db:
+    image: postgres:18-alpine
+    container_name: huginn_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: huginn
+      POSTGRES_PASSWORD: ${HUGINN_DB_PASSWORD}
+      POSTGRES_DB: huginn
+    volumes:
+      - ${STACKR_PROV_POOL_SSD}/huginn-postgres:/var/lib/postgresql/data
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U huginn"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  traefik:
+    external: true
+  default:
+    name: huginn_internal

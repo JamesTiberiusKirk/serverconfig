@@ -245,3 +245,18 @@ identity_providers:
           - groups
         userinfo_signed_response_alg: none
         token_endpoint_auth_method: client_secret_basic
+
+      - client_id: huginn
+        client_name: Huginn
+        client_secret: '{{ env "HUGINN_OIDC_CLIENT_SECRET_HASH" }}'
+        public: false
+        authorization_policy: one_factor
+        redirect_uris:
+          - 'https://huginn.{{ env "BASE_DOMAIN" }}/auth/oidc/callback'
+        scopes:
+          - openid
+          - profile
+          - email
+          - groups
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_basic

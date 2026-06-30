@@ -33,6 +33,9 @@ deploy:
   stackr:
     tag_env: STACKR_IMAGE_TAG
     args: ["stackr", "update"]
+  huginn:
+    tag_env: HUGINN_IMAGE_TAG
+    args: ["huginn", "update"]
 
 # Global environment variables
 env:
