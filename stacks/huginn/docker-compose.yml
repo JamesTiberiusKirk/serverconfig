@@ -35,6 +35,12 @@ services:
       - traefik.http.routers.huginn.rule=Host(`${STACKR_PROV_DOMAIN}`)
       - traefik.http.routers.huginn.entrypoints=websecure
       - traefik.http.routers.huginn.tls.certresolver=le
+      - traefik.http.routers.huginn.middlewares=huginn-dav-redirect
+      # iOS/macOS CalDAV autodiscovery hits /.well-known/caldav on 443; redirect it
+      # to huginn's dav endpoint so discovery resolves there instead of probing 8443.
+      - traefik.http.middlewares.huginn-dav-redirect.redirectregex.permanent=true
+      - traefik.http.middlewares.huginn-dav-redirect.redirectregex.regex=https?://([^/]+)/.well-known/(card|cal)dav
+      - traefik.http.middlewares.huginn-dav-redirect.redirectregex.replacement=https://$$1/dav/
       - traefik.http.routers.huginn-http.rule=Host(`${STACKR_PROV_DOMAIN}`)
       - traefik.http.routers.huginn-http.entrypoints=web
       - traefik.http.routers.huginn-http.middlewares=redirect-to-https
