@@ -11,8 +11,7 @@ services:
       - --entrypoints.websecure.address=:443
       - --certificatesresolvers.le.acme.email=${TRAEFIK_ACME_EMAIL}
       - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
-      - --certificatesresolvers.le.acme.httpchallenge=true
-      - --certificatesresolvers.le.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.le.acme.tlschallenge=true
       - --api=true
       - --api.insecure=true
       - --metrics.prometheus=true
