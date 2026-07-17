@@ -1,0 +1,30 @@
+tcp:
+  routers:
+    dokploy:
+      rule: "HostSNIRegexp(`^(.+\\.)?dokploy\\.vulpe\\.dev$`)"
+      entryPoints:
+        - websecure
+      service: dokploy
+      tls:
+        passthrough: true
+
+  services:
+    dokploy:
+      loadBalancer:
+        servers:
+          - address: "192.168.1.103:443"
+
+http:
+  routers:
+    # plain-HTTP path: needed for dokploy's Let's Encrypt http-challenge + its own redirects
+    dokploy-http:
+      rule: "HostRegexp(`^(.+\\.)?dokploy\\.vulpe\\.dev$`)"
+      entryPoints:
+        - web
+      service: dokploy-http
+
+  services:
+    dokploy-http:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.103:80"
