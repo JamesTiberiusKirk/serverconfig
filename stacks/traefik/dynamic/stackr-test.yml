@@ -1,0 +1,30 @@
+tcp:
+  routers:
+    stackr-test:
+      rule: "HostSNIRegexp(`^(.+\\.)?stackr-test\\.vulpe\\.dev$`)"
+      entryPoints:
+        - websecure
+      service: stackr-test
+      tls:
+        passthrough: true
+
+  services:
+    stackr-test:
+      loadBalancer:
+        servers:
+          - address: "192.168.1.106:443"
+
+http:
+  routers:
+    # plain-HTTP path: needed for stackr-test's Let's Encrypt http-challenge + its own redirects
+    stackr-test-http:
+      rule: "HostRegexp(`^(.+\\.)?stackr-test\\.vulpe\\.dev$`)"
+      entryPoints:
+        - web
+      service: stackr-test-http
+
+  services:
+    stackr-test-http:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.106:80"
