@@ -34,9 +34,9 @@ access_control:
 
 session:
   name: authelia_session
-  expiration: 1h
-  inactivity: 5m
-  remember_me: 1M
+  expiration: 1M
+  inactivity: 0
+  remember_me: 1y
   cookies:
     - domain: '{{ env "BASE_DOMAIN" }}'
       authelia_url: 'https://auth.{{ env "BASE_DOMAIN" }}'
