@@ -27,3 +27,4 @@ The compose files describe **services**. They don't describe:
 - How to wire a non-built-in indexer
 
 These notes capture the UI work from the session that built it, so a re-setup doesn't repeat the same debugging.
+- `reference/storage-plan.md` — TrueNAS VM, RAID-Z1, datasets, NFS to the docker VM, backups

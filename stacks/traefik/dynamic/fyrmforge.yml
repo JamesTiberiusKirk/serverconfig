@@ -1,0 +1,30 @@
+tcp:
+  routers:
+    fyrmforge:
+      rule: "HostSNIRegexp(`^(.+\\.)?fyrmforge\\.dev$`)"
+      entryPoints:
+        - websecure
+      service: fyrmforge
+      tls:
+        passthrough: true
+
+  services:
+    fyrmforge:
+      loadBalancer:
+        servers:
+          - address: "192.168.1.108:443"
+
+http:
+  routers:
+    # plain-HTTP path: needed for fyrmforge's Let's Encrypt http-challenge + its own redirects
+    fyrmforge-http:
+      rule: "HostRegexp(`^(.+\\.)?fyrmforge\\.dev$`)"
+      entryPoints:
+        - web
+      service: fyrmforge-http
+
+  services:
+    fyrmforge-http:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.108:80"
