@@ -1,0 +1,79 @@
+http:
+  routers:
+    # TrueNAS web UI. Admin surface for every pool, so it sits behind Authelia.
+    nas:
+      rule: "Host(`nas.vulpe.dev`)"
+      entryPoints:
+        - websecure
+      middlewares:
+        - authelia@file
+      service: nas
+      tls:
+        certResolver: le
+
+    nas-http:
+      rule: "Host(`nas.vulpe.dev`)"
+      entryPoints:
+        - web
+      middlewares:
+        - redirect-to-https
+      service: nas
+
+    # RustFS S3 API. No forward-auth: S3 clients sign requests with an access key
+    # and cannot follow an Authelia login redirect.
+    s3:
+      rule: "Host(`s3.vulpe.dev`)"
+      entryPoints:
+        - websecure
+      service: s3
+      tls:
+        certResolver: le
+
+    s3-http:
+      rule: "Host(`s3.vulpe.dev`)"
+      entryPoints:
+        - web
+      middlewares:
+        - redirect-to-https
+      service: s3
+
+    # RustFS console. Authelia in front, plus OIDC inside RustFS itself.
+    s3-console:
+      rule: "Host(`s3-console.vulpe.dev`)"
+      entryPoints:
+        - websecure
+      middlewares:
+        - authelia@file
+      service: s3-console
+      tls:
+        certResolver: le
+
+    s3-console-http:
+      rule: "Host(`s3-console.vulpe.dev`)"
+      entryPoints:
+        - web
+      middlewares:
+        - redirect-to-https
+      service: s3-console
+
+  services:
+    nas:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.102"
+
+    s3:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.102:30292"
+
+    s3-console:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.102:30293"
+
+  middlewares:
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+        permanent: true

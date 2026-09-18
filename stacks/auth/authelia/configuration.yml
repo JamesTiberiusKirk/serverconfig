@@ -260,3 +260,27 @@ identity_providers:
           - groups
         userinfo_signed_response_alg: none
         token_endpoint_auth_method: client_secret_basic
+
+      # RustFS console SSO. RustFS requires PKCE S256 and maps the groups claim
+      # onto a RustFS policy of the same name.
+      - client_id: rustfs
+        client_name: RustFS
+        client_secret: '{{ env "RUSTFS_OIDC_CLIENT_SECRET_HASH" }}'
+        public: false
+        authorization_policy: one_factor
+        require_pkce: true
+        pkce_challenge_method: S256
+        redirect_uris:
+          - 'https://s3-console.{{ env "BASE_DOMAIN" }}/rustfs/admin/v3/oidc/callback/default'
+        scopes:
+          - openid
+          - profile
+          - email
+          - groups
+        response_types:
+          - code
+        grant_types:
+          - authorization_code
+        access_token_signed_response_alg: none
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_basic
