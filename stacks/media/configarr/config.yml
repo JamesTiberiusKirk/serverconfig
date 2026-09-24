@@ -1,5 +1,7 @@
 trashGuideUrl: https://github.com/TRaSH-Guides/Guides
 recyclarrConfigUrl: https://github.com/recyclarr/config-templates
+# upstream master dropped legacy includes/ in recyclarr v8; pin to last commit that has them
+recyclarrRevision: 4ae377bb704fc7fd69a544ad04e91357e0b09f62
 
 sonarr:
   series:
