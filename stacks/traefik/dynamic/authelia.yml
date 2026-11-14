@@ -9,3 +9,13 @@ http:
           - Remote-Groups
           - Remote-Name
           - Remote-Email
+    # Cookie-only check, see forward-auth-cookie in the Authelia configuration.
+    authelia-cookie:
+      forwardAuth:
+        address: "http://authelia:9091/api/authz/forward-auth-cookie"
+        trustForwardHeader: true
+        authResponseHeaders:
+          - Remote-User
+          - Remote-Groups
+          - Remote-Name
+          - Remote-Email

@@ -38,12 +38,13 @@ http:
       service: s3
 
     # RustFS console. Authelia in front, plus OIDC inside RustFS itself.
+    # Cookie-only check: the console signs its own requests (Authorization header).
     s3-console:
       rule: "Host(`s3-console.vulpe.dev`)"
       entryPoints:
         - websecure
       middlewares:
-        - authelia@file
+        - authelia-cookie@file
       service: s3-console
       tls:
         certResolver: le

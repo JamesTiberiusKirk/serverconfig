@@ -2,6 +2,18 @@ theme: dark
 
 server:
   address: tcp://0.0.0.0:9091/
+  endpoints:
+    authz:
+      # Naming any endpoint replaces the defaults, so forward-auth is restated.
+      forward-auth:
+        implementation: ForwardAuth
+      # Session cookie only. For apps whose own requests carry an Authorization
+      # header (the RustFS console signs with AWS SigV4): the default endpoint
+      # reads that header as a failed Basic login and the browser prompts.
+      forward-auth-cookie:
+        implementation: ForwardAuth
+        authn_strategies:
+          - name: CookieSession
 
 log:
   level: info
